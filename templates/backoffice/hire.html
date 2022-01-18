@@ -1,0 +1,598 @@
+{% extends 'base/base.html' %}
+{% load static %}
+ {% block content %}
+
+    <div class="container-fluid py-4">
+        <div class="row">
+            {% if messages %}
+                {% for message in messages %}
+                            {% if message.tags == "error" %}
+                                <div class="alert alert-danger" role="alert">
+                                  {{ message }}
+                                </div>
+                            {% elif message.tags %}
+                            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                              {{ message }}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                {% endif %}
+        </div>
+      <!--div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      $53,000
+                      <span class="text-success text-sm font-weight-bolder">+55%</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      2,300
+                      <span class="text-success text-sm font-weight-bolder">+3%</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      +3,462
+                      <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-8">
+                  <div class="numbers">
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
+                    <h5 class="font-weight-bolder mb-0">
+                      $103,430
+                      <span class="text-success text-sm font-weight-bolder">+5%</span>
+                    </h5>
+                  </div>
+                </div>
+                <div class="col-4 text-end">
+                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
+                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div-->
+      <div class="row mt-4">
+        <div class="col-lg-7 mb-lg-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="d-flex flex-column h-100">
+                    <p class="mb-1 pt-2 text-bold">Set up your account</p>
+                    <h5 class="font-weight-bolder">HR and onboarding are just a click away</h5>
+                    <p class="mb-5">We need to know where your company is located in order to calculate and file your taxes accurately.</p>
+                    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{% url 'new_company' %}">
+                      Add company info
+                      <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
+                  <div class="bg-gradient-primary border-radius-lg h-100">
+                    <img src="{% static  'img/shapes/waves-white.svg' %}" class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
+                    <div class="position-relative d-flex align-items-center justify-content-center h-100">
+                      <img class="w-100 position-relative z-index-2 pt-4" src="{% static  'img/illustrations/rocket-white.png' %}" alt="rocket">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card h-100 p-3">
+            <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100" style="background-image: url('../assets/img/ivancik.jpg');">
+              <span class="mask bg-gradient-dark"></span>
+              <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
+                <h5 class="text-white font-weight-bolder mb-4 pt-2">Need help?</h5>
+                <p class="text-white">We are here to help you. Customer support and instant answers are in our help center</p>
+                <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+                  Browse for help
+                  <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+              <div class="row my-4">
+        <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+
+          <div class="card">
+          <div class="card-header pb-0 p-3">
+                  <div class="row">
+                    <div class="col-6 d-flex align-items-center">
+                      <h6 class="mb-0">Applicants in progress</h6>
+                    </div>
+                    <div class="col-3">
+                      <a class="btn bg-gradient-dark mb-0" href="{% url 'new_staff' %}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Get Indeed</a>
+                    </div>
+                    <div class="col-3 text-end">
+                      <a class="btn bg-gradient-dark mb-0" href="{% url 'new_staff' %}"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add Applicant</a>
+                    </div>
+
+                  </div>
+                </div>
+
+          <section>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="name_staff">Name Staff</label>
+                    <input name="name_staff" id="name_staff" type="text" value="" oninput="getStaff()">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+  <div class="table-responsive">
+    <table class="table align-items-center mb-0">
+      <thead>
+        <tr>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Applicant</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Contacts</th>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Job title</th>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Completion</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="applicants">
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+
+        </div>
+      </div>
+
+      <div class="row my-4">
+        <div class="col-xl-9">
+          <div class="card card-calendar">
+            <div class="card-body p-3">
+                <a href="">Add Interview Questions</a>
+              <div class="calendar" data-bs-toggle="calendar" id="calendar"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="card h-100">
+            <div class="card-header pb-0">
+              <h6>Orders overview</h6>
+              <p class="text-sm">
+                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                <span class="font-weight-bold">24%</span> this month
+              </p>
+            </div>
+            <div class="card-body p-3">
+              <div class="timeline timeline-one-side">
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-bell-55 text-success text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-html5 text-danger text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-cart text-info text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-credit-card text-warning text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order #4395133</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
+                  </div>
+                </div>
+                <div class="timeline-block mb-3">
+                  <span class="timeline-step">
+                    <i class="ni ni-key-25 text-primary text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for development</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
+                  </div>
+                </div>
+                <div class="timeline-block">
+                  <span class="timeline-step">
+                    <i class="ni ni-money-coins text-dark text-gradient"></i>
+                  </span>
+                  <div class="timeline-content">
+                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
+                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+ {% endblock %}
+
+{% block fixed_plugin %}
+{% endblock %}
+
+{% block javascript %}
+     <script>
+   var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
+      initialView: "dayGridMonth",
+      headerToolbar: {
+        start: 'title', // will normally be on the left. if RTL, will be on the right
+        center: '',
+        end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
+      },
+      selectable: true,
+      editable: true,
+      initialDate: '2020-12-01',
+      events: [{
+          title: 'Call with Dave',
+          start: '2020-11-18',
+          end: '2020-11-18',
+          className: 'bg-gradient-danger'
+        },
+
+        {
+          title: 'Lunch meeting',
+          start: '2020-11-21',
+          end: '2020-11-22',
+          className: 'bg-gradient-warning'
+        },
+
+        {
+          title: 'All day conference',
+          start: '2020-11-29',
+          end: '2020-11-29',
+          className: 'bg-gradient-success'
+        },
+
+        {
+          title: 'Meeting with Mary',
+          start: '2020-12-01',
+          end: '2020-12-01',
+          className: 'bg-gradient-info'
+        },
+
+        {
+          title: 'Winter Hackaton',
+          start: '2020-12-03',
+          end: '2020-12-03',
+          className: 'bg-gradient-danger'
+        },
+
+        {
+          title: 'Digital event',
+          start: '2020-12-07',
+          end: '2020-12-09',
+          className: 'bg-gradient-warning'
+        },
+
+        {
+          title: 'Marketing event',
+          start: '2020-12-10',
+          end: '2020-12-10',
+          className: 'bg-gradient-primary'
+        },
+
+        {
+          title: 'Dinner with Family',
+          start: '2020-12-19',
+          end: '2020-12-19',
+          className: 'bg-gradient-danger'
+        },
+
+        {
+          title: 'Black Friday',
+          start: '2020-12-23',
+          end: '2020-12-23',
+          className: 'bg-gradient-info'
+        },
+
+        {
+          title: 'Cyber Week',
+          start: '2020-12-02',
+          end: '2020-12-02',
+          className: 'bg-gradient-warning'
+        },
+
+      ],
+      views: {
+        month: {
+          titleFormat: {
+            month: "long",
+            year: "numeric"
+          }
+        },
+        agendaWeek: {
+          titleFormat: {
+            month: "long",
+            year: "numeric",
+            day: "numeric"
+          }
+        },
+        agendaDay: {
+          titleFormat: {
+            month: "short",
+            year: "numeric",
+            day: "numeric"
+          }
+        }
+      },
+    });
+
+    calendar.render();
+  </script>
+
+
+<script>
+    // maintaining the state of each variable.
+    var current_page = 1; // maintains the current page
+    var page_limit = 10; // the limit of results shown on page.
+    var sort_by = ""; // maintains the select option for sort_by
+    var staff = ""; // maintains the select option for country
+    var start_year = ""; // maintains the select option for start_yr
+    var end_year = ""; // maintains the select option for end_yr
+
+    function get_list_url(page) {
+        // returns the consructed url with query params.
+        return '?page=${page}&limit=${page_limit}&country=${country}&sort_by=${sort_by}&start=${start_year}&end=${end_year}';
+    }
+
+    function getCountries() {
+        // call the ajax and populates the country select options
+        $.ajax({
+            method: 'GET',
+            url: $("#countries").attr("url"),
+            success: function (response) {
+                countries_option = "<option value='all' selected>All Countries</option>";
+                $.each(response["country"], function (a, b) {
+                    countries_option += "<option>" + b + "</option>"
+                });
+                $("#countries").html(countries_option)
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+    }
+
+    getStaff();
+
+    function getStaff() {
+
+        $.ajax({
+            method: 'GET',
+            data: {'name': document.getElementById("name_staff").value },
+            url: "{% url 'get_staff' %}",
+            success: function (response) {
+               putTableData(response);
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+
+    }
+
+
+    // On select change of the sort select, call the getAPIData with sortby.
+    $("#sort").on("change", function (e) {
+        current_page = 1;
+        sort_by = this.value
+        getAPIData(get_list_url(current_page));
+    });
+
+    // Helper method that popluates the html table with next and prev
+    // url, and current page number.
+    function putTableData(response) {
+        // creating table row for each response and
+        // pushing to the html content of table body of table_body table
+        let row;
+        $("#applicants").html("");
+        if (response.length > 0) {
+            $.each(response, function (a, b) {
+                var edit_staff_url = "{% url 'edit_staff' pk=1234 %}".replace('1234', b.id.toString());
+                var new_test_url = "{% url 'new_test' pk=1234 %}".replace('1234', b.id.toString());
+                var new_email_url = "{% url 'new_email' pk=1234 %}".replace('1234', b.id.toString());
+                var new_meeting_url = "{% url 'new_meeting' pk=1234 %}".replace('1234', b.id.toString());
+                var remove_staff_url = "{% url 'remove_staff' pk=1234 %}".replace('1234', b.id.toString());
+
+
+
+                row = '<tr>\n' +
+                    '            <td>\n' +
+                    '            <div class="d-flex px-2">\n' +
+                    '              <div>\n' +
+                    '                <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/logos/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2">\n' +
+                    '              </div>\n' +
+                    '              <div class="my-auto">\n' +
+                    '                  <h6 class="mb-0 text-xs"><a href="' + edit_staff_url + '">' + b.user__first_name + ' ' + b.user__last_name + '</a></h6>\n' +
+                    '              </div>\n' +
+                    '            </div>\n' +
+                    '          </td>\n' +
+                    '            <td>\n' +
+                    '            <span class="badge badge-dot me-4" style="text-align: left">\n' +
+                    '              <i class="bg-info"></i>\n' +
+                    '              <span class="text-dark text-xs">' + b.phone + '</span><br>\n' +
+                    '              <span class="text-dark text-xs"><a href="' + new_email_url + '">' + b.user__email + '</a></span>\n' +
+                    '            </span>\n' +
+                    '          </td>\n' +
+                    '          <td>\n' +
+                    '            <p class="text-xs font-weight-bold mb-0">' + b.job__title__title + '</p>\n' +
+                    '          </td>\n' +
+                    '          <td>\n' +
+                    '            <span class="badge badge-dot me-4">\n' +
+                    '              <i class="bg-info"></i>\n' +
+                    '              <span class="text-dark text-xs">' + b.status__title + '</span>\n' +
+                    '            </span>\n' +
+                    '          </td>\n' +
+                    '          <td class="align-middle text-center">\n' +
+                    '            <div class="d-flex align-items-center">\n' +
+                    '              <span class="me-2 text-xs">60%</span>\n' +
+                    '              <div>\n' +
+                    '                <div class="progress">\n' +
+                    '                  <div class="progress-bar bg-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>\n' +
+                    '                </div>\n' +
+                    '              </div>\n' +
+                    '            </div>\n' +
+                    '          </td>\n' +
+                    '          <td class="align-middle">\n' +
+                    '            <div class="dropstart">\n' +
+                    '                    <a href="" class="text-secondary" id="dropdownMarketingCard" data-bs-toggle="dropdown" aria-expanded="false">\n' +
+                    '                      <i class="fas fa-ellipsis-v"></i>\n' +
+                    '                    </a>\n' +
+                    '                    <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownMarketingCard">\n' +
+                    '                      <li><a class="dropdown-item border-radius-md text-success" href="javascript:;">Job Offer</a></li>\n' +
+                    '                      <li>\n' +
+                    '                        <hr class="dropdown-divider">\n' +
+                    '                      </li>\n' +
+                    '                      <li><a class="dropdown-item border-radius-md" href="' + new_test_url + '">Testing</a></li>\n' +
+                    '                      <li><a class="dropdown-item border-radius-md" href="' + new_meeting_url + '">Schedule Interview</a></li>\n' +
+                    '                        <li><a class="dropdown-item border-radius-md" href="' + edit_staff_url + '">Job Simulator</a></li>\n' +
+                    '                      <li>\n' +
+                    '                        <hr class="dropdown-divider">\n' +
+                    '                      </li>\n' +
+                    '                      <li><a class="dropdown-item border-radius-md text-danger" href="' + remove_staff_url + '">Remove</a></li>\n' +
+                    '                    </ul>\n' +
+                    '                  </div>\n' +
+                    '          </td>\n' +
+                    '\n' +
+                    '        </tr>';
+
+                    $("#applicants").append(row);
+            });
+        }
+        else{
+            // if there is no results found!
+           $("#applicants").html("No results found.");
+        }
+        //if (response.pagination.has_prev) {
+            // sets the previous page url.
+          //  $("#previous").attr("data-url", get_list_url(current_page - 1));
+          //  $("#previous").attr("disabled", false);
+        //} else {
+            // if there is no prev page available, disable the btn.
+       //     $("#previous").attr("disabled", true);
+       // }
+        //if (response.pagination.has_next) {
+            // sets the next page url.
+     //       $("#next").attr("data-url", get_list_url(current_page + 1));
+      //      $("#next").attr("disabled", false);
+     //   } else {
+            // if there is no next page available, disable the btn.
+      //      $("#next").attr("disabled", true)
+       // }
+    }
+
+    // On click of next/prev button, call the getAPIData with the given url.
+    $(".page-link").click(function (e) {
+        e.preventDefault();
+        let url = $(this).attr("data-url");
+        getAPIData(url);
+    });
+
+    // Main method which calls AJAX to get the data from backend.
+    function getAPIData(url) {
+        $.ajax({
+            method: 'GET',
+            url: url,
+            success: function (response) {
+                current_page = parseInt(response.pagination.page)
+                putTableData(response);
+                // put the total result count.
+                $("#result-count span").html(response.pagination.total)
+                $("#page-count span").html(response.pagination.page)
+            },
+            error: function (response) {
+                $("#hero_table").hide();
+            }
+        });
+    }
+
+    //on page load, call this two methods.
+    //getAPIData(get_list_url(current_page));
+    //getStaff()
+</script>
+{% endblock javascript %}

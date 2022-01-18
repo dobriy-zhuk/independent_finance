@@ -1,0 +1,145 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block css %}
+     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
+     <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+    <style>
+    #editor-container {
+        height: 150px;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-lg-9 col-12 mx-auto">
+          <div class="card card-body mt-4">
+            <h6 class="mb-0">New Email</h6>
+            <p class="text-sm mb-0">Create new email or select template</p>
+            <hr class="horizontal dark my-3">
+
+
+              {% for email_template in email_templates %}
+             <button type="button" class="btn btn-primary modal-button" data-bs-toggle="modal" data-bs-target="#quiz-{{email_template.pk}}" data-pk="{{email_template.pk}}">
+             {{email_template.name}}
+            </button>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="quiz-{{email_template.pk}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{email_template.name}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body align-content-center" id="modal-body-confirm">
+                    {{email_template.template | safe}}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <a href="{% url 'new_email' pk=email_template.pk %}"><button type="button" class="btn btn-primary" id="start-button">Select</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+              {% endfor %}
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block fixed_plugin %}
+{% endblock %}
+
+
+{% block javascript %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<script>
+  var quill = new Quill('#editor-container', {
+    modules: {
+      syntax: true,
+      toolbar: '#toolbar-container'
+    },
+    placeholder: 'You course...',
+    theme: 'snow'
+  });
+
+  quill.on('text-change', function() {
+    var html = quill.root.innerHTML;
+    document.getElementById("body_editor").innerHTML = html;
+});
+
+
+
+</script>
+
+    <script>
+
+    $('#exampleModalCenter').on('shown.bs.modal', function () {
+        console.log("test");
+    })
+    </script>
+
+<script  src="{% static  'js/plugins/choices.min.js' %}"></script>
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script  src="{% static  'js/plugins/flatpickr.min.js' %}"></script>
+<script>
+      var element = document.getElementById('choices-multiple-applicants-button');
+      const choices = new Choices(element, {
+        removeItemButton: true
+      });
+
+    if (document.querySelector('.datetimepicker')) {
+      flatpickr('.datetimepicker', {
+        allowInput: true
+      }); // flatpickr
+    }
+    </script>
+
+<script>
+const modalBtns = [...document.getElementsByClassName('modal-button')];
+const modalBody = document.getElementById('modal-body-confirm');
+const startBtn = document.getElementById('start-button');
+
+const url = window.location.href;
+
+modalBtns.forEach(modalBtn=> modalBtn.addEventListener('click', ()=>{
+    const pk = modalBtn.getAttribute('data-pk');
+    const name = modalBtn.getAttribute('data-quiz');
+    const numQuestions = modalBtn.getAttribute('data-questions');
+
+    //modalBody.innerHTML = '<div class="h5 mb-3">Are you sure you want to begin "<b>' + name + '</b>"?</div>' +
+    //    '<div class="text-muted">' +
+    //    '<ul>' +
+    //    '<li>number of questions: <b>' + numQuestions + '</b></li>' +
+    //    '</ul>' +
+    //    '</div>';
+
+    startBtn.addEventListener('click', ()=>{
+        window.location.href = url + pk
+    })
+}));
+
+</script>
+
+
+{% endblock %}

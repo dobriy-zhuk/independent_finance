@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% block title %} Add Options {% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <form action="{% url 'add_options' myid=question.id %}" method="POST"> {% csrf_token %}
+        {{ formset.as_p }}
+        <button type="submit" class="btn btn-info">Submit</button>
+    </form>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    {% if alert %}
+alert("Question is added successfully!!!");
+document.location = "{% url 'add_question' %}";
+{% endif %}
+</script>
+{% endblock %}
+
