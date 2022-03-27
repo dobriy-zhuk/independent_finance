@@ -1,0 +1,306 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block css %}
+     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
+     <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+    <style>
+    #editor-container {
+        height: 150px;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+   <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-lg-6">
+          <h4>{{ job }}</h4>
+          <p>{{ job.description }}</p>
+        </div>
+        <div class="col-lg-6 text-right d-flex flex-column justify-content-center">
+          <button type="button" class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2">Save</button>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="font-weight-bolder">Job Image</h5>
+              <div class="row">
+                <div class="col-12">
+                  <img class="w-100 border-radius-lg shadow-lg mt-3" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="product_image">
+                </div>
+                <div class="col-12 mt-4">
+                  <div class="d-flex">
+                    <button class="btn bg-gradient-primary btn-sm mb-0 me-2" type="button" name="button">Edit</button>
+                    <button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 mt-lg-0 mt-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="font-weight-bolder">Job Description</h5>
+              <div class="row">
+                <div class="col-12 col-sm-6">
+                  <label>Name</label>
+                  <input class="form-control" type="text" value="Minimal Bar Stool" />
+                </div>
+                <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                  <label>Weight</label>
+                  <input class="form-control" type="number" value="2" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-3">
+                  <label class="mt-4">Collection</label>
+                  <input class="form-control" type="text" value="Summer" />
+                </div>
+                <div class="col-3">
+                  <label class="mt-4">Price</label>
+                  <input class="form-control" type="text" value="$90" />
+                </div>
+                <div class="col-3">
+                  <label class="mt-4">Quantity</label>
+                  <input class="form-control" type="number" value="50" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <label class="mt-4">Description</label>
+                  <p class="form-text text-muted text-xs ms-1 d-inline">
+                    (optional)
+                  </p>
+                  <div id="edit-deschiption-edit" class="h-50">
+                    Long sleeves black denim jacket with a twisted design. Contrast stitching. Button up closure. White arrow prints on the back.
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="mt-4">Category</label>
+                  <select class="form-control" name="choices-category" id="choices-category-edit">
+                    <option value="Choice 1" selected="">Furniture</option>
+                    <option value="Choice 2">Real Estate</option>
+                    <option value="Choice 3">Electronics</option>
+                    <option value="Choice 4">Clothing</option>
+                    <option value="Choice 5">Others</option>
+                  </select>
+                  <label>Color</label>
+                  <select class="form-control" name="choices-color" id="choices-color-edit">
+                    <option value="Choice 1" selected="">Black</option>
+                    <option value="Choice 2">White</option>
+                    <option value="Choice 3">Blue</option>
+                    <option value="Choice 4">Orange</option>
+                    <option value="Choice 5">Green</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="font-weight-bolder">Socials</h5>
+              <label>Shoppify Handle</label>
+              <input class="form-control" type="text" value="@soft" />
+              <label class="mt-4">Facebook Account</label>
+              <input class="form-control" type="text" value="https://" />
+              <label class="mt-4">Instagram Account</label>
+              <input class="form-control" type="text" value="https://" />
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8 mt-sm-0 mt-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h5 class="font-weight-bolder">Pricing</h5>
+                <div class="col-3">
+                  <label>Price</label>
+                  <input class="form-control" type="number" value="99.00" />
+                </div>
+                <div class="col-4">
+                  <label>Currency</label>
+                  <select class="form-control" name="choices-sizes" id="choices-currency-edit">
+                    <option value="Choice 1" selected="">USD</option>
+                    <option value="Choice 2">EUR</option>
+                    <option value="Choice 3">GBP</option>
+                    <option value="Choice 4">CNY</option>
+                    <option value="Choice 5">INR</option>
+                    <option value="Choice 6">BTC</option>
+                  </select>
+                </div>
+                <div class="col-5">
+                  <label>SKU</label>
+                  <input class="form-control" type="text" value="71283476591" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <label class="mt-4">Tags</label>
+                  <select class="form-control" name="choices-tags" id="choices-tags-edit" multiple>
+                    <option value="Choice 1" selected>In Stock</option>
+                    <option value="Choice 2">Out of Stock</option>
+                    <option value="Choice 3">Sale</option>
+                    <option value="Choice 4">Black Friday</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+{% endblock %}
+
+{% block fixed_plugin %}
+{% endblock %}
+
+
+{% block javascript %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<script>
+  var quill = new Quill('#editor-container', {
+    modules: {
+      syntax: true,
+      toolbar: '#toolbar-container'
+    },
+    placeholder: 'Your course...',
+    theme: 'snow'
+  });
+
+  quill.on('text-change', function() {
+    var html = quill.root.innerHTML;
+    document.getElementById("body_editor").innerHTML = html;
+});
+
+</script>
+
+<script  src="{% static  'js/plugins/choices.min.js' %}"></script>
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script  src="{% static  'js/plugins/flatpickr.min.js' %}"></script>
+<script>
+      var element = document.getElementById('choices-multiple-remove-button');
+      const choices = new Choices(element, {
+        removeItemButton: true
+      });
+
+    if (document.querySelector('.datetimepicker')) {
+      flatpickr('.datetimepicker', {
+        allowInput: true
+      }); // flatpickr
+    }
+    </script>
+
+    <script>
+    if (document.getElementById('edit-deschiption-edit')) {
+      var quill = new Quill('#edit-deschiption-edit', {
+        theme: 'snow' // Specify theme in configuration
+      });
+    };
+
+    if (document.getElementById('choices-category-edit')) {
+      var element = document.getElementById('choices-category-edit');
+      const example = new Choices(element, {
+        searchEnabled: false
+      });
+    };
+
+    if (document.getElementById('choices-color-edit')) {
+      var element = document.getElementById('choices-color-edit');
+      const example = new Choices(element, {
+        searchEnabled: false
+      });
+    };
+
+    if (document.getElementById('choices-currency-edit')) {
+      var element = document.getElementById('choices-currency-edit');
+      const example = new Choices(element, {
+        searchEnabled: false
+      });
+    };
+
+    if (document.getElementById('choices-tags-edit')) {
+      var tags = document.getElementById('choices-tags-edit');
+      const examples = new Choices(tags, {
+        removeItemButton: true
+      });
+
+      examples.setChoices(
+        [{
+            value: 'One',
+            label: 'Expired',
+            disabled: true
+          },
+          {
+            value: 'Two',
+            label: 'Out of Stock',
+            selected: true
+          }
+        ],
+        'value',
+        'label',
+        false,
+      );
+    }
+    </script>
+
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<script>
+
+Dropzone.options.myDropzone = { // The camelized version of the ID of the form element
+
+  // The configuration we've talked about above
+  autoProcessQueue: false,
+  uploadMultiple: true,
+  parallelUploads: 100,
+  maxFiles: 100,
+
+  // The setting up of the dropzone
+  init: function() {
+    var myDropzone = this;
+
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+
+    // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+    // of the sending event because uploadMultiple is set to true.
+    this.on("sendingmultiple", function() {
+      // Gets triggered when the form is actually being sent.
+      // Hide the success button or the complete form.
+    });
+    this.on("successmultiple", function(files, response) {
+      // Gets triggered when the files have successfully been sent.
+      // Redirect user or notify of success.
+    });
+    this.on("errormultiple", function(files, response) {
+      // Gets triggered when there was an error sending the files.
+      // Maybe show form again, and notify user of error
+    });
+  }
+
+}
+</script>
+{% endblock %}

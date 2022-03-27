@@ -1,16 +1,21 @@
-from celery import Celery
+#from celery import Celery
 from django.core.mail import EmailMultiAlternatives, BadHeaderError
 from django.template import Template, Context
 from smtplib import SMTPException
 
-app = Celery('hr_system', broker='redis://localhost:6379')
+def send_email_with_delay(title, to, body, applicant, responsible_manager):
+    pass
+
+"""
+app = Celery('guarantee_learning', broker='redis://localhost:6379')
 
 @app.task
-def send_email_with_delay(title, to, body):
+def send_email_with_delay(title, to, body, applicant, responsible_manager):
+    print(title, to, body)
     try:
         htmly = Template(body)
 
-        content = {'name': "Artem",
+        content = {'applicant': str(applicant),
                    'position': "position",
                    'time': "time"}
 
@@ -26,3 +31,4 @@ def send_email_with_delay(title, to, body):
     except:  # It will catch All other possible errors.
         print("Mail Sending Failed!")
 
+"""

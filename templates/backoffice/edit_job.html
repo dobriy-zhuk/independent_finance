@@ -14,35 +14,29 @@
             <h6 class="mb-0">Edit quiz</h6>
             <hr class="horizontal dark my-3">
 
-            <form method='POST'>
+            <form method='POST' enctype="multipart/form-data" id="courseForm">
                        <div id="result_div_id"></div>
-                        {% csrf_token %}
-                      {% for field in quiz_form %}
-                        {% if field.help_text %}
-                            {{ field.help_text }}
-                        {% endif %}
-                        {{ field }}
+                      {% csrf_token %}
+                      {% for field in job_form %}
+                          <label class="form-label mt-4">
+                          {% if field.help_text %}
+                              {{ field.help_text }}
+                          {% endif %}
+                          </label>
+                        {% if field.name == 'body' %}
+                             <p class="form-text text-muted text-xs ms-1">
+                                If you are available for hire outside of the current situation, you can encourage others to hire you.
+                              </p>
+                                {{ field }}
+                            {% else %}
+                            {{ field }}
+                          {% endif %}
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
                         {% endfor %}
-                            {{ question_formset.management_form }}
-                            {{ question_formset.non_form_errors }}
-
-                            {% for child_form in question_formset.forms %}
-                                {{ child_form }}
-
-                                {% if child_form.nested %}
-                                    {{ child_form.nested.management_form }}
-                                    {{ child_form.nested.non_form_errors }}
-
-                                    {% for nested_form in child_form.nested.forms %}
-                                        {{ nested_form }}
-                                    {% endfor %}
-
-                                {% endif %}
-
-                            {% endfor %}
-
+                        {% endfor %}
                         <div class="d-flex justify-content-end mt-4">
-                            <a href="{% url 'test_library' %}"><button type="button" name="button" class="btn btn-light m-0">Cancel</button></a>
+                            <a href="{% url 'backoffice' %}"><button type="button" name="button" class="btn btn-light m-0">Cancel</button></a>
                           <button type="submit" name="button" class="btn bg-gradient-primary m-0 ms-2">Save</button>
                         </div>
                     </form>

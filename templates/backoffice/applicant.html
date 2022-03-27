@@ -1,0 +1,855 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+ {% block content %}
+
+ <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="mb-4">Applicant View</h5>
+              <div class="row">
+                <div class="col-xl-5 col-lg-6 text-center">
+                  <img class="w-100 border-radius-lg shadow-lg mx-auto" src="https://images.unsplash.com/photo-1616627781431-23b776aad6b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1884&q=80" alt="chair">
+                  <div class="my-gallery d-flex mt-4 pt-2" itemscope itemtype="http://schema.org/ImageGallery">
+                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                      <a href="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-pink.jpg" itemprop="contentUrl" data-size="500x600">
+                        <img class="w-75 min-height-100 max-height-100 border-radius-lg shadow" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-pink.jpg" alt="Image description" />
+                      </a>
+                    </figure>
+                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                      <a href="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-chair.jpg" itemprop="contentUrl" data-size="500x600">
+                        <img class="w-75 min-height-100 max-height-100 border-radius-lg shadow" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-chair.jpg" itemprop="thumbnail" alt="Image description" />
+                      </a>
+                    </figure>
+                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                      <a href="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-steel.jpg" itemprop="contentUrl" data-size="500x600">
+                        <img class="w-75 min-height-100 max-height-100 border-radius-lg shadow" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-steel.jpg" itemprop="thumbnail" alt="Image description" />
+                      </a>
+                    </figure>
+                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                      <a href="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-wood.jpg" itemprop="contentUrl" data-size="500x600">
+                        <img class="w-75 min-height-100 max-height-100 border-radius-lg shadow" src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-wood.jpg" itemprop="thumbnail" alt="Image description" />
+                      </a>
+                    </figure>
+                  </div>
+                  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+                  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+                    <!-- Background of PhotoSwipe.
+It's a separate element, as animating opacity is faster than rgba(). -->
+                    <div class="pswp__bg"></div>
+                    <!-- Slides wrapper with overflow:hidden. -->
+                    <div class="pswp__scroll-wrap">
+                      <!-- Container that holds slides. PhotoSwipe keeps only 3 slides in DOM to save memory. -->
+                      <!-- don't modify these 3 pswp__item elements, data is added later on. -->
+                      <div class="pswp__container">
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+                        <div class="pswp__item"></div>
+                      </div>
+                      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+                      <div class="pswp__ui pswp__ui--hidden">
+                        <div class="pswp__top-bar">
+                          <!--  Controls are self-explanatory. Order can be changed. -->
+                          <div class="pswp__counter"></div>
+                          <button class="btn btn-white btn-sm pswp__button pswp__button--close">Close (Esc)</button>
+                          <button class="btn btn-white btn-sm pswp__button pswp__button--fs">Fullscreen</button>
+                          <button class="btn btn-white btn-sm pswp__button pswp__button--arrow--left">Prev
+                          </button>
+                          <button class="btn btn-white btn-sm pswp__button pswp__button--arrow--right">Next
+                          </button>
+                          <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                          <!-- element will get class pswp__preloader--active when preloader is running -->
+                          <div class="pswp__preloader">
+                            <div class="pswp__preloader__icn">
+                              <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                          <div class="pswp__share-tooltip"></div>
+                        </div>
+                        <div class="pswp__caption">
+                          <div class="pswp__caption__center"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5 mx-auto">
+                  <h3 class="mt-lg-0 mt-4">{{ applicant }}</h3>
+                  <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                  </div>
+                  <br>
+                  <h6 class="mb-0 mt-3">Price</h6>
+                  <h5>$1,419</h5>
+                  <span class="badge badge-success">In Stock</span>
+                  <br>
+                  <label class="mt-4">Description</label>
+                  <ul>
+                    <li>The most beautiful curves of this swivel stool adds an elegant touch to any environment</li>
+                    <li>Memory swivel seat returns to original seat position</li>
+                    <li>Comfortable integrated layered chair seat cushion design</li>
+                    <li>Fully assembled! No assembly required</li>
+                  </ul>
+                  <div class="row mt-4">
+                    <div class="col-lg-5 mt-lg-0 mt-2">
+                      <label>Frame Material</label>
+                      <select class="form-control" name="choices-material" id="choices-material">
+                        <option value="Choice 1" selected="">Wood</option>
+                        <option value="Choice 2">Steel</option>
+                        <option value="Choice 3">Aluminium</option>
+                        <option value="Choice 4">Carbon</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-5 mt-lg-0 mt-2">
+                      <label>Color</label>
+                      <select class="form-control" name="choices-colors" id="choices-colors">
+                        <option value="Choice 1" selected="">White</option>
+                        <option value="Choice 2">Gray</option>
+                        <option value="Choice 3">Black</option>
+                        <option value="Choice 4">Blue</option>
+                        <option value="Choice 5">Red</option>
+                        <option value="Choice 6">Pink</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-2">
+                      <label>Quantity</label>
+                      <select class="form-control" name="choices-quantity" id="choices-quantity">
+                        <option value="Choice 1" selected="">1</option>
+                        <option value="Choice 2">2</option>
+                        <option value="Choice 3">3</option>
+                        <option value="Choice 4">4</option>
+                        <option value="Choice 5">5</option>
+                        <option value="Choice 6">6</option>
+                        <option value="Choice 7">7</option>
+                        <option value="Choice 8">8</option>
+                        <option value="Choice 9">9</option>
+                        <option value="Choice 10">10</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mt-4">
+                    <div class="col-lg-5">
+                  <div class="d-flex">
+                      <a href="{% url 'new_test' pk=applicant.pk %}"><button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Send Test</button></a>&nbsp;
+                       <a href="{% url 'new_meeting' pk=applicant.pk %}"><button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Schedule Interview</button></a>&nbsp;
+                        <a href="{% url 'new_test' pk=applicant.pk %}"><button class="btn bg-gradient-primary btn-sm mb-0 me-2" type="button" name="button">Job offer</button></a>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col-12">
+                  <h5 class="ms-3">Completed Tasks</h5>
+                  <div class="table table-responsive">
+                    <table class="table align-items-center mb-0">
+                      <thead>
+                        <tr>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quiz title</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Score</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Review</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Availability</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for test in tests %}
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-chair.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{ test.quiz.title }}</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">{{ test.score }}</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">230019</span>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-pink.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">Bar Height Swivel Barstool</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">$99.99</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">87120</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-steel.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">Signature Design by Ashley</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">$129.00</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">412301</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-wood.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">Modern Square</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">$59.99</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">001992</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+ {% endblock %}
+
+{% block fixed_plugin %}
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static '/js/plugins/photoswipe.min.js' %}"></script>
+  <script src="{% static '/js/plugins/photoswipe-ui-default.min.js' %}"></script>
+        <script>
+    if (document.getElementById('choices-quantity')) {
+      var element = document.getElementById('choices-quantity');
+      const example = new Choices(element, {
+        searchEnabled: false,
+        itemSelectText: ''
+      });
+    };
+
+    if (document.getElementById('choices-material')) {
+      var element = document.getElementById('choices-material');
+      const example = new Choices(element, {
+        searchEnabled: false,
+        itemSelectText: ''
+      });
+    };
+
+    if (document.getElementById('choices-colors')) {
+      var element = document.getElementById('choices-colors');
+      const example = new Choices(element, {
+        searchEnabled: false,
+        itemSelectText: ''
+      });
+    };
+
+    // Gallery Carousel
+    if (document.getElementById('products-carousel')) {
+      var myCarousel = document.querySelector('#products-carousel')
+      var carousel = new bootstrap.Carousel(myCarousel)
+    }
+
+
+    // Products gallery
+
+    var initPhotoSwipeFromDOM = function(gallerySelector) {
+
+      // parse slide data (url, title, size ...) from DOM elements
+      // (children of gallerySelector)
+      var parseThumbnailElements = function(el) {
+        var thumbElements = el.childNodes,
+          numNodes = thumbElements.length,
+          items = [],
+          figureEl,
+          linkEl,
+          size,
+          item;
+
+        for (var i = 0; i < numNodes; i++) {
+
+          figureEl = thumbElements[i]; // <figure> element
+          // include only element nodes
+          if (figureEl.nodeType !== 1) {
+            continue;
+          }
+
+          linkEl = figureEl.children[0]; // <a> element
+
+          size = linkEl.getAttribute('data-size').split('x');
+
+          // create slide object
+          item = {
+            src: linkEl.getAttribute('href'),
+            w: parseInt(size[0], 10),
+            h: parseInt(size[1], 10)
+          };
+
+          if (figureEl.children.length > 1) {
+            // <figcaption> content
+            item.title = figureEl.children[1].innerHTML;
+          }
+
+          if (linkEl.children.length > 0) {
+            // <img> thumbnail element, retrieving thumbnail url
+            item.msrc = linkEl.children[0].getAttribute('src');
+          }
+
+          item.el = figureEl; // save link to element for getThumbBoundsFn
+          items.push(item);
+        }
+
+        return items;
+      };
+
+      // find nearest parent element
+      var closest = function closest(el, fn) {
+        return el && (fn(el) ? el : closest(el.parentNode, fn));
+      };
+
+      // triggers when user clicks on thumbnail
+      var onThumbnailsClick = function(e) {
+        e = e || window.event;
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+        var eTarget = e.target || e.srcElement;
+
+        // find root element of slide
+        var clickedListItem = closest(eTarget, function(el) {
+          return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+        });
+
+        if (!clickedListItem) {
+          return;
+        }
+
+        // find index of clicked item by looping through all child nodes
+        // alternatively, you may define index via data- attribute
+        var clickedGallery = clickedListItem.parentNode,
+          childNodes = clickedListItem.parentNode.childNodes,
+          numChildNodes = childNodes.length,
+          nodeIndex = 0,
+          index;
+
+        for (var i = 0; i < numChildNodes; i++) {
+          if (childNodes[i].nodeType !== 1) {
+            continue;
+          }
+
+          if (childNodes[i] === clickedListItem) {
+            index = nodeIndex;
+            break;
+          }
+          nodeIndex++;
+        }
+
+
+
+        if (index >= 0) {
+          // open PhotoSwipe if valid index found
+          openPhotoSwipe(index, clickedGallery);
+        }
+        return false;
+      };
+
+      // parse picture index and gallery index from URL (#&pid=1&gid=2)
+      var photoswipeParseHash = function() {
+        var hash = window.location.hash.substring(1),
+          params = {};
+
+        if (hash.length < 5) {
+          return params;
+        }
+
+        var vars = hash.split('&');
+        for (var i = 0; i < vars.length; i++) {
+          if (!vars[i]) {
+            continue;
+          }
+          var pair = vars[i].split('=');
+          if (pair.length < 2) {
+            continue;
+          }
+          params[pair[0]] = pair[1];
+        }
+
+        if (params.gid) {
+          params.gid = parseInt(params.gid, 10);
+        }
+
+        return params;
+      };
+
+      var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+        var pswpElement = document.querySelectorAll('.pswp')[0],
+          gallery,
+          options,
+          items;
+
+        items = parseThumbnailElements(galleryElement);
+
+        // define options (if needed)
+        options = {
+
+          // define gallery index (for URL)
+          galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+          getThumbBoundsFn: function(index) {
+            // See Options -> getThumbBoundsFn section of documentation for more info
+            var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+              pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+              rect = thumbnail.getBoundingClientRect();
+
+            return {
+              x: rect.left,
+              y: rect.top + pageYScroll,
+              w: rect.width
+            };
+          }
+
+        };
+
+        // PhotoSwipe opened from URL
+        if (fromURL) {
+          if (options.galleryPIDs) {
+            // parse real index when custom PIDs are used
+            // http://photoswipe.com/documentation/faq.html#custom-pid-in-url
+            for (var j = 0; j < items.length; j++) {
+              if (items[j].pid == index) {
+                options.index = j;
+                break;
+              }
+            }
+          } else {
+            // in URL indexes start from 1
+            options.index = parseInt(index, 10) - 1;
+          }
+        } else {
+          options.index = parseInt(index, 10);
+        }
+
+        // exit if index not found
+        if (isNaN(options.index)) {
+          return;
+        }
+
+        if (disableAnimation) {
+          options.showAnimationDuration = 0;
+        }
+
+        // Pass data to PhotoSwipe and initialize it
+        gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery.init();
+      };
+
+      // loop through all gallery elements and bind events
+      var galleryElements = document.querySelectorAll(gallerySelector);
+
+      for (var i = 0, l = galleryElements.length; i < l; i++) {
+        galleryElements[i].setAttribute('data-pswp-uid', i + 1);
+        galleryElements[i].onclick = onThumbnailsClick;
+      }
+
+      // Parse URL and open gallery if it contains #&pid=3&gid=1
+      var hashData = photoswipeParseHash();
+      if (hashData.pid && hashData.gid) {
+        openPhotoSwipe(hashData.pid, galleryElements[hashData.gid - 1], true, true);
+      }
+    };
+
+    // execute above function
+    initPhotoSwipeFromDOM('.my-gallery');
+  </script>
+
+     <script>
+   var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
+      initialView: "dayGridMonth",
+      headerToolbar: {
+        start: 'title', // will normally be on the left. if RTL, will be on the right
+        center: '',
+        end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
+      },
+      selectable: true,
+      editable: true,
+      initialDate: '2020-12-01',
+      events: [{
+          title: 'Call with Dave',
+          start: '2020-11-18',
+          end: '2020-11-18',
+          className: 'bg-gradient-danger'
+        },
+
+        {
+          title: 'Lunch meeting',
+          start: '2020-11-21',
+          end: '2020-11-22',
+          className: 'bg-gradient-warning'
+        },
+
+        {
+          title: 'All day conference',
+          start: '2020-11-29',
+          end: '2020-11-29',
+          className: 'bg-gradient-success'
+        },
+
+        {
+          title: 'Meeting with Mary',
+          start: '2020-12-01',
+          end: '2020-12-01',
+          className: 'bg-gradient-info'
+        },
+
+        {
+          title: 'Winter Hackaton',
+          start: '2020-12-03',
+          end: '2020-12-03',
+          className: 'bg-gradient-danger'
+        },
+
+        {
+          title: 'Digital event',
+          start: '2020-12-07',
+          end: '2020-12-09',
+          className: 'bg-gradient-warning'
+        },
+
+        {
+          title: 'Marketing event',
+          start: '2020-12-10',
+          end: '2020-12-10',
+          className: 'bg-gradient-primary'
+        },
+
+        {
+          title: 'Dinner with Family',
+          start: '2020-12-19',
+          end: '2020-12-19',
+          className: 'bg-gradient-danger'
+        },
+
+        {
+          title: 'Black Friday',
+          start: '2020-12-23',
+          end: '2020-12-23',
+          className: 'bg-gradient-info'
+        },
+
+        {
+          title: 'Cyber Week',
+          start: '2020-12-02',
+          end: '2020-12-02',
+          className: 'bg-gradient-warning'
+        },
+
+      ],
+      views: {
+        month: {
+          titleFormat: {
+            month: "long",
+            year: "numeric"
+          }
+        },
+        agendaWeek: {
+          titleFormat: {
+            month: "long",
+            year: "numeric",
+            day: "numeric"
+          }
+        },
+        agendaDay: {
+          titleFormat: {
+            month: "short",
+            year: "numeric",
+            day: "numeric"
+          }
+        }
+      },
+    });
+
+    calendar.render();
+  </script>
+
+
+<script>
+    // maintaining the state of each variable.
+    var current_page = 1; // maintains the current page
+    var page_limit = 10; // the limit of results shown on page.
+    var sort_by = ""; // maintains the select option for sort_by
+    var staff = ""; // maintains the select option for country
+    var start_year = ""; // maintains the select option for start_yr
+    var end_year = ""; // maintains the select option for end_yr
+
+    function get_list_url(page) {
+        // returns the consructed url with query params.
+        return '?page=${page}&limit=${page_limit}&country=${country}&sort_by=${sort_by}&start=${start_year}&end=${end_year}';
+    }
+
+    function getCountries() {
+        // call the ajax and populates the country select options
+        $.ajax({
+            method: 'GET',
+            url: $("#countries").attr("url"),
+            success: function (response) {
+                countries_option = "<option value='all' selected>All Countries</option>";
+                $.each(response["country"], function (a, b) {
+                    countries_option += "<option>" + b + "</option>"
+                });
+                $("#countries").html(countries_option)
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+    }
+
+    getStaff();
+
+    function getStaff() {
+
+        $.ajax({
+            method: 'GET',
+            data: {'name': document.getElementById("name_staff").value },
+            url: "{% url 'get_staff' %}",
+            success: function (response) {
+               putTableData(response);
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+
+    }
+
+
+    // On select change of the sort select, call the getAPIData with sortby.
+    $("#sort").on("change", function (e) {
+        current_page = 1;
+        sort_by = this.value
+        getAPIData(get_list_url(current_page));
+    });
+
+    // Helper method that popluates the html table with next and prev
+    // url, and current page number.
+    function putTableData(response) {
+        // creating table row for each response and
+        // pushing to the html content of table body of table_body table
+        let row;
+        $("#applicants").html("");
+        if (response.length > 0) {
+            $.each(response, function (a, b) {
+                var edit_staff_url = "{% url 'edit_staff' pk=1234 %}".replace('1234', b.id.toString());
+                var new_test_url = "{% url 'new_test' pk=1234 %}".replace('1234', b.id.toString());
+                var new_email_url = "{% url 'new_email' pk=1234 %}".replace('1234', b.id.toString());
+                var new_meeting_url = "{% url 'new_meeting' pk=1234 %}".replace('1234', b.id.toString());
+                var remove_staff_url = "{% url 'remove_staff' pk=1234 %}".replace('1234', b.id.toString());
+
+
+
+                row = '<tr>\n' +
+                    '            <td>\n' +
+                    '            <div class="d-flex px-2">\n' +
+                    '              <div>\n' +
+                    '                <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/logos/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2">\n' +
+                    '              </div>\n' +
+                    '              <div class="my-auto">\n' +
+                    '                  <h6 class="mb-0 text-xs"><a href="' + edit_staff_url + '">' + b.user__first_name + ' ' + b.user__last_name + '</a></h6>\n' +
+                    '              </div>\n' +
+                    '            </div>\n' +
+                    '          </td>\n' +
+                    '            <td>\n' +
+                    '            <span class="badge badge-dot me-4" style="text-align: left">\n' +
+                    '              <i class="bg-info"></i>\n' +
+                    '              <span class="text-dark text-xs">' + b.phone + '</span><br>\n' +
+                    '              <span class="text-dark text-xs"><a href="' + new_email_url + '">' + b.user__email + '</a></span>\n' +
+                    '            </span>\n' +
+                    '          </td>\n' +
+                    '          <td>\n' +
+                    '            <p class="text-xs font-weight-bold mb-0">' + b.job__title__title + '</p>\n' +
+                    '          </td>\n' +
+                    '          <td>\n' +
+                    '            <span class="badge badge-dot me-4">\n' +
+                    '              <i class="bg-info"></i>\n' +
+                    '              <span class="text-dark text-xs">' + b.status__title + '</span>\n' +
+                    '            </span>\n' +
+                    '          </td><td></td>\n' +
+                    '          <td class="align-middle text-center">\n' +
+                    '            <div class="d-flex align-items-center">\n' +
+                    '              <span class="me-2 text-xs">60%</span>\n' +
+                    '              <div>\n' +
+                    '                <div class="progress">\n' +
+                    '                  <div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + b.status__title + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + b.status__title + '%;"></div>\n' +
+                    '                </div>\n' +
+                    '              </div>\n' +
+                    '            </div>\n' +
+                    '          </td>\n' +
+                    '          <td class="align-middle">\n' +
+                    '            <div class="dropstart">\n' +
+                    '                    <a href="" class="text-secondary" id="dropdownMarketingCard" data-bs-toggle="dropdown" aria-expanded="false">\n' +
+                    '                      <i class="fas fa-ellipsis-v"></i>\n' +
+                    '                    </a>\n' +
+                    '                    <ul class="dropdown-menu dropdown-menu-lg-start px-2 py-3" aria-labelledby="dropdownMarketingCard">\n' +
+                    '                      <li><a class="dropdown-item border-radius-md text-success" href="javascript:;">Job Offer</a></li>\n' +
+                    '                      <li>\n' +
+                    '                        <hr class="dropdown-divider">\n' +
+                    '                      </li>\n' +
+                    '                      <li><a class="dropdown-item border-radius-md" href="' + new_test_url + '">Testing</a></li>\n' +
+                    '                      <li><a class="dropdown-item border-radius-md" href="' + new_meeting_url + '">Schedule Interview</a></li>\n' +
+                    '                        <li><a class="dropdown-item border-radius-md" href="' + edit_staff_url + '">Job Simulator</a></li>\n' +
+                    '                      <li>\n' +
+                    '                        <hr class="dropdown-divider">\n' +
+                    '                      </li>\n' +
+                    '                      <li><a class="dropdown-item border-radius-md text-danger" href="' + remove_staff_url + '">Remove</a></li>\n' +
+                    '                    </ul>\n' +
+                    '                  </div>\n' +
+                    '          </td>\n' +
+                    '\n' +
+                    '        </tr>';
+
+                    $("#applicants").append(row);
+            });
+        }
+        else{
+            // if there is no results found!
+           $("#applicants").html("No results found.");
+        }
+        //if (response.pagination.has_prev) {
+            // sets the previous page url.
+          //  $("#previous").attr("data-url", get_list_url(current_page - 1));
+          //  $("#previous").attr("disabled", false);
+        //} else {
+            // if there is no prev page available, disable the btn.
+       //     $("#previous").attr("disabled", true);
+       // }
+        //if (response.pagination.has_next) {
+            // sets the next page url.
+     //       $("#next").attr("data-url", get_list_url(current_page + 1));
+      //      $("#next").attr("disabled", false);
+     //   } else {
+            // if there is no next page available, disable the btn.
+      //      $("#next").attr("disabled", true)
+       // }
+    }
+
+    // On click of next/prev button, call the getAPIData with the given url.
+    $(".page-link").click(function (e) {
+        e.preventDefault();
+        let url = $(this).attr("data-url");
+        getAPIData(url);
+    });
+
+    // Main method which calls AJAX to get the data from backend.
+    function getAPIData(url) {
+        $.ajax({
+            method: 'GET',
+            url: url,
+            success: function (response) {
+                current_page = parseInt(response.pagination.page)
+                putTableData(response);
+                // put the total result count.
+                $("#result-count span").html(response.pagination.total)
+                $("#page-count span").html(response.pagination.page)
+            },
+            error: function (response) {
+                $("#hero_table").hide();
+            }
+        });
+    }
+
+    //on page load, call this two methods.
+    //getAPIData(get_list_url(current_page));
+    //getStaff()
+</script>
+{% endblock javascript %}

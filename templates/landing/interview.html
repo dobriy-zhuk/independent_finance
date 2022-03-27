@@ -1,0 +1,291 @@
+{% extends 'base/base_landing.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+      <section>
+
+        <div class="container-xxl" id="benefits">
+          <div class="row align-items-center gx-1">
+            <div class="col-xl-6"><img src="{% static 'landing/assets/img/icons/icons3.png' %}" alt="" />
+              <h1 class="display-5 lh-sm my-4 font-cursive">Build the unique benefits package for your team.</h1>
+                <div id="container" style="width: 100%; height: 400px;"></div>
+            </div>
+              <div class="col-md-5 col-xl-5 offset-xl-1">
+              <div class="card box-shadow-rb my-4">
+                <div class="card-body my-3 mx-4" style="height: 400px;">
+                  <script src='https://meet.jit.si/external_api.js'></script>
+                  <div id="meet"></div>
+                    <script>
+                        const domain = 'meet.jit.si/guaranteehr';
+                    const options = {
+                        roomName: '{{ meeting.link }}',
+                        width: '100%',
+                        height: 350,
+                        parentNode: document.querySelector('#meet'),
+                        userInfo: {
+                            email: '{{ meeting.responsible_manager.user.email }}',
+                            displayName: '{{ meeting.responsible_manager }}'
+                        },
+                        configOverwrite: {},
+                        interfaceConfigOverwrite: {}
+                            };
+                    const api = new JitsiMeetExternalAPI(domain, options);
+                    </script>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    <section>
+        <div class="container-xxl">
+          <div class="row justify-content-center text-center">
+            <div class="col-lg-10 col-xl-8">
+              <h1 class="display-6 font-cursive">Here’s what our customers say about us</h1>
+              <p class="fs-md-1 mt-4">
+              <i>We view Guarantee HR as our business partner. Especially now that we’re more remote, there’s more of a need for
+                  Guarantee HR because businesses are hiring people from everywhere.</i> <br>(Andrew Mach, Guarantee HR`s client)
+              </p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="swiper-container pb-4" data-pagination-target="pagination1">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Effective decisions</h5>
+                      <p class="mb-0">We provide the tools you need to create an effective job offering process in your company</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Learning system</h5>
+                      <p class="mb-0">You can create, assign, track, and manage employee initial and ongoing training courses</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Onboarding</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Employee surveys</h5>
+                      <p class="mb-0">We look at every aspect of an employee's experience to see what's motivating them</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Interview video conferencing</h5>
+                      <p class="mb-0">We deliver a video conferencing platform where a candidate and a hiring manager speak in real-time</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire</span>
+                      <!--p class="mb-0 fw-bold text-1000">Guarantee HR`s customer</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Payroll system</h5>
+                      <p class="mb-0">Our technology platform makes it easy to manage and pay teams anytime, anywhere.</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Payroll</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Employee scoring</h5>
+                      <p class="mb-0">Score employees by factors that drive success in each unique role, by only measuring what matters to you</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire and Onboarding</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination" id="pagination1"></div>
+          </div>
+            <div class="row justify-content-center text-center col-6 offset-3">
+                <p class="fs-md-1 mt-4">If you want to build a great company, start with your own people. This approach is a win for your business.
+                  It’s a win for your employees. And, it’s a win for your people team.
+              </p>
+            </div>
+        </div>
+      </section>
+
+
+      <section id="rea">
+
+        <div class="container-xxl">
+          <div class="row align-items-center">
+            <div class="col-lg order-lg-1 text-center"><img class="img-fluid" src="{% static 'landing/assets/img/illustrations/hero2.png' %}" alt="" /></div>
+            <div class="col-lg mt-5 mt-lg-0">
+              <h1 class="lh-sm font-cursive fw-medium display-5">Start the Guarantee HR</h1>
+              <p class="mt-4 fs-1">A strong employee experience is one of the most powerful investments your organization can make.
+                  It’ll lead to noticeable benefits such as a wider talent pool, improved retention, and increased revenue.</p>
+                <form method="post" id="footer-form" name="footer-form">
+                    {% csrf_token %}
+                <div id="result_div_footer"></div>
+                <div class="input-group">
+                  <input type="email" class="form-control " placeholder="Your email" aria-label="Your email" aria-describedby="button_request_2" name="footer_email" id="footer_email">
+                  <button class="btn btn-success" type="button" id="button_request_2" onclick="if (CheckForm()) emailFooter();">Request access</button>
+                </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+ {% endblock %}
+
+
+
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+<script>
+
+
+require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }});
+window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+
+let proxy = URL.createObjectURL(new Blob([`
+	self.MonacoEnvironment = {
+		baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+	};
+	importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+`], { type: 'text/javascript' }));
+
+require(["vs/editor/editor.main"], function () {
+	let editor = monaco.editor.create(document.getElementById('container'), {
+		value: [
+			'#include <iostream>',
+            'using namespace std;',
+			'\tint main(){',
+			'string h = "";',
+            'cin >> h;',
+            'cout << h;',
+            'return 0;',
+            '}'
+		].join('\n'),
+		language: 'cpp',
+		theme: 'vs-dark'
+	});
+	editor.getModel().onDidChangeContent((event) => {
+	    myVar = JSON.stringify({content: editor.getValue().toString() });
+	    console.log(myVar);
+	    $.ajax({
+            type: 'GET',
+            data: {'content': editor.getValue() },
+            dataType: "json", //Тип данных
+            url: "{% url 'api_save_content' %}",
+            success: function (response) {
+
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+
+
+        });
+});
+</script>
+
+    <script>
+
+     function CheckForm() {
+            $("#contact_email").next(".error").remove();
+            $("#footer_email").next(".error").remove();
+
+            if ($('#contact_email').val() == "" && $('#footer_email').val() == "")
+            {
+                $('#contact_email').after('<div class="alert alert-danger" role="alert">Input Email</div>');
+                $('#footer_email').after('<div class="alert alert-danger" role="alert">Input Email</div>');
+                return false;
+            }
+            else return true; // Если все обязательные поля заполнены - возвращаем true
+        }
+
+
+    function emailContact(){
+    $.ajax({
+        type:'POST',
+        url:'{% url "index" %}',
+        data:{
+            email: $('#contact_email').val(),
+            subject: "Lead from Guarantee HR",
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            action: 'post'
+        },
+        success:function(json){
+            $('#contact-form').trigger( 'reset' );
+            document.getElementById('result_div_contact').innerHTML = "<div class=\"alert alert-success\">" + json.result + "</div>";
+        fbq('track', 'Lead', {
+                    value: 5,
+                    currency: 'USD'
+                });
+                
+                window.lintrk('track', { conversion_id: 6207217 });
+                ym(86206423,'reachGoal','contactForm')
+        
+            },
+        error : function(xhr,errmsg,err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+    }
+    });
+    }
+
+    function emailFooter(){
+    $.ajax({
+        type:'POST',
+        url:'{% url "index" %}',
+        data:{
+            email: $('#footer_email').val(),
+            subject: "Lead from Guarantee HR",
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            action: 'post'
+        },
+        success:function(json){
+            $('#footer-form').trigger( 'reset' );
+            document.getElementById('result_div_footer').innerHTML = "<div class=\"alert alert-success\">" + json.result + "</div>";
+        
+            fbq('track', 'Lead', {
+                    value: 5,
+                    currency: 'USD'
+                });
+                
+                window.lintrk('track', { conversion_id: 6207217 });
+                ym(86206423,'reachGoal','contactForm')
+            
+            },
+        error : function(xhr,errmsg,err) {
+        console.log(xhr.status + ": " + xhr.responseText);
+    }
+    });
+}
+</script>
+
+{% endblock %}

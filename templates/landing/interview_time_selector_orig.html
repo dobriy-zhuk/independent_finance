@@ -1,0 +1,702 @@
+{% extends 'base/base_landing.html' %}
+{% load static %}
+
+
+{% block css %}
+
+{% endblock %}
+{% block content %}
+
+<style>
+
+#calendar {margin: 20px auto; height: 340px;}
+.calendar  * {
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;;
+    font-size: 14px;
+}
+.calendar-sm {
+    cursor: default;
+    width: 800px;
+    height: 370px;
+}
+.calendar {
+    cursor: default;
+    max-width: 600px;
+    /* height: 270px; */
+    display: flex;
+}
+
+.calendar-sm .c-pad-top {
+    padding-top: 2%;
+}
+
+.calendar .c-pad-top {
+    padding: 10px; line-height: 15px;
+}
+
+.c-grid {
+    box-shadow: 2px 2px 5px #888888;
+    height: inherit;
+    background-color: #88a5ab;
+    flex: 0 1 55%;
+    padding: 10px 10px 20px;
+}
+.c-day {
+    width: 14.28%;
+    height: 13%;
+    /* background-color: #EFF4F9; */
+    float: left;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+}
+
+.c-day-previous-month {
+    width: 14.28%;
+    height: 13%;
+    background-color: #88a5ab;
+    float: left;
+    text-align: center;
+    color: gray;
+}
+
+.c-day-next-month {
+    width: 14.28%;
+    height: 13%;
+    /* background-color: #F9FBFD; */
+    float: left;
+    text-align: center;
+    color: gray;
+}
+
+.c-week-day {
+    width: 14.28%;
+    height: 10.38%;
+    /* background-color: rgb(145, 172, 203); */
+    color: #000;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 1%;
+}
+
+.c-next {
+    width: 12.5%;
+    height: 12%;
+    padding: 2% 2% 0 2%;
+    text-align: right;
+    cursor: pointer;
+    position: relative;
+}
+.c-next:before {font-family: fontello; content: '>';     padding-right: 5px;}
+.c-previous {
+    width: 12.5%;
+    height: 12%;
+    padding: 2% 2% 0 2%;
+    text-align: left;
+    cursor: pointer;
+    position: relative;
+}
+.c-previous:before {content: '<'; font-family: fontello; padding-left: 3px;}
+.c-month {
+    width: 75%;
+    height: 12%;
+    text-align: center;
+}
+
+.c-nav-btn-over {
+    /* background-color: rgb(137, 163, 192) !important; */
+    background-color: #dae3e5;
+    font-weight: bold;
+}
+
+.c-today {
+    background-color: rgba(38, 104, 128, 0.47);
+}
+
+.c-event {
+    background-color: #66666a;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+}
+.c-event:hover { box-shadow: 0 0 0 3px#dae3e5;}
+.c-grid {
+  flex: 0 1 55%;
+}
+
+.c-event-grid {
+    margin-left: 1px;
+    height: inherit;
+    flex: 0 1 50%;
+    box-shadow: 2px 2px 5px #888888;
+}
+
+.c-grid-title {
+    font-weight: bold;
+    float: left;
+    color: #000;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.c-event-title {
+    width: 100%;
+    height: 12%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #66666a;
+    color: #fff; text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.c-event-body {
+    background-color: #434346;
+    height: 88.1%;
+    text-align: center;
+    color: #fff;
+}
+
+.c-event-list {
+    padding: 5px;
+    overflow: auto;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.c-event-item > .title {
+    font-weight: bold;
+}
+
+.c-event-item > div {
+    text-overflow: ellipsis;
+    width: inherit;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.c-event-item {
+padding: 10px;
+}
+
+.c-event-over {
+    background-color: lightgray;
+    font-weight: bold;
+    color: black;
+}
+
+.c-event-over > .description {
+    font-weight: normal;
+
+}
+.description {    background-color: #fff; color: #000; border-radius: 20px; padding: 5px 10px; margin: 5px auto;}
+
+
+
+
+
+
+
+
+</style>
+
+
+    <section>
+        <div class="container-xxl">
+          <div class="row justify-content-center text-center">
+            <div class="col-lg-10 col-xl-8">
+              <h1 class="display-6 font-cursive mb-5">Select the interview time</h1>
+                <div id="calendar"></div>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="swiper-container pb-4" data-pagination-target="pagination1">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Effective decisions</h5>
+                      <p class="mb-0">We provide the tools you need to create an effective job offering process in your company</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Learning system</h5>
+                      <p class="mb-0">You can create, assign, track, and manage employee initial and ongoing training courses</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Onboarding</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Employee surveys</h5>
+                      <p class="mb-0">We look at every aspect of an employee's experience to see what's motivating them</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Interview video conferencing</h5>
+                      <p class="mb-0">We deliver a video conferencing platform where a candidate and a hiring manager speak in real-time</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire</span>
+                      <!--p class="mb-0 fw-bold text-1000">Guarantee HR`s customer</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Payroll system</h5>
+                      <p class="mb-0">Our technology platform makes it easy to manage and pay teams anytime, anywhere.</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Payroll</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Employee scoring</h5>
+                      <p class="mb-0">Score employees by factors that drive success in each unique role, by only measuring what matters to you</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire and Onboarding</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination" id="pagination1"></div>
+          </div>
+            <div class="row justify-content-center text-center col-6 offset-3">
+                <p class="fs-md-1 mt-4">If you want to build a great company, start with your own people. This approach is a win for your business.
+                  It’s a win for your employees. And, it’s a win for your people team.
+              </p>
+
+            </div>
+        </div>
+      </section>
+
+ {% endblock %}
+
+
+
+{% block javascript %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<script>
+
+
+    var eCalendar = function (options, object) {
+        // Initializing global variables
+        var adDay = new Date().getDate();
+        var adMonth = new Date().getMonth();
+        var adYear = new Date().getFullYear();
+        var dDay = adDay;
+        var dMonth = adMonth;
+        var dYear = adYear;
+        var instance = object;
+
+        var settings = $.extend({}, $.fn.eCalendar.defaults, options);
+
+
+
+        function lpad(value, length, pad) {
+            if (typeof pad == 'undefined') {
+                pad = '0';
+            }
+            var p;
+            for (var i = 0; i < length; i++) {
+                p += pad;
+            }
+            return (p + value).slice(-length);
+        }
+
+        var mouseOver = function () {
+            $(this).addClass('c-nav-btn-over');
+        };
+        var mouseLeave = function () {
+            $(this).removeClass('c-nav-btn-over');
+        };
+        var mouseOverEvent = function () {
+            $(this).addClass('c-event-over');
+            var d = $(this).attr('data-event-day');
+            $('div.c-event-item[data-event-day="' + d + '"]').addClass('c-event-over');
+            alert("OK");
+        };
+        var mouseLeaveEvent = function () {
+            $(this).removeClass('c-event-over');
+            var d = $(this).attr('data-event-day');
+            $('div.c-event-item[data-event-day="' + d + '"]').removeClass('c-event-over');
+        };
+        var mouseOverItem = function () {
+            $(this).addClass('c-event-over');
+            var d = $(this).attr('data-event-day');
+            $('div.c-event[data-event-day="' + d + '"]').addClass('c-event-over');
+        };
+        var mouseLeaveItem = function () {
+            $(this).removeClass('c-event-over');
+            var d = $(this).attr('data-event-day');
+            $('div.c-event[data-event-day="' + d + '"]').removeClass('c-event-over');
+        };
+        var nextMonth = function () {
+            if (dMonth < 11) {
+                dMonth++;
+            } else {
+                dMonth = 0;
+                dYear++;
+            }
+            print();
+        };
+        var previousMonth = function () {
+            if (dMonth > 0) {
+                dMonth--;
+            } else {
+                dMonth = 11;
+                dYear--;
+            }
+            print();
+        };
+
+        function loadEvents() {
+            if (typeof settings.url != 'undefined' && settings.url != '') {
+                $.ajax({url: settings.url,
+                    async: false,
+                    success: function (result) {
+                        settings.events = result;
+                        alert(result)
+                    }
+                });
+            }
+        }
+
+        function print() {
+
+            loadEvents();
+            var dWeekDayOfMonthStart = new Date(dYear, dMonth, 1).getDay() - settings.firstDayOfWeek;
+            if (dWeekDayOfMonthStart < 0) {
+                dWeekDayOfMonthStart = 6 - ((dWeekDayOfMonthStart + 1) * -1);
+            }
+            var dLastDayOfMonth = new Date(dYear, dMonth + 1, 0).getDate();
+            var dLastDayOfPreviousMonth = new Date(dYear, dMonth + 1, 0).getDate() - dWeekDayOfMonthStart + 1;
+
+            var cBody = $('<div/>').addClass('c-grid');
+            var cEvents = $('<div/>').addClass('c-event-grid');
+            var cEventsBody = $('<div/>').addClass('c-event-body');
+            cEvents.append($('<div/>').addClass('c-event-title c-pad-top').html(settings.eventTitle));
+            cEvents.append(cEventsBody);
+            var cNext = $('<div/>').addClass('c-next c-grid-title c-pad-top');
+            var cMonth = $('<div/>').addClass('c-month c-grid-title c-pad-top');
+            var cPrevious = $('<div/>').addClass('c-previous c-grid-title c-pad-top');
+            cPrevious.html(settings.textArrows.previous);
+            cMonth.html(settings.months[dMonth] + ' ' + dYear);
+            cNext.html(settings.textArrows.next);
+
+            cPrevious.on('mouseover', mouseOver).on('mouseleave', mouseLeave).on('click', previousMonth);
+            cNext.on('mouseover', mouseOver).on('mouseleave', mouseLeave).on('click', nextMonth);
+
+            cBody.append(cPrevious);
+            cBody.append(cMonth);
+            cBody.append(cNext);
+            var dayOfWeek = settings.firstDayOfWeek;
+            for (var i = 0; i < 7; i++) {
+                if (dayOfWeek > 6) {
+                    dayOfWeek = 0;
+                }
+                var cWeekDay = $('<div/>').addClass('c-week-day c-pad-top');
+                cWeekDay.html(settings.weekDays[dayOfWeek]);
+                cBody.append(cWeekDay);
+                dayOfWeek++;
+            }
+            var day = 1;
+            var dayOfNextMonth = 1;
+            for (var i = 0; i < 42; i++) {
+                var cDay = $('<div/>');
+                if (i < dWeekDayOfMonthStart) {
+                    cDay.addClass('c-day-previous-month c-pad-top');
+                    cDay.html(dLastDayOfPreviousMonth++);
+                } else if (day <= dLastDayOfMonth) {
+                    cDay.addClass('c-day c-pad-top');
+                    if (day == dDay && adMonth == dMonth && adYear == dYear) {
+                        cDay.addClass('c-today');
+                    }
+                    for (var j = 0; j < settings.events.length; j++) {
+                        var d = settings.events[j].datetime;
+                        if (d.getDate() == day && d.getMonth() == dMonth && d.getFullYear() == dYear) {
+                            cDay.addClass('c-event').attr('data-event-day', d.getDate());
+                            //cDay.on('mouseover', mouseOverEvent).on('mouseleave', mouseLeaveEvent);
+
+                            cDay.on( "click" , () => dayEvents(d.getDate(), d.getMonth(), d.getFullYear()));//Нажатие на дату!
+                        }
+                    }
+                    cDay.html(day++);
+                } else {
+                    cDay.addClass('c-day-next-month c-pad-top');
+                    cDay.html(dayOfNextMonth++);
+                }
+                cBody.append(cDay);
+            }
+
+
+            //Показать события в правом блоке
+
+            var eventList = $('<div/>').addClass('c-event-list');
+
+            for (var i = 0; i < settings.events.length; i++) {
+                var d = settings.events[i].datetime;
+                if (d.getDate() == dDay+1 && d.getMonth() == dMonth && d.getFullYear() == dYear) {
+                    var date = lpad(d.getDate(), 2) + '/' + lpad(d.getMonth() + 1, 2) + ' ' + lpad(d.getHours(), 2) + ':' + lpad(d.getMinutes(), 2);
+                    var item = $('<div/>').addClass('c-event-item');
+                    var title = $('<div/>').addClass('title').html(date + '  ' + settings.events[i].title + '<br/>');
+                    var description = $('<div/>').addClass('description').html(settings.events[i].description + '<br/>');
+                    item.attr('data-event-day', d.getDate());
+                    item.on('mouseover', mouseOverItem).on('mouseleave', mouseLeaveItem);
+                    //item.on( "click" , () => alert('Спасибо!')); НАЖАТИЕ НА DESCRIPTION!
+                    item.append(title).append(description);
+
+                    // Add the url to the description if is set
+                    if( settings.events[i].url !== undefined )
+                    {
+                        /**
+                         * If the setting url_blank is set and is true, the target of the url
+                         * will be "_blank"
+                         */
+
+                        type_url = settings.events[i].url_blank !== undefined &&
+                                   settings.events[i].url_blank === true ?
+                                   '_blank':'';
+                        description.wrap( '<a href="'+ settings.events[i].url +'" target="'+type_url+'" ></a>' );
+                    }
+
+                    eventList.append(item);
+                }
+            }
+            $(instance).addClass('calendar');
+            cEventsBody.append(eventList);
+            $(instance).html(cBody).append(cEvents);
+
+
+            function dayEvents(day, month, year) {
+                alert(day);
+                 eventList.remove();
+
+                 eventList = $('<div/>').addClass('c-event-list');
+                 for (var i = 0; i < settings.events.length; i++) {
+                    var d = settings.events[i].datetime;
+                    if (d.getDate() == day && d.getMonth() == month && d.getFullYear() == year) {
+                        var date = lpad(d.getDate(), 2) + '/' + lpad(d.getMonth() + 1, 2) + ' ' + lpad(d.getHours(), 2) + ':' + lpad(d.getMinutes(), 2);
+                        var item = $('<div/>').addClass('c-event-item');
+                        var title = $('<div/>').addClass('title').html(date + '  ' + settings.events[i].title + '<br/>');
+                        var description = $('<div/>').addClass('description').html(settings.events[i].description + '<br/>');
+                        item.attr('data-event-day', d.getDate());
+                        item.on('mouseover', mouseOverItem).on('mouseleave', mouseLeaveItem);
+                        //item.on( "click" , () => alert('Спасибо!')); НАЖАТИЕ НА DESCRIPTION!
+                        item.append(title).append(description);
+
+                        // Add the url to the description if is set
+                        if( settings.events[i].url !== undefined )
+                        {
+                            /**
+                             * If the setting url_blank is set and is true, the target of the url
+                             * will be "_blank"
+                             */
+
+                            type_url = settings.events[i].url_blank !== undefined &&
+                                       settings.events[i].url_blank === true ?
+                                       '_blank':'';
+                            description.wrap( '<a href="'+ settings.events[i].url +'" target="'+type_url+'" ></a>' );
+                        }
+
+                    eventList.append(item);
+                }
+            }
+                 cEventsBody.append(eventList);
+
+
+
+
+            }
+
+        }
+
+        return print();
+    };
+
+    $.fn.eCalendar = function (oInit) {
+        return this.each(function () {
+            return eCalendar(oInit, $(this));
+        });
+    };
+
+    // plugin defaults
+    $.fn.eCalendar.defaults = {
+        weekDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        textArrows: {previous: '<', next: '>'},
+        eventTitle: 'Events',
+        url: '',
+        events: [
+            {title: 'Evento de Abertura', description: 'Abertura das Olimpíadas Rio 2016', datetime: new Date(2019, new Date().getMonth(), 12, 17)},
+            {title: 'Tênis de Mesa', description: 'BRA x ARG - Semifinal', datetime: new Date(2019, new Date().getMonth(), 23, 16)},
+            {title: 'Ginástica Olímpica', description: 'Classificatórias de equipes', datetime: new Date(2022, new Date().getMonth(), 31, 16)}
+        ],
+        firstDayOfWeek: 1
+    };
+
+
+//Функция обработки нажатия на дату на календаре
+    function show_events_by_day(day, month, year) {
+
+
+        var events = [];
+
+        $.ajax({
+        type: 'GET',
+        url: "{% url 'get_slots' responsible_manager_id=meeting.responsible_manager.user.id %}",
+        async: false,
+        success: function(response){
+            const results = response.slots;
+            var slots =  response.slots;
+            console.log(slots);
+
+
+            for (var i = 0; i < 14; i++){
+                var currentDate = new Date();
+                currentDate.setDate(currentDate.getDate()+i);
+
+                slots.forEach(function (slot) {
+                if (currentDate.getDay() === 1 && slot.day === 'monday' && slot.is_active === true){
+                    events.push(
+                                {
+                                    title: 'Interview',
+                                    description: 'select:' + slot.time,
+                                    datetime: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), convertTime12To24(slot.time)),
+                                    url: "https://www.google.com",
+                                    url_blank: false
+                                });
+                }
+            });
+            }
+
+
+            },
+        error: function(error){
+            console.log(error)
+        }
+    });
+
+
+
+
+        $('#calendar').eCalendar({
+
+        weekDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        textArrows: {previous: ' ', next: ' '},
+        eventTitle: 'Free slots',
+        url: '',
+        events: events,
+    });
+
+
+
+    }
+
+
+
+$(document).ready(function () {
+
+    var events = [];
+
+    $.ajax({
+        type: 'GET',
+        url: "{% url 'get_slots' responsible_manager_id=meeting.responsible_manager.user.id %}",
+        async: false,
+        success: function(response){
+            const results = response.slots;
+            var slots =  response.slots;
+            console.log(slots);
+
+
+            for (var i = 0; i < 14; i++){
+                var currentDate = new Date();
+                currentDate.setDate(currentDate.getDate()+i);
+
+                slots.forEach(function (slot) {
+                if (currentDate.getDay() === 1 && slot.day === 'monday' && slot.is_active === true){
+                    events.push(
+                                {
+                                    title: 'Interview',
+                                    description: 'select:' + slot.time,
+                                    datetime: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), convertTime12To24(slot.time)),
+                                    url: "https://www.google.com",
+                                    url_blank: false
+                                });
+                }
+            });
+            }
+
+
+            },
+        error: function(error){
+            console.log(error)
+        }
+    });
+
+
+
+
+    $('#calendar').eCalendar({
+
+        weekDays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        textArrows: {previous: ' ', next: ' '},
+        eventTitle: 'Free slots',
+        url: '',
+        events: events,
+    });
+
+
+
+});
+
+
+
+
+function convertTime12To24(time) {
+    var hours   = Number(time.match(/^(\d+)/)[1]);
+    //var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM    = time.match(/\s(.*)$/)[1];
+    if (AMPM === "PM" && hours < 12) hours = hours + 12;
+    if (AMPM === "AM" && hours === 12) hours = hours - 12;
+    var sHours   = hours.toString();
+    //var sMinutes = minutes.toString();
+    if (hours < 10) sHours = "0" + sHours;
+   // if (minutes < 10) sMinutes = "0" + sMinutes;
+    return (sHours);
+}
+
+
+
+	</script>
+
+{% endblock %}

@@ -28,7 +28,7 @@
               <div class="col-12 col-md-6">
                 <div class="form-group">
                   <label>
-                    Private Project
+                    My Quiz!
                   </label>
                   <p class="form-text text-muted text-xs ms-1">
                     If you are available for hire outside of the current situation, you can encourage others to hire you.
@@ -43,23 +43,23 @@
 
 
 
+        <div class="row">
+            <div class="col">
+                {{ obj }}
+                <b>{{obj.title}}</b>
+            </div>
+            <div class="col text-right" id="timer-box"></div>
+        </div>
 
-<div class="row">
-    <div class="col">
-        <b>{{obj.title}}</b>
-    </div>
-    <div class="col text-right" id="timer-box"></div>
-</div>
+        <a href="{% url 'test_library' %}" class="btn btn-danger">go back</a>
 
-<a href="{% url 'quiz' %}" class="btn btn-danger">go back</a>
-
-<form id="quiz-form" class="mt-3 mb-3">
-    {% csrf_token %}
-    <div id="quiz-box"></div>
-    <button type="submit" class="btn btn-primary mt-3">save</button>
-</form>
-<div id="score-box"></div>
-<div id="result-box"></div>
+        <form id="quiz-form" class="mt-3 mb-3">
+            {% csrf_token %}
+            <div id="quiz-box"></div>
+            <button type="submit" class="btn btn-primary mt-3">save</button>
+        </form>
+        <div id="score-box"></div>
+        <div id="result-box"></div>
 
 
 
@@ -82,6 +82,69 @@
 <script  src="{% static  'js/plugins/choices.min.js' %}"></script>
 <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
 <script  src="{% static  'js/plugins/flatpickr.min.js' %}"></script>
+
+
+<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+<script>
+require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }});
+window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+
+let proxy = URL.createObjectURL(new Blob([`
+	self.MonacoEnvironment = {
+		baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+	};
+	importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+`], { type: 'text/javascript' }));
+
+require(["vs/editor/editor.main"], function () {
+	let editor = monaco.editor.create(document.getElementById('container'), {
+		value: [
+			'#include <iostream>',
+            'using namespace std;',
+			'\tint main(){',
+			'string h = "";',
+            'cin >> h;',
+            'cout << h;',
+            'return 0;',
+            '}'
+		].join('\n'),
+		language: 'cpp',
+		theme: 'vs-dark'
+	});
+});
+
+
+
+function save() {
+   // get the value of the data
+   var value = monaco.editor.getModels()[0].getValue();
+   Compile(value);
+}
+
+
+ function Compile(code) {
+
+            myVar = JSON.stringify({compiler: "gcc-head", "code":code, "stdin": "HELLO", "options": "warning,gnu++1y", "compiler-option-raw": "-Dx=hogefuga\n-O3" });
+            jQuery.ajax({
+                url:     "https://wandbox.org/api/compile.json", //Адрес подгружаемой страницы
+                type:     "POST", //Тип запроса
+                dataType: "json", //Тип данных
+                data: myVar,
+                compiler:"gcc-head",
+                success: function(response) { //Если все нормально
+                    alert(response.compiler_message);
+                    alert(response.program_message);
+                },
+                error: function(response) { //Если ошибка
+                    //document.getElementById(result_id).innerHTML = "<div class=\"alert alert-danger\">Ошибка при отправке формы</div>"
+                    alert("bye");
+                }
+            });
+
+        }
+    </script>
+
+
 
 
 
@@ -115,8 +178,6 @@
     </script>
 
 
-
-
 <script>
 
 const url = window.location.href;
@@ -127,15 +188,21 @@ const resultBox = document.getElementById('result-box');
 
 $.ajax({
     type: 'GET',
-    url: `${url}data`,
+    url: '{% url 'quiz-data-view' pk=obj.pk %}',
     success: function(response){
         const data = response.data;
-        data.forEach(el => {
-            console.log(el);
-            for (const [question, answers] of Object.entries(el)){
-                console.log(question);
-                console.log(answers);
-                quizBox.innerHTML += '<hr>' +
+
+
+         data.forEach(el => {
+             question = el.question;
+             answers = el.answers;
+             if (el.type === 'cpp'){
+                 quizBox.innerHTML += '<b>' + question + '</b></div>' +
+                     '<div id="container" style="width: 500px; height: 500px;"></div>' +
+                    '<button onclick="save()">Save</button>'
+             }
+             else {
+             quizBox.innerHTML += '<hr>' +
                     '<div class="mb-2">' +
                     '<b>' + question + '</b></div>';
                 answers.forEach(answer=>{
@@ -144,8 +211,11 @@ $.ajax({
                         '<label for="' + question + '">' + answer + '</label>' +
                         '</div>'
                 })
-            }
-        });
+             }
+         });
+
+
+
     },
     error: function(error){
         console.log(error)
@@ -169,6 +239,7 @@ const sendData = () => {
         }
     });
 
+
     $.ajax({
         type: 'POST',
         url: `${url}save/`,
@@ -179,6 +250,8 @@ const sendData = () => {
             quizForm.classList.add('not-visible');
 
             scoreBox.innerHTML = `${response.passed ? 'Congratulations! ' : 'Ups..:( '}Your result is ${response.score.toFixed(2)}%`
+
+            alert("OK");
 
             results.forEach(res=>{
                 const resDiv = document.createElement("div");

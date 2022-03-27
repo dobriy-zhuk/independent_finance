@@ -1,0 +1,311 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+ {% block content %}
+
+<div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <!-- Card header -->
+            <div class="card-header pb-0">
+              <div class="d-lg-flex">
+                <div>
+                  <h5 class="mb-0">All applicants</h5>
+                  <p class="text-sm mb-0">
+                    A lightweight, extendable, dependency-free javascript HTML table plugin.
+                  </p>
+                </div>
+                <div class="ms-auto my-auto mt-lg-0 mt-4">
+                  <div class="ms-auto my-auto">
+                    <a href="{% url 'new_staff' %}" class="btn bg-gradient-primary btn-sm mb-0" target="_blank">+&nbsp; Add Applicant</a>
+                    <button type="button" class="btn btn-outline-primary btn-sm mb-0" data-bs-toggle="modal" data-bs-target="#import">
+                      Import
+                    </button>
+                    <div class="modal fade" id="import" tabindex="-1" aria-hidden="true" style="display: none;">
+                      <div class="modal-dialog mt-lg-10">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLabel">Import CSV</h5>
+                            <i class="fas fa-upload ms-3" aria-hidden="true"></i>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>You can browse your computer for a file.</p>
+                            <input type="text" placeholder="Browse file..." class="form-control mb-3" onfocus="focused(this)" onfocusout="defocused(this)">
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="" id="importCheck" checked="">
+                              <label class="custom-control-label" for="importCheck">I accept the terms and conditions</label>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn bg-gradient-primary btn-sm">Upload</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1" data-type="csv" type="button" name="button">Export</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-0 pb-0">
+              <div class="table-responsive">
+                <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                    <div class="dataTable-top">
+                        <div class="dataTable-dropdown">
+                            <label>
+                        <select class="dataTable-selector">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="25">25</option>
+                        </select> entries per page</label>
+                        </div><div class="dataTable-search">
+                        <input name="name_staff" id="name_staff" type="text" value="" oninput="getStaff()">
+                    </div>
+                    </div>
+                    <div class="dataTable-container">
+                        <table class="table table-flush dataTable-table" id="products-list">
+                  <thead class="thead-light">
+                    <tr>
+                        <th data-sortable="" style="width: 37.81362007168459%;">
+                            <a href="#" class="dataTable-sorter">Applicant</a>
+                        </th>
+                        <th data-sortable="" style="width: 10.663082437275985%;">
+                            <a href="#" class="dataTable-sorter">Contacts</a>
+                        </th>
+                        <th data-sortable="" style="width: 8.24372759856631%;">
+                            <a href="#" class="dataTable-sorter">Source</a>
+                        </th>
+                        <th data-sortable="" style="width: 10.75268817204301%;">
+                            <a href="#" class="dataTable-sorter">Job title</a>
+                        </th>
+                        <th data-sortable="" style="width: 8.60215053763441%;">
+                            <a href="#" class="dataTable-sorter">Test</a>
+                        </th>
+                        <th data-sortable="" style="width: 12.186379928315413%;">
+                            <a href="#" class="dataTable-sorter">Send</a>
+                        </th>
+                        <th data-sortable="" style="width: 11.738351254480287%;">
+                            <a href="#" class="dataTable-sorter">Action</a>
+                        </th>
+                    </tr>
+                  </thead>
+                  <tbody id="applicants">
+                  {% for applicant in applicants %}
+                  <tr>
+                      <td>
+                        <div class="d-flex">
+                          <div class="form-check my-auto">
+                            <input class="form-check-input" type="checkbox" id="customCheck1" checked="">
+                          </div>
+                          <img class="w-10 ms-3" src="https://raw.githubusercontent.com/ui-design-system/assets/img/ecommerce/adidas-hoodie.jpg" alt="hoodie">
+                           <a href="{% url 'view_staff' pk=applicant.pk %}"><h6 class="ms-3 my-auto">{{ applicant }}</h6></a>
+                        </div>
+                      </td>
+                      <td class="text-sm">Clothing</td>
+                      <td class="text-sm">$1,321</td>
+                      <td class="text-sm">243598234</td>
+                      <td class="text-sm">0</td><td>
+                        <span class="badge badge-danger badge-sm">Out of Stock</span>
+                      </td>
+                      <td class="text-sm">
+                        <a href="{% url 'view_staff' pk=applicant.pk %}" data-bs-toggle="tooltip" data-bs-original-title="View applicant">
+                          <i class="fas fa-eye text-secondary" aria-hidden="true"></i>
+                        </a>
+                        <a href="{% url 'edit_staff' pk=applicant.pk %}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit applicant">
+                          <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>
+                        </a>
+                        <a href="{% url 'remove_staff' pk=applicant.pk %}" data-bs-toggle="tooltip" data-bs-original-title="Delete applicant">
+                          <i class="fas fa-trash text-secondary" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                  </tr>
+                  {% endfor %}
+                      </tbody>
+
+                </table></div><div class="dataTable-bottom"><div class="dataTable-info">Showing 1 to 7 of 15 entries</div><nav class="dataTable-pagination"><ul class="dataTable-pagination-list"><li class="pager"><a href="#" data-page="1">‹</a></li><li class="active"><a href="#" data-page="1">1</a></li><li class=""><a href="#" data-page="2">2</a></li><li class=""><a href="#" data-page="3">3</a></li><li class="pager"><a href="#" data-page="2">›</a></li></ul></nav></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+ {% endblock %}
+
+{% block fixed_plugin %}
+{% endblock %}
+
+{% block javascript %}
+
+
+
+<script>
+    // maintaining the state of each variable.
+    var current_page = 1; // maintains the current page
+    var page_limit = 10; // the limit of results shown on page.
+    var sort_by = ""; // maintains the select option for sort_by
+    var staff = ""; // maintains the select option for country
+    var start_year = ""; // maintains the select option for start_yr
+    var end_year = ""; // maintains the select option for end_yr
+
+    function get_list_url(page) {
+        // returns the consructed url with query params.
+        return '?page=${page}&limit=${page_limit}&country=${country}&sort_by=${sort_by}&start=${start_year}&end=${end_year}';
+    }
+
+
+    getStaff();
+
+    function getStaff() {
+
+        $.ajax({
+            method: 'GET',
+            data: {'name': document.getElementById("name_staff").value },
+            url: "{% url 'get_staff' pk=job_pk %}",
+            success: function (response) {
+               putTableData(response);
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+
+    }
+
+
+    // On select change of the sort select, call the getAPIData with sortby.
+    $("#sort").on("change", function (e) {
+        current_page = 1;
+        sort_by = this.value
+        getAPIData(get_list_url(current_page));
+    });
+
+    // Helper method that popluates the html table with next and prev
+    // url, and current page number.
+    function putTableData(response) {
+        // creating table row for each response and
+        // pushing to the html content of table body of table_body table
+        let row;
+        $("#applicants").html("");
+        if (response.length > 0) {
+            $.each(response, function (a, b) {
+                var edit_staff_url = "{% url 'edit_staff' pk=1234 %}".replace('1234', b.id.toString());
+                var new_test_url = "{% url 'new_test' pk=1234 %}".replace('1234', b.id.toString());
+                var new_email_url = "{% url 'new_email' pk=1234 %}".replace('1234', b.id.toString());
+                var new_meeting_url = "{% url 'new_meeting' pk=1234 %}".replace('1234', b.id.toString());
+                var remove_staff_url = "{% url 'remove_staff' pk=1234 %}".replace('1234', b.id.toString());
+
+
+
+                row = '<tr>\n' +
+                    '            <td>\n' +
+                    '            <div class="d-flex px-2">\n' +
+                    '              <div>\n' +
+                    '                <img src="https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/logos/small-logos/logo-spotify.svg" class="avatar avatar-sm rounded-circle me-2">\n' +
+                    '              </div>\n' +
+                    '              <div class="my-auto">\n' +
+                    '                  <h6 class="mb-0 text-xs"><a href="' + edit_staff_url + '">' + b.user__first_name + ' ' + b.user__last_name + '</a></h6>\n' +
+                    '              </div>\n' +
+                    '            </div>\n' +
+                    '          </td>\n' +
+                    '            <td>\n' +
+                    '            <span class="badge badge-dot me-4" style="text-align: left">\n' +
+                    '              <i class="bg-info"></i>\n' +
+                    '              <span class="text-dark text-xs">' + b.phone + '</span><br>\n' +
+                    '              <span class="text-dark text-xs"><a href="' + new_email_url + '">' + b.user__email + '</a></span>\n' +
+                    '            </span>\n' +
+                    '          </td>\n' +
+                    '          <td>\n' +
+                    '            <p class="text-xs font-weight-bold mb-0">' + b.job__title__title + '</p>\n' +
+                    '          </td>\n' +
+                    '          <td>\n' +
+                    '            <span class="badge badge-dot me-4">\n' +
+                    '              <i class="bg-info"></i>\n' +
+                    '              <span class="text-dark text-xs"><a href="' + new_test_url + '" class = "button">Send test</a></span>\n' +
+                    '            </span>\n' +
+                    '          </td><td></td>\n' +
+                    '          <td class="align-middle text-center">\n' +
+                    '            <div class="d-flex align-items-center">\n' +
+                    '              <span class="me-2 text-xs">60%</span>\n' +
+                    '              <div>\n' +
+                    '                <div class="progress">\n' +
+                    '                  <div class="progress-bar bg-info" role="progressbar" aria-valuenow="' + b.status__title + '" aria-valuemin="0" aria-valuemax="100" style="width: ' + b.status__title + '%;"></div>\n' +
+                    '                </div>\n' +
+                    '              </div>\n' +
+                    '            </div>\n' +
+                    '          </td>\n' +
+                                '<td class="text-sm">\n' +
+                    '                        <a href="' + new_test_url + '" data-bs-toggle="tooltip" data-bs-original-title="View applicant">\n' +
+                    '                          <i class="fas fa-eye text-secondary" aria-hidden="true"></i>\n' +
+                    '                        </a>\n' +
+                    '                        <a href="' +  edit_staff_url + '" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit applicant">\n' +
+                    '                          <i class="fas fa-user-edit text-secondary" aria-hidden="true"></i>\n' +
+                    '                        </a>\n' +
+                    '                        <a href="'+ remove_staff_url + '" data-bs-toggle="tooltip" data-bs-original-title="Delete applicant">\n' +
+                    '                          <i class="fas fa-trash text-secondary" aria-hidden="true"></i>\n' +
+                    '                        </a>\n' +
+                    '                      </td>' +
+                    '        </tr>';
+
+                    $("#applicants").append(row);
+            });
+        }
+        else{
+            // if there is no results found!
+           $("#applicants").html("No results found.");
+        }
+        //if (response.pagination.has_prev) {
+            // sets the previous page url.
+          //  $("#previous").attr("data-url", get_list_url(current_page - 1));
+          //  $("#previous").attr("disabled", false);
+        //} else {
+            // if there is no prev page available, disable the btn.
+       //     $("#previous").attr("disabled", true);
+       // }
+        //if (response.pagination.has_next) {
+            // sets the next page url.
+     //       $("#next").attr("data-url", get_list_url(current_page + 1));
+      //      $("#next").attr("disabled", false);
+     //   } else {
+            // if there is no next page available, disable the btn.
+      //      $("#next").attr("disabled", true)
+       // }
+    }
+
+    // On click of next/prev button, call the getAPIData with the given url.
+    $(".page-link").click(function (e) {
+        e.preventDefault();
+        let url = $(this).attr("data-url");
+        getAPIData(url);
+    });
+
+    // Main method which calls AJAX to get the data from backend.
+    function getAPIData(url) {
+        $.ajax({
+            method: 'GET',
+            url: url,
+            success: function (response) {
+                current_page = parseInt(response.pagination.page)
+                putTableData(response);
+                // put the total result count.
+                $("#result-count span").html(response.pagination.total)
+                $("#page-count span").html(response.pagination.page)
+            },
+            error: function (response) {
+                $("#hero_table").hide();
+            }
+        });
+    }
+
+    //on page load, call this two methods.
+    //getAPIData(get_list_url(current_page));
+    //getStaff()
+</script>
+
+
+
+{% endblock javascript %}

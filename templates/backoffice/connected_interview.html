@@ -1,0 +1,139 @@
+{% extends 'base/backoffice_landing.html' %}
+{% load static %}
+
+
+ {% block content %}
+  <main class="main-content  mt-0">
+    <section>
+      <div class="page-header">
+        <div class="container pt-5">
+          <div class="row">
+          <div class="col-md-3 pt-5">
+              <h1>Task</h1>
+          </div>
+          <div class="col-md-6 pt-5">
+              <div class="top-10 h-100 d-md-block d-none me-n8">
+                    <div id="container" style="width: 600px; height: 500px;"></div>
+                 </div>
+
+            </div>
+            <div class="col-md-3 pt-5">
+
+
+                <script src='https://meet.jit.si/external_api.js'></script>
+
+                    <div id="meet"></div>
+
+                    <script>
+                        const domain = 'meet.jit.si/guaranteehr';
+                    const options = {
+                        roomName: 'hello',
+                        width: 300,
+                        height: 200,
+                        parentNode: document.querySelector('#meet1'),
+
+                        configOverwrite: {},
+                        interfaceConfigOverwrite: {}
+                            };
+                    const api = new JitsiMeetExternalAPI(domain, options);
+                    </script>
+
+
+            </div>
+          </div>
+          </div>
+        </div>
+
+    </section>
+  </main>
+    {% endblock %}
+
+{% block fixed_plugin %}
+{% endblock %}
+
+
+{% block javascript %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+<script>
+
+
+require.config({ paths: { 'vs': 'https://unpkg.com/monaco-editor@latest/min/vs' }});
+window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+
+let proxy = URL.createObjectURL(new Blob([`
+	self.MonacoEnvironment = {
+		baseUrl: 'https://unpkg.com/monaco-editor@latest/min/'
+	};
+	importScripts('https://unpkg.com/monaco-editor@latest/min/vs/base/worker/workerMain.js');
+`], { type: 'text/javascript' }));
+
+require(["vs/editor/editor.main"], function () {
+	let editor = monaco.editor.create(document.getElementById('container'), {
+		value: [
+			'#include <iostream>',
+            'using namespace std;',
+			'\tint main(){',
+			'string h = "";',
+            'cin >> h;',
+            'cout << h;',
+            'return 0;',
+            '}'
+		].join('\n'),
+		language: 'cpp',
+		theme: 'vs-dark'
+	});
+	editor.getModel().onDidChangeContent((event) => {
+	    myVar = JSON.stringify({content: editor.getValue().toString() });
+	    console.log(myVar);
+	    $.ajax({
+            type: 'GET',
+            data: {'content': editor.getValue() },
+            dataType: "json", //Тип данных
+            url: "{% url 'api_save_content' %}",
+            success: function (response) {
+
+            },
+            error: function (response) {
+                console.log(response)
+            }
+        });
+
+
+        });
+});
+
+
+
+
+function save() {
+   // get the value of the data
+   var value = monaco.editor.getModels()[0].getValue();
+   Compile(value);
+}
+
+
+ function Compile(code) {
+
+            myVar = JSON.stringify({compiler: "gcc-head", "code":code, "stdin": "HELLO", "options": "warning,gnu++1y", "compiler-option-raw": "-Dx=hogefuga\n-O3" });
+            jQuery.ajax({
+                url:     "https://wandbox.org/api/compile.json", //Адрес подгружаемой страницы
+                type:     "POST", //Тип запроса
+                dataType: "json", //Тип данных
+                data: myVar,
+                compiler:"gcc-head",
+                success: function(response) { //Если все нормально
+                    alert(response.compiler_message);
+                    alert(response.program_message);
+                },
+                error: function(response) { //Если ошибка
+                    //document.getElementById(result_id).innerHTML = "<div class=\"alert alert-danger\">Ошибка при отправке формы</div>"
+                    alert("bye");
+                }
+            });
+
+        }
+
+
+    </script>
+{% endblock %}

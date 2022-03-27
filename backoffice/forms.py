@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ClearableFileInput
-from .models import Staff, Course, Manager, Company, Country, Currency, Subscription, User, JobTitle, StaffStatus, Meeting, Quiz, EmailMessage
+from .models import Staff, Course, Manager, Company, Country, Currency, Subscription, User, Job, StaffStatus, Meeting, Quiz, EmailMessage
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -92,7 +92,7 @@ class CourseForm(forms.ModelForm):
     )
 
     job_title = forms.ModelMultipleChoiceField(
-        queryset=JobTitle.objects.all(),
+        queryset=Job.objects.all(),
         help_text='Applied for',
         widget=forms.SelectMultiple(attrs={'class': 'form-control', 'id': "choices-multiple-remove-button", 'name': "choices-multiple-remove-button"}),
         required=False
@@ -122,6 +122,23 @@ class CourseForm(forms.ModelForm):
         fields = ['title', 'body', 'job_title', 'date_added', 'files', 'comment']
 
 
+class JobForm(forms.ModelForm):
+    title = forms.CharField(help_text='Job Title', widget=forms.TextInput(attrs={'class': 'form-control'}))
+    description = forms.CharField(
+        help_text='Job Description',
+    )
+    responsible_manager = forms.ModelChoiceField(
+        queryset=Manager.objects.all(),
+        help_text='Manager',
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        required=True
+    )
+
+    class Meta:
+        model = Job
+        fields = ['title', 'description', 'responsible_manager']
+
+
 class StaffForm(forms.ModelForm):
     email = forms.EmailField(
         help_text='Email',
@@ -139,7 +156,7 @@ class StaffForm(forms.ModelForm):
                                        'placeholder': 'Last Name'}))
 
     job_title = forms.ModelMultipleChoiceField(
-        queryset=JobTitle.objects.all(),
+        queryset=Job.objects.all(),
         help_text='Job Title',
         widget=forms.SelectMultiple(attrs={'class': 'form-control', 'id': "choices-multiple-remove-button",
                                            'name': "choices-multiple-remove-button"}),
@@ -271,28 +288,22 @@ class MeetingForm(forms.ModelForm):
         required=False
     )
 
-    applicants = forms.ModelMultipleChoiceField(
+    applicant = forms.ModelChoiceField(
         queryset=Staff.objects.all(),
         help_text='Applicants',
-        widget=forms.SelectMultiple(attrs={'class': 'form-control', 'id': "choices-multiple-applicants-button",
+        widget=forms.Select(attrs={'class': 'form-control', 'id': "choices-multiple-applicants-button",
                                            'name': "choices-multiple-applicants-button"}),
         required=True
     )
 
     meeting_time = forms.DateTimeField(
-        help_text='Meeting DateTime',
-        widget=forms.DateTimeInput(format='%Y-%m-%d', attrs={'class': 'form-control datetimepicker',
+        widget=forms.DateTimeInput(format='%Y-%m-%d', attrs={'class': 'form-control datetimepicker', 'display': 'none;',
                                       'placeholder': "Meeting datetime"}),
-        required=True
+        required=False
     )
 
-    link = forms.CharField(help_text='Link',
-                           widget=forms.TextInput(attrs={'class': 'form-control'}),
-                           required=False
-                           )
-
     questions = forms.ModelChoiceField(
-        queryset=Quiz.objects.all(),
+        queryset=Quiz.objects.filter(status='interview'),
         help_text='Select Interview Question',
         widget=forms.Select(attrs={'class': 'form-control'}),
         required=False
@@ -300,7 +311,7 @@ class MeetingForm(forms.ModelForm):
 
     class Meta:
         model = Meeting
-        fields = ['title', 'company', 'responsible_manager', 'meeting_time', 'link', 'questions']
+        fields = ['title','company', 'responsible_manager', 'meeting_time', 'questions', 'applicant']
 
 
 
@@ -341,4 +352,4 @@ class QuizForm(forms.ModelForm):
 
     class Meta:
         model = Quiz
-        fields = ['title', 'description', 'applied_for', 'number_of_questions']
+        fields = ['title', 'description', 'applied_for']

@@ -4,11 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from .models import Staff, Subscription, Manager, Course, Company, Meeting, Quiz, EmailTemplate
-from .forms import CourseForm, CompanyForm, ManagerForm, LoginForm, RegisterForm, StaffForm, MeetingForm, QuizForm, ChangePasswordForm, ResetPasswordForm, EmailForm
+from .models import Staff, Subscription, Manager, Course, Company, Meeting, Quiz, EmailTemplate, Job, ApplicantContent, InterviewSlot
+from survey.models import Marks_Of_User
+from .forms import CourseForm, CompanyForm, ManagerForm, LoginForm, RegisterForm, StaffForm, MeetingForm, QuizForm, ChangePasswordForm, ResetPasswordForm, EmailForm, JobForm
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.contrib import messages
@@ -24,6 +25,10 @@ from django.template.loader import get_template
 from django.template import Template, Context
 from .tasks import send_email_with_delay
 from django.forms.models import inlineformset_factory
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import datetime
+from django.utils import timezone
 
 
 #Функция для отправки емайлов
@@ -44,18 +49,44 @@ def send_email_with_template(title, to, body):
 @login_required(login_url='signin')
 def backoffice(request):
 
+    company = Company.objects.filter(responsible_manager__user=request.user).first()
+    info_need = True
+    if company.phone or company.email or company.comment:
+        info_need = False
+
+    applicants = Staff.objects.all().order_by('user')
+
+    return render(request, 'backoffice/backoffice.html', {'applicants': applicants, 'company': company, 'info_need': info_need})
+
+
+@login_required(login_url='signin')
+def jobs(request):
+
     page_limit = 10
     search_query = request.GET.get('q')
 
     #all_applicants = None
     if search_query:
-        all_applicants = Staff.objects.filter(Q(user__name__iexact=search_query) | Q(phone=search_query)).order_by('user')
+        jobs = Job.objects.filter(Q(user__name__iexact=search_query) | Q(phone=search_query)).order_by('user')
     else:
-        all_applicants = Staff.objects.all().order_by('user')
+        jobs = Job.objects.all()
+
+    return render(request, 'backoffice/jobs.html', {'jobs': jobs,})
 
 
+@login_required(login_url='signin')
+def show_staff(request, job_pk):
 
-    return render(request, 'backoffice/hire.html', {'applicants': all_applicants,})
+    page_limit = 10
+    search_query = request.GET.get('q')
+
+    #all_applicants = None
+    if search_query:
+        applicants = Staff.objects.filter(Q(job_title=job_pk)&(Q(user__name__iexact=search_query) | Q(phone=search_query))).order_by('user')
+    else:
+        applicants = Staff.objects.filter(job_title=job_pk)
+
+    return render(request, 'backoffice/applicants.html', {'applicants': applicants, 'job_pk': job_pk})
 
 
 def getStaffList(View):
@@ -132,7 +163,7 @@ def getStaffList(View):
         return JsonResponse(to_return, status=200)
 
 
-def getStaff(request):
+def getStaff(request, pk):
     # get Staff from the database
     # excluding null and blank values
     if request.method == "GET" and request.is_ajax():
@@ -141,24 +172,28 @@ def getStaff(request):
         sort_by = request.GET.get('sort_by')
 
         '''filter the queryset object based on query params'''
-        # 1. on basis of country
         if name:
             queryset = Staff.objects.values('user__first_name', 'user__last_name', 'job_title', 'user__email', 'phone',
-                                            'status', 'id').filter(Q(user__first_name__contains=name) | Q(user__last_name__contains=name) | Q(phone=name))
+                                            'status', 'id').filter(Q(job_title=pk)&(Q(user__first_name__contains=name) | Q(user__last_name__contains=name) | Q(phone=name)))
         else:
-            queryset = Staff.objects.values('user__first_name', 'user__last_name', 'job_title__title', 'user__email', 'phone', 'status__title', 'id')
+            queryset = Staff.objects.values('user__first_name', 'user__last_name', 'job_title__title', 'user__email', 'phone', 'status__title', 'id').filter(Q(job_title=pk))
 
         return JsonResponse(list(queryset), safe=False)
 
-@login_required(login_url='signin')
-def team(request):
-    return render(request, 'backoffice/team.html', {})
-
 
 @login_required(login_url='signin')
-def new_email(request, pk):
+def interview(request):
+    meetings = Meeting.objects.all().order_by('meeting_time')[:5]
 
-    template_email = EmailTemplate.objects.filter(pk=pk).first()
+    context = {'meetings': meetings}
+
+    return render(request, 'backoffice/interview.html', context)
+
+
+@login_required(login_url='signin')
+def new_email(request, applicant_pk):
+
+    template_email = EmailTemplate.objects.filter(pk=applicant_pk).first()
 
     if request.method == "POST":
         email_form = EmailForm(request.POST)
@@ -173,22 +208,49 @@ def new_email(request, pk):
             send_email_with_delay.apply_async((email_form.cleaned_data['header'], to, email_form.cleaned_data['body']), eta=sending_time)
     else:
         email_form = EmailForm()
-
     return render(request, 'backoffice/new_email.html', {"email_form": email_form, 'template': template_email.template})
 
 
-# TODO: set current user for form and check form! Set paid date etc!
-def new_company(request):
+@login_required(login_url='signin')
+def send_email(request, template_name, applicant_pk):
+
+    template_email = EmailTemplate.objects.filter(name=template_name).first()
+
     if request.method == "POST":
-        company_form = CompanyForm(request.POST)
+        email_form = EmailForm(request.POST)
+        sending_time = request.POST["sending_time"]
+        if email_form.is_valid():
+            email_form.save()
+            to = []
+            for applicant in email_form.cleaned_data['receivers']:
+                #to.append(applicant.user.email
+                if sending_time:
+                    send_email_with_delay.apply_async((email_form.cleaned_data['header'], [applicant.user.email], email_form.cleaned_data['body'], str(applicant.user.first_name), 'responsible_manager'), eta=sending_time)
+                else:
+                    send_email_with_delay(email_form.cleaned_data['header'], [applicant.user.email], email_form.cleaned_data['body'], str(applicant.user.first_name), 'responsible_manager')
+    else:
+        email_form = EmailForm()
+        email_form.initial['receivers'] = get_object_or_404(Staff, pk=applicant_pk)
+
+    return render(request, 'backoffice/send_email.html', {"email_form": email_form, 'template': template_email.template})
+
+
+# TODO: set current user for form and check form! Set paid date etc!
+def edit_company(request, pk):
+    company = get_object_or_404(Company, pk=pk)
+
+    if request.method == "POST":
+        company_form = CompanyForm(request.POST, instance=company)
         if company_form.is_valid():
             company = company_form.save(commit=False)
             company.subscription = Subscription.objects.all().first()
             company.responsible_manager = Manager.objects.all().first()
             company.save()
+            return redirect('backoffice')
     else:
-        company_form = CompanyForm()
-    return render(request, 'backoffice/new_company.html', {"company_form": company_form})
+        company_form = CompanyForm(instance=company)
+
+    return render(request, 'backoffice/edit_company.html', {"company_form": company_form})
 
 
 def new_course(request):
@@ -196,10 +258,123 @@ def new_course(request):
         course_form = CourseForm(request.POST)
         if course_form.is_valid():
             course_form.save()
+            return redirect('learning_management')
     else:
         course_form = CourseForm()
 
     return render(request, 'backoffice/new_course.html', {"course_form": course_form})
+
+
+@login_required(login_url='signin')
+def view_course(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+
+    return render(request, "landing/course.html", {"course": course })
+
+
+@login_required(login_url='signin')
+def edit_course(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+
+    if request.method == "POST":
+        course_form = CourseForm(request.POST, instance=course)
+
+        if course_form.is_valid():
+            course_form.save()
+
+        return redirect("learning_management")
+
+    else:
+        course_form = CourseForm(instance=course)
+
+    return render(request, "backoffice/edit_course.html", {"course_form": course_form })
+
+
+@login_required
+def remove_course(request, pk):
+    try:
+        course = get_object_or_404(Course, pk=pk)
+        course.delete()
+    except Course.DoesNotExist:
+        #messages.error(request, "User doesnot exist")
+        #return render(request, 'front.html')
+        return redirect('backoffice')
+
+    except Exception as e:
+        return redirect('backoffice', {'err':e.message})
+
+    return redirect('learning_management')
+
+
+def new_job(request):
+    if request.method == "POST":
+        job_form = JobForm(request.POST)
+        if job_form.is_valid():
+            job_form.save()
+            return redirect('show_jobs')
+    else:
+        job_form = JobForm()
+
+    return render(request, 'backoffice/new_job.html', {"job_form": job_form})
+
+
+@login_required(login_url='signin')
+def edit_job(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+
+    if request.method == "POST":
+        job_form = JobForm(request.POST, instance=job)
+
+        if job_form.is_valid():
+            job_form.save()
+
+        return redirect("show_jobs")
+
+    else:
+        job_form = JobForm(instance=job)
+
+    return render(request, "backoffice/edit_job.html", {"job_form": job_form })
+
+
+@login_required
+def remove_job(request, pk):
+    try:
+        job = get_object_or_404(Job, pk=pk)
+        job.delete()
+    except Job.DoesNotExist:
+        #messages.error(request, "User doesnot exist")
+        #return render(request, 'front.html')
+        return redirect('backoffice')
+
+    except Exception as e:
+        return redirect('backoffice', {'err':e.message})
+
+    return redirect('show_jobs')
+
+
+@csrf_exempt
+@require_POST
+def new_staff_api(request):
+    staff_form = StaffForm(request.POST)
+    print(request.POST)
+    print(staff_form.errors)
+    if staff_form.is_valid():
+        cd = staff_form.cleaned_data
+        print(cd['job_title'])
+        staff = staff_form.save(commit=False)
+        user = User.objects.create_user(username=cd['email'],
+                                        email=cd['email'],
+                                        password="GuaranteeHR!",
+                                        first_name=cd['first_name'],
+                                        last_name=cd['last_name']
+                                        )
+        user.save()
+        user.refresh_from_db()
+        print(user)
+        staff.user = User.objects.get(email=user.username)
+        staff.save()
+        staff_form.save_m2m()
+    return HttpResponse("OOOKKK")
 
 
 def new_staff(request):
@@ -267,20 +442,166 @@ def edit_staff(request, pk):
     return render(request, "backoffice/edit_staff.html", {"staff_form": staff_form })
 
 
+def view_job(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+    return render(request, 'backoffice/job_description.html', {'job': job})
+
+
+def meeting(request, pk):
+    meeting = get_object_or_404(Meeting, pk=pk)
+    applicant_test = Marks_Of_User.objects.filter(user=meeting.applicant.user)
+    return render(request, 'backoffice/meeting.html', {'meeting': meeting, 'applicant_test': applicant_test})
+
+
+def meeting_test(request, pk):
+    meeting = get_object_or_404(Meeting, pk=pk)
+    applicant_test = Marks_Of_User.objects.filter(user=meeting.applicant.user)
+    return render(request, 'landing/interview.html', {'meeting': meeting, 'applicant_test': applicant_test})
+
+
+def time_interview(request, pk):
+    meeting = get_object_or_404(Meeting, pk=pk)
+    slot = request.GET.get('slot', None)
+    if slot is not None and slot != '':
+        meeting.meeting_time = datetime.datetime.fromisoformat(slot[:-1] + '+00:00').astimezone(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+        meeting.save()
+        messages.success(request, "SUCCESS!")
+
+
+    #applicant_test = Marks_Of_User.objects.filter(user=meeting.applicant.user)
+    return render(request, 'landing/interview_time_selector.html', {'meeting': meeting})
+
+
+def save_slot(request):
+    responsible_manager = Manager.objects.get(user=request.user)
+
+    day, time =request.POST['slot'].split('_')
+    status = True if request.POST.get("status") == "true" else False
+    interview_slot, created = InterviewSlot.objects.get_or_create(responsible_manager=responsible_manager,
+                                                         day=day,
+                                                         time=time)
+    interview_slot.is_active = status
+    interview_slot.save()
+
+    if request.method == 'POST':
+        return JsonResponse({'result': 'ok'}, safe=False)
+
+
+#Обработка слотов и вывод доступных за исключением забронированных на meeting
+def get_interview_slots(request, responsible_manager_id):
+
+    try:
+        responsible_manager = User.objects.get(id=responsible_manager_id)
+
+        result = []
+
+        for i in range(1, 14):
+            date = datetime.datetime.today().date() + datetime.timedelta(days=i)
+            day = date.weekday() + 1
+
+            #Все свободные слоты менеджера
+            time_slots = InterviewSlot.objects.filter(responsible_manager__user=responsible_manager, day=day,
+                                                      is_active=True).values('time').order_by('time')
+
+            slots = []
+            #Проходим по каждому елементу из слота менеджера и сравнивам с его временем встреч
+            for elem in time_slots:
+                elem_time = datetime.datetime.combine(date, timezone.make_aware(elem["time"], timezone.utc))
+
+                if not Meeting.objects.filter(responsible_manager__user=responsible_manager,
+                                              meeting_time=elem_time).exists():
+                    slots.append(elem_time)
+
+            result.append({'date': date, 'day': day, 'slots': slots})
+
+        return JsonResponse({"slots": result}, safe=False)
+
+    except User.DoesNotExist:
+        print("Manager is not exist")
+        return JsonResponse({'result': 'Error: manager is not exist'}, safe=False)
+
+
+def get_manager_slots(request, responsible_manager_id):
+    try:
+        responsible_manager = User.objects.get(id=responsible_manager_id)
+        time_slots = InterviewSlot.objects.filter(responsible_manager__user=responsible_manager).values('day', 'time',
+                                                                                                        'is_active').order_by('day', 'time')
+        for t in time_slots:
+            t["time"] = t["time"].strftime("%I:%M %p")
+            t["end_time"] = datetime.datetime.strptime(t["time"], "%I:%M %p") + datetime.timedelta(hours=1)
+            t["end_time"] = t["end_time"].strftime("%I:%M %p")
+
+        return JsonResponse({"slots": list(time_slots)}, safe=False)
+
+    except User.DoesNotExist:
+        print("Manager is not exist")
+        return JsonResponse({'result': 'Error: manager is not exist'}, safe=False)
+
+"""
+
+{
+date + time: 21 nov 2022 8 am
+link
+
+
+"""
+
+
+def view_staff(request, pk):
+    applicant = get_object_or_404(Staff, pk=pk)
+    tests = Marks_Of_User.objects.filter(user__pk=pk)
+    return render(request, 'backoffice/applicant.html', {'applicant': applicant, 'tests': tests})
+
+
 def profile(request):
     return render(request, 'backoffice/profile.html', {})
 
 
-def taxes(request):
-    return render(request, 'backoffice/billing.html', {})
+def test_library(request):
+    quizes = Quiz.objects.all()
+    context = {'quizes': quizes}
+    return render(request, 'backoffice/test_library.html', context)
+
+
+def get_tests(request):
+    if request.method == "GET" and request.is_ajax():
+        status = request.GET.get('status')
+
+        '''filter the queryset object based on query params'''
+        # 1. on basis of country
+        if status:
+            queryset = Quiz.objects.values('title', 'description', 'id').filter(Q(status=status))
+            print(queryset)
+
+            return JsonResponse(list(queryset), safe=False)
+
+
+def save_content(request):
+    applicant_content = get_object_or_404(ApplicantContent, info=0)
+    applicant_content.text = request.GET.get('content')
+    applicant_content.save()
+    return HttpResponse("so")
+
+
+def get_content(request):
+    if request.method == "GET" and request.is_ajax():
+        status = request.GET.get('status')
+
+        '''filter the queryset object based on query params'''
+        # 1. on basis of country
+        if status:
+            queryset = Quiz.objects.values('title', 'description', 'id').filter(Q(status=status))
+            print(queryset)
+
+            return JsonResponse(list(queryset), safe=False)
 
 
 def payroll(request):
     return render(request, 'backoffice/profile.html', {})
 
 
-def benefits(request):
-    return render(request, 'backoffice/rtl.html', {})
+def team(request):
+    return render(request, 'backoffice/team.html', {})
 
 
 def learning_management(request):
@@ -417,7 +738,8 @@ def new_meeting(request, pk):
     else:
         meeting_form = MeetingForm()
         try:
-            meeting_form.initial['applicants'] = get_object_or_404(Staff, pk=pk)
+            meeting_form.initial['responsible_manager'] = Manager.objects.get(user=request.user)
+            meeting_form.initial['applicant'] = get_object_or_404(Staff, pk=pk)
         except Staff.DoesNotExist:
             # messages.error(request, "User doesnot exist")
             # return render(request, 'front.html')
@@ -444,29 +766,61 @@ def new_test(request, pk):
 
     return render(request, 'backoffice/applicant_test.html', {"new_test_form": new_test_form})
 
-from survey.forms import QuestionFormSet
 
+@login_required
+def new_quiz(request): #ADD ANSWER FORMSET
+    if request.method == "POST":
+        quiz_form = QuizForm(request.POST)
+        question_formset = QuestionFormSet(request.POST)
+
+        if quiz_form.is_valid() and question_formset.is_valid():
+            quiz = quiz_form.save()
+            for form in question_formset.forms:
+                question = form.save(commit=False)
+                question.quiz = quiz
+                question.save()
+
+                for answer_form in form.nested.forms:
+                    answer = answer_form.save(commit=False)
+                    answer.question = question
+                    answer.save()
+
+            return redirect('test_library')
+    else:
+        quiz_form = QuizForm()
+        question_formset = QuestionFormSet()
+
+    return render(request, 'backoffice/applicant_test.html', {"quiz_form": quiz_form, 'question_formset': question_formset })
+
+
+from survey.forms import QuestionFormSet, AnswerFormSet
 @login_required(login_url='signin')
 def edit_quiz(request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
 
     if request.method == "POST":
         quiz_form = QuizForm(request.POST, instance=quiz)
-        formset = QuestionFormSet(request.POST, instance=quiz)
+        question_formset = QuestionFormSet(request.POST, instance=quiz)
 
+        if quiz_form.is_valid() and question_formset.is_valid():
+            quiz = quiz_form.save()
+            for form in question_formset.forms:
+                question = form.save(commit=False)
+                question.quiz = quiz
+                question.save()
 
-        if quiz_form.is_valid() and formset.is_valid():
-            cd = quiz_form.cleaned_data
-            quiz_form.save()
-            formset.save()
+                for answer_form in form.nested.forms:
+                    answer = answer_form.save(commit=False)
+                    answer.question = question
+                    answer.save()
 
-        return redirect("settings")
-
+            return redirect('test_library')
     else:
         quiz_form = QuizForm(instance=quiz)
-        formset = QuestionFormSet(instance=quiz)
+        question_formset = QuestionFormSet(instance=quiz)
 
-    return render(request, "backoffice/edit_quiz.html", {"quiz_form": quiz_form, 'question_form': formset })
+
+    return render(request, "backoffice/edit_quiz.html", {"quiz_form": quiz_form, 'question_formset': question_formset })
 
 
 @login_required
@@ -482,7 +836,7 @@ def remove_quiz(request, pk):
     except Exception as e:
         return redirect('backoffice', {'err':e.message})
 
-    return redirect('settings')
+    return redirect('test_library')
 
 
 def testing(request):
@@ -495,10 +849,33 @@ def price(request):
 
 
 def settings(request):
-    quizes = Quiz.objects.all()
-    context = {'quizes': quizes}
-    return render(request, 'backoffice/settings.html', context)
 
+    company = Company.objects.filter(responsible_manager__user=request.user).first()
+    manager = Manager.objects.get(user=request.user)
+
+    if request.method == "POST":
+        company_form = CompanyForm(request.POST, instance=company)
+        manager_form = ManagerForm(request.POST, instance=manager)
+
+        if company_form.is_valid():
+            company = company_form.save(commit=False)
+            company.subscription = Subscription.objects.all().first()
+            company.save()
+            return redirect('settings')
+
+        if manager_form.is_valid():
+            manager_form.save()
+            return redirect('settings')
+    else:
+        company_form = CompanyForm(instance=company)
+        manager_form = ManagerForm(instance=manager)
+
+    context = {
+        'company_form': company_form,
+        'manager_form': manager_form
+    }
+
+    return render(request, 'backoffice/settings.html', context)
 
 
 class QuizListView(ListView):
@@ -511,18 +888,40 @@ def quiz_view(request, pk):
     return render(request, 'backoffice/quiz.html', {'obj': quiz})
 
 
+def show_quiz(request, user_pk, quiz_pk):
+    quiz = Quiz.objects.get(pk=quiz_pk)
+    z = urlsafe_base64_encode(force_bytes(189))
+    x = urlsafe_base64_decode(z)
+
+    return render(request, 'backoffice/quiz.html', {'obj': quiz})
+
+def applicant_quiz(request, user_pk, quiz_pk):
+    #quiz = Quiz.objects.get(pk=quiz_pk)
+    z = urlsafe_base64_encode(force_bytes(189))
+    x = urlsafe_base64_decode(z)
+
+    return render(request, 'landing/quiz.html', {})
+
+
 def quiz_data_view(request, pk):
     quiz = Quiz.objects.get(pk=pk)
     questions = []
+
+    print(quiz.get_questions())
     for q in quiz.get_questions():
         answers = []
         for a in q.get_answers():
             answers.append(a.text)
-        questions.append({str(q): answers})
+        questions.append({'question': str(q), 'answers': answers, 'type': str(q.type)})
+
+    print({
+        'data': questions
+    })
 
     return JsonResponse({
         'data': questions
     })
+
 
 
 def save_quiz_view(request, pk):
@@ -530,6 +929,8 @@ def save_quiz_view(request, pk):
         questions = []
         data = request.POST
         data_ = dict(data.lists())
+
+        print("ook")
 
         data_.pop('csrfmiddlewaretoken')
 
@@ -566,7 +967,7 @@ def save_quiz_view(request, pk):
                 results.append({str(q): 'not answered'})
 
         score_ = score * multiplier
-        #Result.objects.create(quiz=quiz, user=user, score=score_) SAVE RESULT FOR USER
+        Marks_Of_User.objects.create(quiz=quiz, user=user, score=score_)
 
         return JsonResponse({'passed': True, 'score': score_, 'results': results})
 

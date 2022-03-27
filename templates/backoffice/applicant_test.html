@@ -17,6 +17,7 @@
 
 {% block content %}
 
+
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-lg-9 col-12 mx-auto">
@@ -24,43 +25,44 @@
             <h6 class="mb-0">Applicant Testing</h6>
             <p class="text-sm mb-0">Create new test for Applicant</p>
             <hr class="horizontal dark my-3">
-            <div class="row mt-4">
-              <div class="col-12 col-md-6">
-                <div class="form-group">
-                  <label>
-                    Private Project
-                  </label>
-                  <p class="form-text text-muted text-xs ms-1">
-                    If you are available for hire outside of the current situation, you can encourage others to hire you.
-                  </p>
-                  <div class="form-check form-switch ms-1">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="notify(this)" data-type="warning" data-content="Once a project is made private, you cannot revert it to a public project." data-title="Warning" data-icon="ni ni-bell-55">
-                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-              <form method='POST' enctype="multipart/form-data" id="courseForm">
+
+              <form method='POST'>
                        <div id="result_div_id"></div>
-                      {% csrf_token %}
-                      {% for field in new_test_form %}
-                          <label class="form-label mt-4">
-                          {% if field.help_text %}
-                              {{ field.help_text }}
-                          {% endif %}
-                          </label>
-                          {{ field }}
+                        {% csrf_token %}
+                      {% for field in quiz_form %}
+                        {% if field.help_text %}
+                            {{ field.help_text }}
+                        {% endif %}
+                        {{ field }}
+                        {% endfor %}
+                            {{ question_formset.management_form }}
+                            {{ question_formset.non_form_errors }}
 
-                        {% for error in field.errors %}
-                          <p style="color: red">{{ error }}</p>
-                        {% endfor %}
-                        {% endfor %}
+                            {% for child_form in question_formset.forms %}
+                                {{ child_form }}
+
+                                {% if child_form.nested %}
+                                    {{ child_form.nested.management_form }}
+                                    {{ child_form.nested.non_form_errors }}
+
+                                    {% for nested_form in child_form.nested.forms %}
+                                        {{ nested_form }}
+                                    {% endfor %}
+
+                                {% endif %}
+
+                            {% endfor %}
+
                         <div class="d-flex justify-content-end mt-4">
-                          <button type="button" name="button" class="btn btn-light m-0">Cancel</button>
-                          <button type="submit" name="button" class="btn bg-gradient-primary m-0 ms-2">Save Meeting</button>
+                            <a href="{% url 'test_library' %}"><button type="button" name="button" class="btn btn-light m-0">Cancel</button></a>
+                          <button type="submit" name="button" class="btn bg-gradient-primary m-0 ms-2">Save</button>
                         </div>
                     </form>
+
+           <div class="input-group-append">
+                            <button class="btn btn-success add-form-row" type="button">Add</button>
+                          </div>
           </div>
         </div>
       </div>
@@ -75,6 +77,92 @@
 
 
 {% block javascript %}
+
+<script type='text/javascript'>
+function updateElementIndex(el, prefix, ndx) {
+    var id_regex = new RegExp('(' + prefix + '-\\d+)');
+    var replacement = prefix + '-' + ndx;
+    if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+    if (el.id) el.id = el.id.replace(id_regex, replacement);
+    if (el.name) el.name = el.name.replace(id_regex, replacement);
+}
+
+function cloneMore(selector, prefix) {
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+
+
+    newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+        var name = $(this).attr('name').replace('-' + (total-1) + '-', '-' + total + '-');
+        var id = 'id_' + name;
+        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+
+
+
+        //$('#id_answer-' + prefix + '-' + (total-1) + '-answer_set-TOTAL_FORMS').val(4);
+
+
+    });
+
+    //$('#id_answer-question_set-' + total + '-answer_set-TOTAL_FORMS').val(4);
+    //alert($('#id_answer-question_set-1-answer_set-TOTAL_FORMS').val());
+    //$('#id_answer-question_set-' + total + '-answer_set-INITIAL_FORMS').val(0);
+
+  //  newElement.find('label').each(function() {
+  //      var forValue = $(this).attr('for');
+  //      if (forValue) {
+   //       forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+   //       $(this).attr({'for': forValue});
+   //     }//id_answer-question_set-1-answer_set-TOTAL_FORMS
+ //   });
+    total++;
+    $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+
+
+
+    $(selector).after(newElement);
+    var conditionRow = $('.form-row:not(:last)');
+    conditionRow.find('.btn.add-form-row')
+    .removeClass('btn-success').addClass('btn-danger')
+    .removeClass('add-form-row').addClass('remove-form-row')
+    .html('Delete');
+
+    $('input[name="answer-' + prefix + '-' + (total-1) + '-answer_set-TOTAL_FORMS"]').val(4);
+    $('input[name="answer-' + prefix + '-' + (total-1) + '-answer_set-INITIAL_FORMS"]').val(0);
+
+    //alert($('input[name="answer-' + prefix + '-' + (total-1) + '-answer_set-INITIAL_FORMS"]').val());
+
+    //console.log($('#id_answer-' + prefix + '-' + (total-1) + '-answer_set-TOTAL_FORMS').val());
+
+    return false;
+}
+
+function deleteForm(prefix, btn) {
+    var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+    if (total > 1){
+        btn.closest('.form-row').remove();
+        var forms = $('.form-row');
+        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+        for (var i=0, formCount=forms.length; i<formCount; i++) {
+            $(forms.get(i)).find(':input').each(function() {
+                updateElementIndex(this, prefix, i);
+            });
+        }
+    }
+    return false;
+}
+$(document).on('click', '.add-form-row', function(e){
+    e.preventDefault();
+    cloneMore('.form-row:last', 'question_set');
+    return false;
+});
+$(document).on('click', '.remove-form-row', function(e){
+    e.preventDefault();
+    deleteForm('question_set', $(this));
+    return false;
+});
+</script>
+
 
 <script  src="{% static  'js/plugins/choices.min.js' %}"></script>
 <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>

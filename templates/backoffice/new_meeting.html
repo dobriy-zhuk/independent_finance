@@ -6,7 +6,7 @@
      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
      <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
-    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
 
     <style>
     #editor-container {
@@ -24,23 +24,6 @@
             <h6 class="mb-0">New Meeting</h6>
             <p class="text-sm mb-0">Create new meeting</p>
             <hr class="horizontal dark my-3">
-            <div class="row mt-4">
-              <div class="col-12 col-md-6">
-                <div class="form-group">
-                  <label>
-                    Private Project
-                  </label>
-                  <p class="form-text text-muted text-xs ms-1">
-                    If you are available for hire outside of the current situation, you can encourage others to hire you.
-                  </p>
-                  <div class="form-check form-switch ms-1">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onclick="notify(this)" data-type="warning" data-content="Once a project is made private, you cannot revert it to a public project." data-title="Warning" data-icon="ni ni-bell-55">
-                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                  </div>
-                </div>
-              </div>
-            </div>
-
               <form method='POST' enctype="multipart/form-data" id="courseForm">
                        <div id="result_div_id"></div>
                       {% csrf_token %}
@@ -50,7 +33,20 @@
                               {{ field.help_text }}
                           {% endif %}
                           </label>
-                          {{ field }}
+                          {% if field.label == 'Meeting time' %}
+                              <div class="form-group">
+                                  <label>
+                                    Applicant can select the meeting time
+                                  </label>
+                                  <div class="form-check form-switch ms-1">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="yesnoCheck(this);" data-type="warning" data-content="Once a project is made private, you cannot revert it to a public project." data-title="Warning" data-icon="ni ni-bell-55">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                                  </div>
+                                </div>
+                            {{ field }}
+                          {% else %}
+                            {{ field }}
+                          {% endif %}
 
                         {% for error in field.errors %}
                           <p style="color: red">{{ error }}</p>
@@ -61,12 +57,10 @@
                           <button type="submit" name="button" class="btn bg-gradient-primary m-0 ms-2">Save Meeting</button>
                         </div>
                     </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
+                  </div>
+                </div>
+              </div>
+            </div>
 
 {% endblock %}
 
@@ -80,6 +74,8 @@
 <script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
 <script  src="{% static  'js/plugins/flatpickr.min.js' %}"></script>
 <script>
+    document.getElementById("id_meeting_time").style.display = "block";
+
       var applicants = document.getElementById('choices-multiple-applicants-button');
       const choices_applicants = new Choices(applicants, {
         removeItemButton: true,
@@ -105,6 +101,17 @@
         enableTime: true,
         dateFormat: "Y-m-d H:i",
       }); // flatpickr
+    }
+    </script>
+
+
+    <script>
+    function yesnoCheck(that) {
+       if (that.checked === true){
+            document.getElementById("id_meeting_time").style.display = "none";
+        } else {
+            document.getElementById("id_meeting_time").style.display = "block";
+        }
     }
     </script>
 

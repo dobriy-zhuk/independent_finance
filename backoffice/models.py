@@ -6,6 +6,7 @@ import random
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import secrets
 
 
 class Country(models.Model):
@@ -28,8 +29,25 @@ class Currency(models.Model):
         return self.title
 
 
+class ApplicantContent(models.Model):
+    info = models.IntegerField(blank=True)
+    text = models.TextField()
+
+    class Meta:
+        verbose_name_plural = 'ApplicantContents'
+
+    def __str__(self):
+        return self.text
+
+
 class Subscription(models.Model):
     title = models.CharField(max_length=50, default="Standard")
+    price = models.IntegerField(default=25)
+    candidates = models.IntegerField(default=100)
+    additional_candidate_price = models.FloatField(default=1.2)
+    tests = models.IntegerField(default=5)
+    valid_until = models.DateField(default=now, blank=True)
+    ats_integration = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'Subscriptions'
@@ -45,24 +63,8 @@ class StaffStatus(models.Model):
         return self.title
 
 
-class StaffSource(models.Model):
-    title = models.CharField(max_length=30, default="Indeed")
-
     class Meta:
         verbose_name_plural = 'staff_source'
-
-    def __str__(self):
-        return self.title
-
-
-class JobTitle(models.Model):
-    title = models.CharField(max_length=100, default="Seller")
-
-    class Meta:
-        verbose_name_plural = 'job_title'
-
-    def __str__(self):
-        return self.title
 
 
 class Manager(models.Model):
@@ -80,48 +82,49 @@ class Manager(models.Model):
 
 
 class Company(models.Model):
-    name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300, blank=True)
     email = models.EmailField(max_length=200)
     phone = models.CharField(max_length=100, blank=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, default=1, on_delete=models.CASCADE)
     mailing_address = models.TextField(blank=True)
     physical_address = models.TextField(blank=True)
-    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
-    subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
-    responsible_manager = models.ForeignKey(Manager, on_delete=models.CASCADE)
+    currency = models.ForeignKey(Currency, default=1, on_delete=models.CASCADE)
+    subscription = models.ForeignKey(Subscription, default=1, on_delete=models.CASCADE)
+    responsible_manager = models.ManyToManyField(Manager)
     date_added = models.DateField(default=now, blank=True)
-    subscription_until = models.DateField(default=now, blank=True)
     comment = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = 'Companies'
 
     def __str__(self):
-        return self.name
+        return self.name + "({0})".format(self.responsible_manager)
 
 
-class Staff(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    birthday = models.DateField(null=True, blank=True)
-    address = models.CharField(max_length=200, blank=True)
-    salary = models.IntegerField(default=0, blank=True)
-    currency = models.CharField(max_length=4, default="EUR", blank=True)
-    phone = models.CharField(max_length=100, blank=True)
-    bonus = models.PositiveIntegerField(default=0, blank=True)
-    job_title = models.ManyToManyField(JobTitle, blank=True)
-    status = models.ForeignKey(StaffStatus, on_delete=models.CASCADE, blank=True, null=True)
-    source = models.ForeignKey(StaffSource, on_delete=models.CASCADE, blank=True, null=True)
-    comment = models.TextField(blank=True)
-    #script of dialog with clients
-    #причина отказа
-    #promotion = ForeignKey
-
+class Job(models.Model):
+    title = models.CharField(max_length=100, default="Seller")
+    description = models.CharField(max_length=500, default="")
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    skills = models.TextField(blank=True)
+    responsible_manager = models.ForeignKey(Manager, on_delete=models.CASCADE, blank=True)
+    status_list = (
+        ("open", "open"),
+        ("archive", "archive"),
+        ("draft", "draft"),
+    )
+    status = models.CharField(max_length=50, choices=status_list, default="draft")
 
     class Meta:
-        verbose_name_plural = 'staff'
+        verbose_name_plural = 'jobs'
 
     def __str__(self):
-        return "{0} {1}".format(self.user.first_name, self.user.last_name)
+        return self.title
+
+
+class StaffSource(models.Model):
+    title = models.CharField(max_length=30, default="Indeed")
+
+
 
 
 class Settings(models.Model):
@@ -142,26 +145,11 @@ class Settings(models.Model):
     #    return "{0} {1}".format(self.user.first_name, self.user.last_name)
 
 
-class EmailMessage(models.Model):
-    header = models.CharField(max_length=300, default="")
-    body = models.TextField(default="")
-    receivers = models.ManyToManyField(Staff, blank=True)
-    language = models.CharField(max_length=200, blank=True)
-    date_added = models.DateField(default=now, blank=True)
-    comment = models.TextField(blank=True)
-
-    class Meta:
-        verbose_name_plural = 'EmailMessages'
-
-#    def __str__(self):
-#        return "{0} {1}".format(self.user.first_name, self.user.last_name)
-
-
 #learning system for staff and new staff
 class Course(models.Model):
     title = models.CharField(max_length=250, default="Training")
     body = models.TextField(default="")
-    job_title = models.ManyToManyField(JobTitle, blank=True)
+    job_title = models.ManyToManyField(Job, blank=True)
     files = models.FileField(upload_to='courses_files/', blank=True, null=True)
     date_added = models.DateField(default=now, blank=True)
     comment = models.TextField(blank=True)
@@ -182,8 +170,14 @@ class Quiz(models.Model):
         ("APPLICANT", "APPLICANT"),
     )
     applied_for = models.CharField(max_length=50, choices=type_staff)
-    number_of_questions = models.IntegerField(default=1)
+    #number_of_questions = models.IntegerField(default=1)
     #required_score_to_pass = models.IntegerField(help_text="required score in %")
+    status_list = (
+        ("test", "test"),
+        ("simulator", "simulator"),
+        ("interview", "interview"),
+    )
+    status = models.CharField(max_length=50, choices=status_list, default="test")
 
     class Meta:
         verbose_name_plural = 'Quizes'
@@ -194,24 +188,86 @@ class Quiz(models.Model):
     def get_questions(self):
         questions = list(self.question_set.all())
         random.shuffle(questions)
-        return questions[:self.number_of_questions]
+        return questions[:len(questions)]
+
+
+class CompletedCourses(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    completed = models.BooleanField()
+
+    def __str__(self):
+        return f"user: {self.user}, course: {self.course} - {self.completed}"
+
+
+class Staff(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    birthday = models.DateField(null=True, blank=True)
+    address = models.CharField(max_length=200, blank=True)
+    salary = models.IntegerField(default=0, blank=True)
+    currency = models.CharField(max_length=4, default="EUR", blank=True)
+    phone = models.CharField(max_length=100, blank=True)
+    bonus = models.PositiveIntegerField(default=0, blank=True)
+    job_title = models.ManyToManyField(Job, blank=True)
+    status = models.ForeignKey(StaffStatus, on_delete=models.CASCADE, blank=True, null=True)
+    source = models.ForeignKey(StaffSource, on_delete=models.CASCADE, blank=True, null=True)
+    comment = models.TextField(blank=True)
+    completed_courses = models.ManyToManyField(CompletedCourses, blank=True)
+    #script of dialog with clients
+    #причина отказа
+    #promotion = ForeignKey
+
+
+    class Meta:
+        verbose_name_plural = 'staff'
+
+    def __str__(self):
+        return "{0} {1}".format(self.user.first_name, self.user.last_name)
 
 
 class Meeting(models.Model):
     title = models.CharField(max_length=300, default="Interview")
     company = models.ForeignKey(Company,on_delete=models.CASCADE, blank=True, null=True)
     responsible_manager = models.ForeignKey(Manager, on_delete=models.CASCADE)
-    applicants = models.ManyToManyField(Staff)
-    meeting_time = models.DateTimeField(default=now)
-    link = models.CharField(max_length=300, default="mit.jit.si", blank=True)
+    applicant = models.ForeignKey(Staff, on_delete=models.CASCADE, blank=True)
+    meeting_time = models.DateTimeField(default=now, blank=True)
+    link = models.CharField(max_length=300, default=secrets.token_hex(5), blank=True)
     questions = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.title
 
 
+class InterviewSlot(models.Model):
+    responsible_manager = models.ForeignKey(Manager, on_delete=models.CASCADE)
+    day = models.PositiveSmallIntegerField(default=1, blank=True)
+    time = models.TimeField(max_length=300, default="08:00 AM", blank=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "{0}: {1} - {2} ({3})".format(self.responsible_manager, self.day, self.time, self.is_active)
+
+    class Meta:
+        unique_together = ('responsible_manager', 'day', 'time')
+
+
+class EmailMessage(models.Model):
+    header = models.CharField(max_length=300, default="")
+    body = models.TextField(default="")
+    receivers = models.ManyToManyField(Staff, blank=True)
+    language = models.CharField(max_length=200, blank=True)
+    date_added = models.DateField(default=now, blank=True)
+    comment = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name_plural = 'EmailMessages'
+
+#    def __str__(self):
+#        return "{0} {1}".format(self.user.first_name, self.user.last_name)
+
 
 class EmailTemplate(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=300, default="")
     template = models.TextField(default="", blank=True)
     comment = models.TextField(blank=True)

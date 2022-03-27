@@ -5,12 +5,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="touch-icon" sizes="76x76" href="{% static 'img/logo.png' %}">
-  <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
-
   <title>
      {% block title %}HR-system for your business{% endblock title %}
   </title>
+
+  {% block tags %}
+    <meta name="description" content="GuaranteeHR - new HR experience to grow your business!" />
+    <meta name="keywords" content="business service, guaranteehr, assessments, hr" />
+    <meta name="author" content="dobriy_zhuk" />
+    <meta property="og:title" content="GuaranteeHR - new HR experience to grow your business!" />
+    <meta property="og:description" content="We help fast-growing companies to identify, hire and score the best Talent in record time" />
+    <meta property="og:image" content="https://guaranteehr.com/static/img/logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://guaranteehr.com" />
+  {% endblock tags %}
+
+  <link rel="icon" href="https://guaranteehr.com/static/img/favicon.ico">
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
   <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet" />
@@ -21,9 +31,21 @@
   {% block css %}
   {% endblock %}
 
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W57TSNC');</script>
+<!-- End Google Tag Manager -->
 </head>
 
 <body class="">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W57TSNC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">

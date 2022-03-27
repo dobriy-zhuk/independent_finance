@@ -1,0 +1,510 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block css %}
+     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
+     <link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+     <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+    <style>
+    #editor-container {
+        height: 150px;
+      }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+   <div class="container-fluid py-4">
+      <div class="row">
+        <div class="col-lg-6">
+          <h4>{{ meeting }}</h4>
+          <p>{{ job.description }}</p>
+        </div>
+        <div class="col-lg-6 text-right d-flex flex-column justify-content-center">
+          <button type="button" class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2">Save</button>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="font-weight-bolder">Meeting Quiz</h5>
+              <div class="row">
+                <div class="col-12">
+                    <form id="quiz-form" class="mt-3 mb-3">
+                        {% csrf_token %}
+                        <div id="quiz-box"></div>
+                        <button type="submit" class="btn btn-primary mt-3">save</button>
+                    </form>
+                    <div id="score-box"></div>
+                    <div id="result-box"></div>
+                 </div>
+                <div class="col-12 mt-4">
+                  <div class="d-flex">
+                    <button class="btn bg-gradient-primary btn-sm mb-0 me-2" type="button" name="button">Full video</button>
+                    <button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Hangup</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 mt-lg-0 mt-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="font-weight-bolder">Applicant: {{ meeting.applicant }}</h5>
+                <script src='https://meet.jit.si/external_api.js'></script>
+                    <div id="meet"></div>
+                    <script>
+                        const domain = 'meet.jit.si/guaranteehr';
+                    const options = {
+                        roomName: '{{ meeting.link }}',
+                        width: 600,
+                        height: 400,
+                        parentNode: document.querySelector('#meet'),
+                        userInfo: {
+                            email: '{{ meeting.responsible_manager.user.email }}',
+                            displayName: '{{ meeting.responsible_manager }}'
+                        },
+                        configOverwrite: {},
+                        interfaceConfigOverwrite: {}
+                            };
+                    const api = new JitsiMeetExternalAPI(domain, options);
+                    </script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="font-weight-bolder">Socials</h5>
+              <label>Shoppify Handle</label>
+              <input class="form-control" type="text" value="@soft" />
+              <label class="mt-4">Facebook Account</label>
+              <input class="form-control" type="text" value="https://" />
+              <label class="mt-4">Instagram Account</label>
+              <input class="form-control" type="text" value="https://" />
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-8 mt-sm-0 mt-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <h5 class="ms-3">Applicant info</h5>
+                <div class="table table-responsive">
+                    <table class="table align-items-center mb-0">
+                      <thead>
+                        <tr>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quiz title</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Score</th>
+                          <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Review</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Availability</th>
+                          <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for test in applicant_test %}
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/black-chair.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">{{ test.quiz.title }}</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">{{ test.score }}</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">230019</span>
+                          </td>
+                        </tr>
+                      {% endfor %}
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-pink.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">Bar Height Swivel Barstool</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">$99.99</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">87120</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-steel.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">Signature Design by Ashley</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">$129.00</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">412301</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-design-system/assets/img/ecommerce/chair-wood.jpg" class="avatar avatar-md me-3" alt="table image">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm">Modern Square</h6>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="text-sm text-secondary mb-0">$59.99</p>
+                          </td>
+                          <td>
+                            <div class="rating ms-lg-n4">
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star" aria-hidden="true"></i>
+                              <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                            </div>
+                          </td>
+                          <td class="align-middle text-sm">
+                            <div class="progress mx-auto">
+                              <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </td>
+                          <td class="align-middle text-center">
+                            <span class="text-secondary text-sm">001992</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+{% endblock %}
+
+{% block fixed_plugin %}
+{% endblock %}
+
+
+{% block javascript %}
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<script>
+  var quill = new Quill('#editor-container', {
+    modules: {
+      syntax: true,
+      toolbar: '#toolbar-container'
+    },
+    placeholder: 'Your course...',
+    theme: 'snow'
+  });
+
+  quill.on('text-change', function() {
+    var html = quill.root.innerHTML;
+    document.getElementById("body_editor").innerHTML = html;
+});
+
+</script>
+
+<script  src="{% static  'js/plugins/choices.min.js' %}"></script>
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script  src="{% static  'js/plugins/flatpickr.min.js' %}"></script>
+<script>
+      var element = document.getElementById('choices-multiple-remove-button');
+      const choices = new Choices(element, {
+        removeItemButton: true
+      });
+
+    if (document.querySelector('.datetimepicker')) {
+      flatpickr('.datetimepicker', {
+        allowInput: true
+      }); // flatpickr
+    }
+    </script>
+
+    <script>
+    if (document.getElementById('edit-deschiption-edit')) {
+      var quill = new Quill('#edit-deschiption-edit', {
+        theme: 'snow' // Specify theme in configuration
+      });
+    };
+
+    if (document.getElementById('choices-category-edit')) {
+      var element = document.getElementById('choices-category-edit');
+      const example = new Choices(element, {
+        searchEnabled: false
+      });
+    };
+
+    if (document.getElementById('choices-color-edit')) {
+      var element = document.getElementById('choices-color-edit');
+      const example = new Choices(element, {
+        searchEnabled: false
+      });
+    };
+
+    if (document.getElementById('choices-currency-edit')) {
+      var element = document.getElementById('choices-currency-edit');
+      const example = new Choices(element, {
+        searchEnabled: false
+      });
+    };
+
+    if (document.getElementById('choices-tags-edit')) {
+      var tags = document.getElementById('choices-tags-edit');
+      const examples = new Choices(tags, {
+        removeItemButton: true
+      });
+
+      examples.setChoices(
+        [{
+            value: 'One',
+            label: 'Expired',
+            disabled: true
+          },
+          {
+            value: 'Two',
+            label: 'Out of Stock',
+            selected: true
+          }
+        ],
+        'value',
+        'label',
+        false,
+      );
+    }
+    </script>
+
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<script>
+
+Dropzone.options.myDropzone = { // The camelized version of the ID of the form element
+
+  // The configuration we've talked about above
+  autoProcessQueue: false,
+  uploadMultiple: true,
+  parallelUploads: 100,
+  maxFiles: 100,
+
+  // The setting up of the dropzone
+  init: function() {
+    var myDropzone = this;
+
+    // First change the button to actually tell Dropzone to process the queue.
+    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+      // Make sure that the form isn't actually being sent.
+      e.preventDefault();
+      e.stopPropagation();
+      myDropzone.processQueue();
+    });
+
+    // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+    // of the sending event because uploadMultiple is set to true.
+    this.on("sendingmultiple", function() {
+      // Gets triggered when the form is actually being sent.
+      // Hide the success button or the complete form.
+    });
+    this.on("successmultiple", function(files, response) {
+      // Gets triggered when the files have successfully been sent.
+      // Redirect user or notify of success.
+    });
+    this.on("errormultiple", function(files, response) {
+      // Gets triggered when there was an error sending the files.
+      // Maybe show form again, and notify user of error
+    });
+  }
+
+}
+</script>
+
+
+<script>
+
+const url = window.location.href;
+
+const quizBox = document.getElementById('quiz-box');
+const scoreBox = document.getElementById('score-box');
+const resultBox = document.getElementById('result-box');
+
+$.ajax({
+    type: 'GET',
+    url: '{% url 'quiz-data-view' pk=meeting.questions_id %}',
+    success: function(response){
+        const data = response.data;
+
+
+         data.forEach(el => {
+             question = el.question;
+             answers = el.answers;
+             if (el.type === 'cpp'){
+                 quizBox.innerHTML += '<b>' + question + '</b></div>' +
+                     '<div id="container" style="width: 500px; height: 500px;"></div>' +
+                    '<button onclick="save()">Save</button>'
+             }
+             else {
+             quizBox.innerHTML += '<hr>' +
+                    '<div class="mb-2">' +
+                    '<b>' + question + '</b></div>';
+                answers.forEach(answer=>{
+                    quizBox.innerHTML += '<div>' +
+                        '<input type="radio" class="ans" id="'+ question + '-' + answer + '" name="' + question + '" value="' + answer + '">' +
+                        '<label for="' + question + '">' + answer + '</label>' +
+                        '</div>'
+                })
+             }
+         });
+
+    },
+    error: function(error){
+        console.log(error)
+    }
+});
+
+const quizForm = document.getElementById('quiz-form');
+const csrf = document.getElementsByName('csrfmiddlewaretoken');
+
+const sendData = () => {
+    const elements = [...document.getElementsByClassName('ans')];
+    const data = {};
+    data['csrfmiddlewaretoken'] = csrf[0].value;
+    elements.forEach(el=>{
+        if (el.checked) {
+            data[el.name] = el.value
+        } else {
+            if (!data[el.name]) {
+                data[el.name] = null
+            }
+        }
+    });
+
+
+    $.ajax({
+        type: 'POST',
+        url: `${url}save/`,
+        data: data,
+        success: function(response){
+            const results = response.results;
+            console.log(results);
+            quizForm.classList.add('not-visible');
+
+            scoreBox.innerHTML = `${response.passed ? 'Congratulations! ' : 'Ups..:( '}Your result is ${response.score.toFixed(2)}%`
+
+            alert("OK");
+
+            results.forEach(res=>{
+                const resDiv = document.createElement("div");
+                for (const [question, resp] of Object.entries(res)){
+
+                    resDiv.innerHTML += question;
+                    const cls = ['container', 'p-3', 'text-light', 'h6'];
+                    resDiv.classList.add(...cls);
+
+                    if (resp=='not answered') {
+                        resDiv.innerHTML += '- not answered'
+                        resDiv.classList.add('bg-danger')
+                    }
+                    else {
+                        const answer = resp['answered']
+                        const correct = resp['correct_answer']
+
+                        if (answer == correct) {
+                            resDiv.classList.add('bg-success')
+                            resDiv.innerHTML += ` answered: ${answer}`
+                        } else {
+                            resDiv.classList.add('bg-danger')
+                            resDiv.innerHTML += ` | correct answer: ${correct}`
+                            resDiv.innerHTML += ` | answered: ${answer}`
+                        }
+                    }
+                }
+                resultBox.append(resDiv)
+            })
+        },
+        error: function(error){
+            console.log(error)
+        }
+    })
+};
+
+quizForm.addEventListener('submit', e=>{
+    e.preventDefault();
+
+    sendData()
+})
+
+
+</script>
+{% endblock %}
