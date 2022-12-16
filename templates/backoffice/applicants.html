@@ -193,9 +193,10 @@
         $("#applicants").html("");
         if (response.length > 0) {
             $.each(response, function (a, b) {
+
                 var edit_staff_url = "{% url 'edit_staff' pk=1234 %}".replace('1234', b.id.toString());
                 var new_test_url = "{% url 'new_test' pk=1234 %}".replace('1234', b.id.toString());
-                var new_email_url = "{% url 'new_email' pk=1234 %}".replace('1234', b.id.toString());
+                var new_email_url = "{% url 'new_email' applicant_pk=1234 %}".replace('1234', b.id.toString());
                 var new_meeting_url = "{% url 'new_meeting' pk=1234 %}".replace('1234', b.id.toString());
                 var remove_staff_url = "{% url 'remove_staff' pk=1234 %}".replace('1234', b.id.toString());
 

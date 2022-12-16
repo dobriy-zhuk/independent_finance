@@ -1,23 +1,26 @@
 from celery import Celery
 from django.core.mail import EmailMultiAlternatives, BadHeaderError
 from django.template import Template, Context
+from django.template.loader import get_template
 from smtplib import SMTPException
 
 
 app = Celery('hr_system', broker='redis://localhost:6379')
 
 @app.task
-def send_email_with_delay(title, to, body, applicant, responsible_manager):
+def send_email_message(template, to, title, email_content):
+
     try:
-        htmly = Template(body)
+        if template == 'emails/new_client_email_en.html':
+            company = "GuaranteeHR <info@guaranteehr.com>"
+        else:
+            company = "GuaranteeHR<info@guaranteehr.com>"
 
-        content = {'applicant': str(applicant),
-                   'position': "position",
-                   'time': "time"}
+        htmly = get_template(template)
 
-        html_content = htmly.render(Context(content))
+        html_content = htmly.render(email_content)
         msg = EmailMultiAlternatives(title, html_content,
-                                     "GuaranteeHR <info@guaranteehr.com>", to)
+                                     company, to)
         msg.attach_alternative(html_content, "text/html")
         msg.send()
     except BadHeaderError:  # If mail's Subject is not properly formatted.

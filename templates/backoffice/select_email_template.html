@@ -45,7 +45,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <a href="{% url 'new_email' pk=email_template.pk %}"><button type="button" class="btn btn-primary" id="start-button">Select</button></a>
+                      <a href="{% url 'send_email' template_name=email_template.name applicant_pk=applicant_pk %}"><button type="button" class="btn btn-primary" id="start-button">Select</button></a>
                   </div>
                 </div>
               </div>

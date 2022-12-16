@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
 import random
+import uuid
 
 
 from django.db.models.signals import post_save
@@ -56,17 +57,6 @@ class Subscription(models.Model):
         return self.title
 
 
-class StaffStatus(models.Model):
-    title = models.CharField(max_length=30, default="")
-
-    def __str__(self):
-        return self.title
-
-
-    class Meta:
-        verbose_name_plural = 'staff_source'
-
-
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birthday = models.DateField(null=True, blank=True)
@@ -82,26 +72,65 @@ class Manager(models.Model):
 
 
 class Company(models.Model):
-    name = models.CharField(max_length=300, blank=True)
-    email = models.EmailField(max_length=200)
-    phone = models.CharField(max_length=100, blank=True)
-    country = models.ForeignKey(Country, default=1, on_delete=models.CASCADE)
+    name = models.CharField(max_length=300, default='My Company')
+    description = models.CharField(max_length=300, blank=True)
+    taxpayerNumber = models.CharField(max_length=300, unique=True)
+
+    COUNTRIES = (
+        ('UK', 'UK'),
+        ('USA', 'USA'),
+        ('Canada', 'Canada'),
+    )
+    country = models.CharField(
+        max_length=20,
+        choices=COUNTRIES,
+        blank=True,
+        default='USA',
+        help_text='Countries',
+    )
+
     mailing_address = models.TextField(blank=True)
     physical_address = models.TextField(blank=True)
-    currency = models.ForeignKey(Currency, default=1, on_delete=models.CASCADE)
+    CURRENCIES = (
+        ('USD', 'USD'),
+        ('EURO', 'EURO'),
+        ('POUND', 'POUND'),
+    )
+    currency = models.CharField(
+        max_length=20,
+        choices=CURRENCIES,
+        blank=True,
+        default='USD',
+        help_text='Currencies',
+    )
     subscription = models.ForeignKey(Subscription, default=1, on_delete=models.CASCADE)
     responsible_manager = models.ManyToManyField(Manager)
     date_added = models.DateField(default=now, blank=True)
     comment = models.TextField(blank=True)
 
+    PROFESSIONAL_AREAS = (
+        ('it', 'IT'),
+        ('education', 'Education'),
+        ('hr', 'HR'),
+        ('finance', 'Finance'),
+    )
+    professional_area = models.CharField(
+        max_length=20,
+        choices=PROFESSIONAL_AREAS,
+        blank=True,
+        default='it',
+        help_text='Professional Areas',
+    )
+
     class Meta:
         verbose_name_plural = 'Companies'
 
     def __str__(self):
-        return self.name + "({0})".format(self.responsible_manager)
+        return self.name + "({0})".format(self.responsible_manager.all())
 
 
 class Job(models.Model):
+    token = models.CharField(max_length=100, unique=True, default=uuid.uuid4)
     title = models.CharField(max_length=100, default="Seller")
     description = models.CharField(max_length=500, default="")
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -110,9 +139,11 @@ class Job(models.Model):
     status_list = (
         ("open", "open"),
         ("archive", "archive"),
-        ("draft", "draft"),
+        ("template", "template"),
     )
-    status = models.CharField(max_length=50, choices=status_list, default="draft")
+    status = models.CharField(max_length=50, choices=status_list, default="template")
+    date_added = models.DateField(default=now, blank=True)
+    address = models.CharField(max_length=500, default="", blank=True)
 
     class Meta:
         verbose_name_plural = 'jobs'
@@ -123,7 +154,6 @@ class Job(models.Model):
 
 class StaffSource(models.Model):
     title = models.CharField(max_length=30, default="Indeed")
-
 
 
 
@@ -201,18 +231,28 @@ class CompletedCourses(models.Model):
 
 
 class Staff(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     birthday = models.DateField(null=True, blank=True)
     address = models.CharField(max_length=200, blank=True)
     salary = models.IntegerField(default=0, blank=True)
     currency = models.CharField(max_length=4, default="EUR", blank=True)
     phone = models.CharField(max_length=100, blank=True)
-    bonus = models.PositiveIntegerField(default=0, blank=True)
-    job_title = models.ManyToManyField(Job, blank=True)
-    status = models.ForeignKey(StaffStatus, on_delete=models.CASCADE, blank=True, null=True)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+
+    type_status = (
+        ("Active", "Active"),
+        ("Archive", "Archive"),
+        ("Interview", "Interview"),
+        ("Learning", "Learning"),
+        ("Work", "Work"),
+    )
+    status = models.CharField(max_length=50, choices=type_status, default='Active')
     source = models.ForeignKey(StaffSource, on_delete=models.CASCADE, blank=True, null=True)
     comment = models.TextField(blank=True)
     completed_courses = models.ManyToManyField(CompletedCourses, blank=True)
+    cv = models.FileField(upload_to='documents/', default='blog/logo-rus.png')
+    cv_uploaded_at = models.DateTimeField(auto_now_add=True)
     #script of dialog with clients
     #причина отказа
     #promotion = ForeignKey
@@ -227,12 +267,12 @@ class Staff(models.Model):
 
 class Meeting(models.Model):
     title = models.CharField(max_length=300, default="Interview")
-    company = models.ForeignKey(Company,on_delete=models.CASCADE, blank=True, null=True)
+    company = models.ForeignKey(Company,on_delete=models.CASCADE, blank=True)
     responsible_manager = models.ForeignKey(Manager, on_delete=models.CASCADE)
     applicant = models.ForeignKey(Staff, on_delete=models.CASCADE, blank=True)
     meeting_time = models.DateTimeField(default=now, blank=True)
-    link = models.CharField(max_length=300, default=secrets.token_hex(5), blank=True)
-    questions = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=True, null=True)
+    link = models.CharField(max_length=300, default=secrets.token_hex(5))
+    questions = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return self.title
@@ -269,7 +309,8 @@ class EmailMessage(models.Model):
 class EmailTemplate(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     name = models.CharField(max_length=300, default="")
-    template = models.TextField(default="", blank=True)
+    title = models.TextField(default="", max_length=100, blank=True)
+    text = models.TextField(default="", blank=True)
     comment = models.TextField(blank=True)
 
     class Meta:

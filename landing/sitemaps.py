@@ -8,7 +8,7 @@ class MainSitemap(Sitemap):
     protocol = 'https'
 
     def items(self):
-        return ['index', 'courses', 'camp', 'countrycamp', 'contact']
+        return ['index']
 
     def location(self, item):
         return reverse(item)

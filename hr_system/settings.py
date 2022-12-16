@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-8)i121&t-)i8(=^f0qvd!c=rj+w1vjovylh2o@xm2#22p@kfed
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['94.228.112.40', 'hr.garantylearning.com', '*']
+ALLOWED_HOSTS = ['194.35.116.39', 'guaranteehr.com', '*']
 
 # Application definition
 INSTALLED_APPS = [
@@ -36,13 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+    #'django.contrib.sites',
     'django.contrib.sitemaps',
     'backoffice',
     'landing',
     'survey',
     'blog',
     'django_celery_results',
+    'corsheaders',
 
 ]
 
@@ -50,12 +52,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'hr_system.urls'
 
@@ -77,21 +81,20 @@ TEMPLATES = [
 ]
 
 
-
 WSGI_APPLICATION = 'hr_system.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kursokrf_',
-        'USER': 'kursokrf_',
+        'NAME': 'guarantee_hr1',
+        'USER': 'dobriy_zhuk',
         'PASSWORD': 'Dobriy76',
-        'HOST': 'pg2.sweb.ru',
+        'HOST': '194.35.116.39',
         'PORT': '5432',
+        'TEST': {
+               'NAME': 'guarantee_hr_tests',
+           }
     }
 }
 """
@@ -101,7 +104,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+"""
 
+TIME_INPUT_FORMATS = ['%I:%M %p',]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -144,10 +149,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Add these new lines
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 #media files of users
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
@@ -161,12 +170,13 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #Email sending
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_HOST_USER = 'info@garantylearning.com'
-EMAIL_HOST_PASSWORD = 'dobriy_zhuk'
-EMAIL_PORT = 587
+EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.timeweb.ru'
+EMAIL_HOST_USER = 'info@guaranteehr.com'
+EMAIL_HOST_PASSWORD = 'Dobriy76'
+EMAIL_PORT = 2525
 
 
 #CELERY
@@ -177,8 +187,103 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 ENABLE_UTC = False
 
+#Payment settings paddle
+PADDLE_VENDOR_ID = 147950
+PADDLE_AUTH_CODE = '6aca414866fcec1dcab7d357e5663cd982135e63c21096b8f9'
+
+
+#Logging System
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s'
+        },
+        'file': {
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'
+        },
+        'mail_admins': {
+            'format': '%(name)-12s %(levelname)-8s %(message)s'
+        }
+
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'formatter': 'file',
+            'filename': 'debug.log'
+        },
+        'mail_admins': {
+            'level': 'WARNING',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+            'formatter': 'mail_admins',
+            'include_html': True,
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+            'propagate': True
+        },
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'box': {
+            'handlers': ['file', 'mail_admins'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'main_site': {
+            'handlers': ['file', 'mail_admins'],
+            'level': 'WARNING',
+            'propagate': False,
+        }
+    }
+}
+
+
 
 """
+python -m pip install --upgrade pip
+pip install <package>
+pip freeze > requirements.txt
+pip install -r requirements.txt
+
+
+
+django-admin makemessages -l ru / en
+django-admin compilemessages
+
+
+
+
+sudo systemctl daemon-reload
+sudo systemctl start celery
+sudo systemctl restart gunicorn
+sudo systemctl reload nginx
+sudo /etc/init.d/celeryd start
+
+deamon for celery
+nano /etc/systemd/system/celery.service
+sudo nano /etc/default/celeryd
+
 celery -A hr_system worker -l INFO
+
+
 
 """

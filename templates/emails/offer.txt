@@ -1,0 +1,7 @@
+{% autoescape off %}
+Welcome to our team!
+
+Sincerely,
+{{ manager }}
+
+{% endautoescape %}

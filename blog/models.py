@@ -3,12 +3,13 @@ from django.conf import settings
 from django.utils import timezone
 from django.urls import reverse
 from django.template.defaultfilters import slugify
-import unidecode
+#import unidecode
 
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200, unique=True)
+    description = models.CharField(max_length=400, default='')
     slug = models.SlugField(unique=True, max_length=200, editable=False)
     image = models.FileField(upload_to='blog/', default='blog/logo-rus.png')
     meta_title = models.CharField(max_length=80)
@@ -25,7 +26,7 @@ class Post(models.Model):
         self.save()
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(unidecode.unidecode(self.title))
+        self.slug = slugify(self.title)#slugify(unidecode.unidecode(self.title))
         return super(Post, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

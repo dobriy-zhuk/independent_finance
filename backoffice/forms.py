@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ClearableFileInput
-from .models import Staff, Course, Manager, Company, Country, Currency, Subscription, User, Job, StaffStatus, Meeting, Quiz, EmailMessage
+from .models import Staff, Course, Manager, Company, Country, Currency, Subscription, User, Job, Meeting, Quiz, EmailMessage
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -20,50 +20,29 @@ class CompanyForm(forms.ModelForm):
         required=False
         )
     physical_address = forms.CharField(
-        help_text='Mailing Address',
+        help_text='Physical Address',
         widget=forms.TextInput(attrs={'class': 'form-control',
                                       'placeholder': "Chalk Butte Rd, Cut Bank, MT 59427"}),
         required=False
     )
-    email = forms.EmailField(
-        help_text='Your email',
+    taxpayerNumber = forms.CharField(
+        help_text='Taxpayer Number',
         widget=forms.TextInput(attrs={'class': 'form-control',
-                                      'placeholder': "eg. company@company.com" }),
-        required=True
-    )
-    phone = forms.CharField(
-        max_length=100,
-        help_text='Your phone',
-        widget=forms.TextInput(attrs={'class': 'form-control',
-                                      'placeholder': "eg. +1(444)2392-23-23"}),
-        required=False
-    )
-
-    country = forms.ModelChoiceField(
-        help_text='Your country',
-        queryset=Country.objects.all(),
-        widget=forms.Select(attrs={'class': 'form-select form-select-lg mb-3'}),
-        required=True
-    )
-    currency = forms.ModelChoiceField(
-        help_text='Your currency',
-        queryset=Currency.objects.all(),
-        widget=forms.Select(attrs={'class': 'custom-select'}),
+                                      'placeholder': "eg. 7604272384" }),
         required=True
     )
 
-    comment = forms.CharField(
-        help_text='Comment',
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
-        required=False
+    country = forms.ChoiceField(
+        help_text='Company country',
+        choices=Company.COUNTRIES,
+        widget=forms.Select(attrs={'class': 'form-select form-select-lg'}),
+        required=True
     )
-
-    date_added = forms.DateField(
-        help_text='Start Date',
-        widget=forms.DateInput(format='%Y-%m-%d',
-                               attrs={'class': 'form-control datetimepicker',
-                                      'placeholder': "Start date"}),
-        required=False
+    currency = forms.ChoiceField(
+        help_text='Company currency',
+        choices=Company.CURRENCIES,
+        widget=forms.Select(attrs={'class': 'form-select form-select-lg'}),
+        required=True
     )
 
     responsible_manager = forms.ModelChoiceField(
@@ -78,9 +57,16 @@ class CompanyForm(forms.ModelForm):
         required=False
     )
 
+    professional_area = forms.ChoiceField(
+        help_text='Professional Area',
+        choices=Company.PROFESSIONAL_AREAS,
+        widget=forms.Select(attrs={'class': 'form-select form-select-lg'}),
+        required=True
+    )
+
     class Meta:
         model = Company
-        fields = ['name', 'email', 'phone', 'country', 'mailing_address', 'physical_address', 'currency', 'comment']
+        fields = ['name', 'taxpayerNumber', 'country', 'mailing_address', 'physical_address', 'currency', 'professional_area']
 
 
 class CourseForm(forms.ModelForm):
@@ -123,16 +109,33 @@ class CourseForm(forms.ModelForm):
 
 
 class JobForm(forms.ModelForm):
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(JobForm, self).__init__(*args, **kwargs)
+        company = Company.objects.filter(responsible_manager__user=self.user).first()
+        self.fields['responsible_manager'].widget = forms.Select(attrs={'class': 'form-select form-select-lg mb-3'})
+        self.fields['responsible_manager'].queryset = company.responsible_manager.all()
+        self.fields['responsible_manager'].help_text = 'Manager'
+
     title = forms.CharField(help_text='Job Title', widget=forms.TextInput(attrs={'class': 'form-control'}))
     description = forms.CharField(
         help_text='Job Description',
     )
-    responsible_manager = forms.ModelChoiceField(
-        queryset=Manager.objects.all(),
-        help_text='Manager',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        required=True
-    )
+
+    #responsible_manager = forms.ModelChoiceField(
+    #    queryset=Company.responsible_manager.filter(),
+    #    help_text='Manager',
+    #    widget=forms.Select(attrs={'class': 'form-control'}),
+    #    required=True
+    #)
+
+    def save(self, *args, **kwargs):
+        instance = super(JobForm, self).save(commit=False)
+        instance.company = Company.objects.filter(responsible_manager__user=self.user).first()
+        instance.save()
+        return instance
+
 
     class Meta:
         model = Job
@@ -155,7 +158,7 @@ class StaffForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control mb-3',
                                        'placeholder': 'Last Name'}))
 
-    job_title = forms.ModelMultipleChoiceField(
+    job = forms.ModelChoiceField(
         queryset=Job.objects.all(),
         help_text='Job Title',
         widget=forms.SelectMultiple(attrs={'class': 'form-control', 'id': "choices-multiple-remove-button",
@@ -163,11 +166,10 @@ class StaffForm(forms.ModelForm):
         required=False
     )
 
-    status = forms.ModelChoiceField(
-        queryset=StaffStatus.objects.all(),
+    status = forms.ChoiceField(
+        choices=Staff.type_status,
         help_text='Staff Status',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        required=False
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
 
     username = forms.EmailField(
@@ -182,7 +184,7 @@ class StaffForm(forms.ModelForm):
 
     class Meta:
         model = Staff
-        fields = ['email', 'first_name', 'last_name', 'job_title', 'status']
+        fields = ['email', 'first_name', 'last_name', 'job', 'status', 'cv']
 
 
 class LoginForm(forms.Form):
@@ -267,26 +269,70 @@ class ResetPasswordForm(PasswordResetForm):
     )
 
 
+class ActivatePasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        help_text='New Password',
+        widget=forms.PasswordInput(attrs={'class': 'form-control mb-3'}),
+        required=True
+    )
+    new_password2 = forms.CharField(
+        help_text='New Password Repeat',
+        widget=forms.PasswordInput(attrs={'class': 'form-control mb-3'}),
+        required=True
+    )
+
 
 class ManagerForm(forms.ModelForm):
-    phone = forms.CharField(max_length=100, help_text='Телефон менеджера')
+
+    first_name = forms.CharField(
+        help_text='First Name',
+        widget=forms.TextInput(attrs={'class': 'form-control',
+                                      'placeholder': 'First Name'}))
+
+    last_name = forms.CharField(
+        help_text='Last Name',
+        widget=forms.TextInput(attrs={'class': 'form-control',
+                                      'placeholder': 'Last Name'}))
+
+    phone = forms.CharField(
+        max_length=100,
+        help_text='Your phone',
+        widget=forms.TextInput(attrs={'class': 'form-control',
+                                      'placeholder': "eg. +1(444)2392-23-23"}),
+        required=False
+    )
+
     comment = forms.CharField(help_text='Комментарий', widget=forms.Textarea, required=False)
+
+
+    #user = models.OneToOneField(User, on_delete=models.CASCADE)
+    #birthday = models.DateField(null=True, blank=True)
+
 
     class Meta:
         model = Manager
-        fields = ["phone", "comment"]
+        fields = ["first_name", "last_name", "phone", "comment"]
 
 
 class MeetingForm(forms.ModelForm):
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        print(user)
+        super(MeetingForm, self).__init__(*args, **kwargs)
+        company = Company.objects.filter(responsible_manager__user=self.user).first()
+        self.fields['responsible_manager'].widget = forms.Select(attrs={'class': 'form-select form-select-lg mb-3'})
+        self.fields['responsible_manager'].queryset = company.responsible_manager.all()
+        self.fields['responsible_manager'].help_text = 'Manager'
+
     title = forms.CharField(help_text='Meeting Title', widget=forms.TextInput(attrs={'class': 'form-control'}))
 
-    responsible_manager = forms.ModelChoiceField(
-        queryset=Manager.objects.all(),
-        help_text='Responsible Manager',
-        widget=forms.Select(attrs={'class': 'form-control', 'id': "choices-multiple-managers-button",
-                                           'name': "choices-multiple-managers-button"}),
-        required=False
-    )
+    #responsible_manager = forms.ModelChoiceField(
+    #    queryset=Manager.objects.all(),
+    #    help_text='Responsible Manager',
+    #    widget=forms.Select(attrs={'class': 'form-control', 'id': "choices-multiple-managers-button",
+    #                                       'name': "choices-multiple-managers-button"}),
+    #    required=False
+    #)
 
     applicant = forms.ModelChoiceField(
         queryset=Staff.objects.all(),

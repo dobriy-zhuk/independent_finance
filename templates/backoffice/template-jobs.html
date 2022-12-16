@@ -42,7 +42,7 @@
             <div class="nav-wrapper position-relative end-0">
               <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist" id="tabs">
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="{% url 'open_jobs' %}" role="tab" aria-selected="true">
+                  <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab" href="{% url 'open_jobs' %}" role="tab" aria-selected="false">
                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                         <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
@@ -61,7 +61,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="{% url 'template_jobs' %}" role="tab" aria-selected="false">
+                  <a class="nav-link mb-0 px-0 py-1 active" data-bs-toggle="tab" href="{% url 'template_jobs' %}" role="tab" aria-selected="false">
                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <title>document</title>
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -80,7 +80,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab"  href="{% url 'quiz' %}" role="tab" aria-selected="false">
+                  <a class="nav-link mb-0 px-0 py-1" data-bs-toggle="tab"  href="{% url 'archive_jobs' %}" role="tab" aria-selected="false">
                     <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <title>settings</title>
                       <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -111,7 +111,7 @@
       <section class="py-3">
         <div class="row">
           <div class="col-md-8 me-auto text-left">
-            <h5>Open Jobs</h5>
+            <h5>Jobs Templates</h5>
             <p>This is the paragraph where you can write more details about your projects. Keep you user engaged by providing meaningful information.</p>
           </div>
         </div>
@@ -126,7 +126,7 @@
                     <img src="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-pro/img/small-logos/logo-slack.svg" alt="slack_logo">
                   </div>
                   <div class="ms-3 my-auto">
-                      <h6><a href="{% url 'show_staff' job_pk=job.pk %}">{{ job }}</a></h6>
+                      <h6><a href="{% url 'view_job' pk=job.pk %}">{{ job }}</a></h6>
                     <div class="avatar-group">
                       <a href="javascript:;" class="avatar avatar-xs rounded-circle" data-bs-toggle="tooltip" data-original-title="Jessica Rowland">
                         <img alt="Image placeholder" src="https://appsrv1-147a1.kxcdn.com/soft-ui-dashboard-pro/img/team-3.jpg" class="">
@@ -162,29 +162,16 @@
                 <hr class="horizontal dark">
                 <div class="row">
                   <div class="col-6">
-                    <h6 class="text-sm mb-0">{{ job.responsible_manager }}</h6>
-                    <p class="text-secondary text-sm font-weight-bold mb-0">Manager</p>
+                    <button class="btn btn-outline-dark btn-sm mb-0 me-2" type="button" name="button">View</button>
                   </div>
                   <div class="col-6 text-right">
-                    <h6 class="text-sm mb-0">{{ job.date_added }}</h6>
-                    <p class="text-secondary text-sm font-weight-bold mb-0">Date added</p>
+                      <a class="btn bg-gradient-primary btn-sm mb-0" type="button" name="button" href="{% url 'create_job_from_template' pk=job.pk %}">Create from template</a>
                   </div>
                 </div>
               </div>
             </div>
           </div>
          {% endfor %}
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <div class="card-body d-flex flex-column justify-content-center text-center">
-                <a href="{% url 'new_job' %}">
-                  <i class="fa fa-plus text-secondary mb-3"></i>
-                  <h5 class=" text-secondary">New Job</h5>
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 

@@ -1,0 +1,281 @@
+{% extends 'base/base_landing.html' %}
+{% load static %}
+{% block title %}Guarantee HR - payment form{% endblock title %}
+
+{% block tags %}
+<meta name="description"
+    content="Guarantee Learning - payment form" />
+<meta name="keywords"
+    content="guarantee learning, payment, courses, check out" />
+<meta name="author" content="dobriy_zhuk" />
+<meta property="og:title"
+    content="Guarantee Learning - payment form" />
+<meta property="og:description"
+    content="Guarantee Learning - payment form" />
+<meta property="og:image" content="https://guaranteelearning.com/static/images/landing/payment.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://guaranteelearning.com/en/payment/" />
+
+
+{% endblock %}
+
+
+{% block main_header %}
+{% endblock %}
+
+{% block feature_place %}
+{% endblock %}
+
+{% block callback_place %}
+{% endblock %}
+
+{% block view_full %}
+{% endblock %}
+
+{% block view_full_pink %}
+{% endblock %}
+
+{% block view_full_with_gallery %}
+{% endblock %}
+
+{% block all_courses %}
+{% endblock %}
+
+{% block price_place %}
+{% endblock %}
+
+{% block teachers %}
+{% endblock %}
+
+{% block testimonials %}
+{% endblock %}
+
+{% block faq %}
+{% endblock %}
+
+{% block gallery %}
+{% endblock %}
+
+{% block content %}
+    <div id="ex4" class="bl-13" style="margin-top: -100px">
+		<div id="tab-13" class="wrp">
+			<div class="bl_ttl">
+				<span>Guarantee Learning</span>
+				<h2>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if message.tags == "error" %}
+                                <div style="color: darkred" role="alert">
+                                  {{ message }}
+                                </div>
+                            {% elif message.tags %}
+                            <div style="color: green"  class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">
+                              {{ message }}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        Payment form
+                {% endif %}
+                </h2>
+            <p id="payment_info"></p>
+			</div>
+            <div id="sweeties">
+            <!--Всплывашка "Спасибо"-->
+					<div class="b_form thank">
+						<div class="b_form_min">
+							<img src="{% static 'images/landing/logo.svg' %}">
+							<div class="b_form_min_cl thank-close"></div>
+							<div class="b_form_min_ttl">
+								<div>Thank you!</div>
+								<span>we will contact you!</span>
+							</div>
+						</div>
+					</div>
+					<!--Всплывашка "Спасибо"-->
+        </div>
+
+			<div id="ex5" class="bl-13_tab-bl count-13" style="margin-bottom: 25px">
+				<div class="bl-13_tab-bl_sec">
+					<div class="bl-13_tab-bl_sec_min">
+						<img src="{% static 'images/landing/payment.svg' %}" alt="Гарантия Знаний - школа, которая точно понравится вашему ребенку. Занятия в Москве, Ярославле и Онлайн">
+					</div>
+					<div class="bl-13_tab-bl_sec_min">
+						<form id="payment_form">
+                            {% csrf_token %}
+							<label>
+								<span class="l-n">Full Name <span>*</span> </span>
+								<input type="text" name="name" id="checkout_name" placeholder="Jake Jakob" minlength="2"
+									maxlength="100" required>
+							</label>
+							<label>
+								<span class="l-n">Phone <span>*</span> </span>
+								<input class="" type="tel" name="phone" id="checkout_phone" placeholder="+1 999 999 99 99"
+									minlength="" maxlength="18" required>
+							</label>
+                            <label>
+								<span class="l-n">E-mail <span>*</span> </span>
+								<input type="email" id="checkout_email" placeholder="jake@gmail.com">
+							</label>
+                            <label>
+							    <span class="l-n">Subject<span>*</span> </span>
+											<select name="subject" id="subject">
+												<option value="773666">Coding</option>
+                                                <option value="778717">Math</option>
+                                                <option>English</option>
+                                                <option>School</option>
+												<option>Camp</option>
+											</select>
+											<div class="select-ar"></div>
+										</label>
+							<label>
+								<span class="l-n">Comment</span>
+								<textarea name="comment" id="comment"></textarea>
+							</label>
+                            <div style="text-align: left">
+								<input id="check_amount" class="custom-checkbox" type="checkbox" name="check_amount" onclick="showEmailInput()">
+								<label for="check_amount" class="lb-check">
+									<span>Free amount</span>
+								</label>
+							</div>
+							<label style="display:none" id="amount">
+								<span class="l-n">Amount, USD</span>
+								<input type="number" name="amount" id="amount_number" placeholder=""
+                                       style="border-color: black">
+							</label>
+							<div>
+								<input id="check" class="custom-checkbox" type="checkbox" name="Checkbox" checked>
+								<label for="check" class="lb-check">
+									<span>Agree Terms of Service and Privacy Policy</span>
+								</label>
+							</div>
+							<button type="submit">Check out</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $('form').on('submit', function (event) {
+        event.preventDefault();
+
+        $phone = this.phone;
+        $phone.style.borderColor = 'black';
+
+        form = this;
+
+        formdata = $(form).serializeArray();
+        var data = {};
+        $(formdata).each(function(index, obj){
+            data[obj.name] = obj.value;
+        });
+        if (form.id === 'payment_form'){
+
+            $.ajax({
+            type:'POST',
+            url:'{% url "payment_paddle" %}',
+            data: data,
+            success: function(json){
+
+                Paddle.Checkout.open({
+                    override: json.formUrl,
+                    allowQuantity: false,
+                    email: $("#checkout_email").val(),
+                    passthrough: '{' +
+                        '"name": ' + $("#checkout_name").val() + ', ' +
+                        '"phone":' + $("#checkout_phone").val() +
+                        '}',
+                    successCallback: "checkoutComplete",
+                    closeCallback: "checkoutClosed"
+                });
+            },
+            error: function(xhr,errmsg,err) {
+                document.getElementById("payment_info").style.color = 'red';
+                document.getElementById("payment_info").textContent="Payment error. Try again!";
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+            });
+
+
+        }
+        else
+            {
+            $.ajax({
+            type:'POST',
+            url:'{% url "full_contact" %}',
+            data: data,
+            success: function(json){
+                form.reset();
+
+                var kons = document.getElementById('kons');
+                if(kons){
+                    kons.classList.remove('kons-open');
+                }
+                var fixzap = document.getElementById('fix-zap');
+                var thankclose = menuElem.querySelector('.thank-close');
+
+                menuElem.classList.remove('open');
+		        fixzap.classList.remove('open-fix');
+                menuElem.classList.add('thank-pop');
+
+                thankclose.onclick = function () {
+                    menuElem.classList.remove('thank-pop');
+                };
+
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push ({
+                'event': 'paymentForm',
+                'formName': form.id,
+                });
+
+            },
+            error: function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+            });
+            }
+    });
+
+
+function showEmailInput() {
+  // Get the checkbox
+  var checkBox = document.getElementById("check_amount");
+  // Get the output text
+  var text = document.getElementById("amount");
+
+  // If the checkbox is checked, display the output text
+  if (checkBox.checked === true){
+    text.style.display = "block";
+  } else {
+    document.getElementById("amount_number").value = '';
+    text.style.display = "none";
+  }
+}
+</script>
+
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+
+	<script type="text/javascript">
+		Paddle.Setup({
+			vendor: 147950
+		});
+
+		function checkoutClosed(data) {
+          console.log(data);
+          document.getElementById("payment_info").style.color = 'red';
+          document.getElementById("payment_info").textContent="Your purchase has been cancelled, we hope to see you again soon!";
+        }
+
+        function checkoutComplete(data) {
+          console.log(data);
+          document.getElementById("payment_info").style.color = 'green';
+          document.getElementById("payment_info").textContent="Thanks for your purchase.";
+        }
+
+
+	</script>
+{% endblock %}

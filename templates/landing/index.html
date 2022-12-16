@@ -360,7 +360,7 @@
             data: data,
             success: function(json){
                 form.reset();
-                 if (data['success']){
+                 if (json['result'] === 'success'){
                     document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-success">Successfully. Approve your email</div>';
                  }
                  else {

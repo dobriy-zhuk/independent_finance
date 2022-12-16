@@ -110,7 +110,43 @@
       </div-->
 
 
-{% if info_need %}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update info about your company</h5>
+      </div>
+    <form method='POST' enctype="multipart/form-data" id="companyForm">
+      <div class="modal-body">
+
+                       <div id="result_div_id"></div>
+                      {% csrf_token %}
+                      {% for field in company_form %}
+                          <label>
+                          {% if field.help_text %}
+                              {{ field.help_text }}
+                          {% endif %}
+                          </label>
+                            {{ field }}
+
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                        {% endfor %}
+                        <div class="text-center">
+                    </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn bg-gradient-primary">Save changes</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
       <div class="row mt-4">
         <div class="col-lg-7 mb-lg-0 mb-4">
           <div class="card">
@@ -120,8 +156,8 @@
                   <div class="d-flex flex-column h-100">
                     <p class="mb-1 pt-2 text-bold">Set up your account</p>
                     <h5 class="font-weight-bolder">HR and onboarding are just a click away</h5>
-                    <p class="mb-5">We need to know where your company is located in order to calculate and file your taxes accurately.</p>
-                    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="{% url 'edit_company' pk=company.pk %}">
+                    <p class="mb-5">We need to know additional info about your company to create the best experience.</p>
+                    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="###">
                       Add company info
                       <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
                     </a>
@@ -146,7 +182,7 @@
               <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
                 <h5 class="text-white font-weight-bolder mb-4 pt-2">Need help?</h5>
                 <p class="text-white">We are here to help you. Customer support and instant answers are in our help center</p>
-                <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+                <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://t.me/GarantyLearning_bot" target="_blank">
                   Browse for help
                   <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
                 </a>
@@ -154,15 +190,34 @@
             </div>
           </div>
         </div>
-
       </div>
-{% endif %}
 
+    <form id='myForm' action="{% url 'api_new_staff' %}" method="POST" enctype="multipart/form-data">
+          <input name="name" value="Sam" />
+          <input name="phone" value="71951213" />
+          <input name="email" value="email@email.com" />
+          <input name="token" value="2924669a-6e6e-4cd5-9ec5-ececf7d5fe0d" />
+          <input type="file" name="cv_file">
+        <button type="submit">submit</button>
+    </form>
 
     <div class="row my-4">
         <div class="col-lg-12 col-md-12 mb-md-0 mb-4">
  <div class="card">
-  <div class="table-responsive">
+        <div class="card-header pb-0">
+              <div class="row">
+                <div class="col-lg-12 col-12">
+                  <h6>Last Activity</h6>
+                  <p class="text-sm mb-0">
+                    <i class="fa fa-check text-info" aria-hidden="true"></i>
+                    <span class="font-weight-bold ms-1">30 done</span> this month
+                  </p>
+                </div>
+              </div>
+            </div>
+
+ <div class="card-body px-0 pb-2">
+    <div class="table-responsive">
     <table class="table align-items-center mb-0">
       <thead>
         <tr>
@@ -194,7 +249,7 @@
           <td>
             <span class="badge badge-dot me-4">
               <i class="bg-info"></i>
-              <span class="text-dark text-xs">working</span>
+              <span class="text-dark text-xs">{{ applicant.job }}</span>
             </span>
           </td>
           <td class="align-middle text-center">
@@ -207,9 +262,10 @@
               </div>
             </div>
           </td>
+
           <td class="align-middle">
             <div class="dropdown">
-                <button class="btn btn-link text-secondary ps-0 pe-2" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-link text-secondary ps-0 pe-2" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                     <i class="fa fa-ellipsis-v text-lg"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end me-sm-n4 me-n3" aria-labelledby="navbarDropdownMenuLink">
@@ -228,10 +284,14 @@
       </tbody>
     </table>
   </div>
+            </div>
+
+
 
   </div>
 
         </div>
+
       </div>
 
       <div class="row my-4">
@@ -309,7 +369,7 @@ i[class^=icon-chevron]{
           </style>
 
 
-          <div class="col-xl-6">
+          <!--div class="col-xl-6">
 
     <datetime-slot-picker
       placeholder="Pick a date and time slot"
@@ -319,80 +379,200 @@ i[class^=icon-chevron]{
     </datetime-slot-picker>
 
 
-          </div>
+          </div-->
 
 
-
-
-        <div class="col-lg-3 col-md-6">
-          <div class="card h-100">
-            <div class="card-header pb-0">
-              <h6>Orders overview</h6>
-              <p class="text-sm">
-                <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
-                <span class="font-weight-bold">24%</span> this month
-              </p>
+           <div class="col-lg-6 col-12">
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="card" style="background-image: url('../../../assets/img/curved-images/white-curved.jpeg')">
+                <span class="mask bg-gradient-dark opacity-9 border-radius-xl"></span>
+                <div class="card-body p-3 position-relative">
+                  <div class="row">
+                    <div class="col-8 text-start">
+                      <div class="icon icon-shape bg-white shadow text-center border-radius-md">
+                        <i class="ni ni-circle-08 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                      <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                        1600
+                      </h5>
+                      <span class="text-white text-sm">Users Active</span>
+                    </div>
+                    <div class="col-4">
+                      <div class="dropdown text-end mb-6">
+                        <a href="javascript:;" class="cursor-pointer" id="dropdownUsers1" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-ellipsis-h text-white"></i>
+                        </a>
+                        <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownUsers1">
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                        </ul>
+                      </div>
+                      <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+55%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="card-body p-3">
-              <div class="timeline timeline-one-side">
-                <div class="timeline-block mb-3">
-                  <span class="timeline-step">
-                    <i class="ni ni-bell-55 text-success text-gradient"></i>
-                  </span>
-                  <div class="timeline-content">
-                    <h6 class="text-dark text-sm font-weight-bold mb-0">$2400, Design changes</h6>
-                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">22 DEC 7:20 PM</p>
+            <div class="col-lg-6 col-md-6 col-12 mt-4 mt-md-0">
+              <div class="card" style="background-image: url('../../../assets/img/curved-images/white-curved.jpeg')">
+                <span class="mask bg-gradient-dark opacity-9 border-radius-xl"></span>
+                <div class="card-body p-3 position-relative">
+                  <div class="row">
+                    <div class="col-8 text-start">
+                      <div class="icon icon-shape bg-white shadow text-center border-radius-md">
+                        <i class="ni ni-active-40 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                      <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                        357
+                      </h5>
+                      <span class="text-white text-sm">Click Events</span>
+                    </div>
+                    <div class="col-4">
+                      <div class="dropstart text-end mb-6">
+                        <a href="javascript:;" class="cursor-pointer" id="dropdownUsers2" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-ellipsis-h text-white"></i>
+                        </a>
+                        <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownUsers2">
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                        </ul>
+                      </div>
+                      <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+124%</p>
+                    </div>
                   </div>
                 </div>
-                <div class="timeline-block mb-3">
-                  <span class="timeline-step">
-                    <i class="ni ni-html5 text-danger text-gradient"></i>
-                  </span>
-                  <div class="timeline-content">
-                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #1832412</h6>
-                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 11 PM</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-lg-6 col-md-6 col-12">
+              <div class="card" style="background-image: url('../../../assets/img/curved-images/white-curved.jpeg')">
+                <span class="mask bg-gradient-dark opacity-9 border-radius-xl"></span>
+                <div class="card-body p-3 position-relative">
+                  <div class="row">
+                    <div class="col-8 text-start">
+                      <div class="icon icon-shape bg-white shadow text-center border-radius-md">
+                        <i class="ni ni-cart text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                      <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                        2300
+                      </h5>
+                      <span class="text-white text-sm">Purchases</span>
+                    </div>
+                    <div class="col-4">
+                      <div class="dropdown text-end mb-6">
+                        <a href="javascript:;" class="cursor-pointer" id="dropdownUsers3" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-ellipsis-h text-white"></i>
+                        </a>
+                        <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownUsers3">
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                        </ul>
+                      </div>
+                      <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+15%</p>
+                    </div>
                   </div>
                 </div>
-                <div class="timeline-block mb-3">
-                  <span class="timeline-step">
-                    <i class="ni ni-cart text-info text-gradient"></i>
-                  </span>
-                  <div class="timeline-content">
-                    <h6 class="text-dark text-sm font-weight-bold mb-0">Server payments for April</h6>
-                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">21 DEC 9:34 PM</p>
-                  </div>
-                </div>
-                <div class="timeline-block mb-3">
-                  <span class="timeline-step">
-                    <i class="ni ni-credit-card text-warning text-gradient"></i>
-                  </span>
-                  <div class="timeline-content">
-                    <h6 class="text-dark text-sm font-weight-bold mb-0">New card added for order #4395133</h6>
-                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">20 DEC 2:20 AM</p>
-                  </div>
-                </div>
-                <div class="timeline-block mb-3">
-                  <span class="timeline-step">
-                    <i class="ni ni-key-25 text-primary text-gradient"></i>
-                  </span>
-                  <div class="timeline-content">
-                    <h6 class="text-dark text-sm font-weight-bold mb-0">Unlock packages for development</h6>
-                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">18 DEC 4:54 AM</p>
-                  </div>
-                </div>
-                <div class="timeline-block">
-                  <span class="timeline-step">
-                    <i class="ni ni-money-coins text-dark text-gradient"></i>
-                  </span>
-                  <div class="timeline-content">
-                    <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
-                    <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12 mt-4 mt-md-0">
+              <div class="card" style="background-image: url('../../../assets/img/curved-images/white-curved.jpeg')">
+                <span class="mask bg-gradient-dark opacity-9 border-radius-xl"></span>
+                <div class="card-body p-3 position-relative">
+                  <div class="row">
+                    <div class="col-8 text-start">
+                      <div class="icon icon-shape bg-white shadow text-center border-radius-md">
+                        <i class="ni ni-like-2 text-dark text-gradient text-lg opacity-10" aria-hidden="true"></i>
+                      </div>
+                      <h5 class="text-white font-weight-bolder mb-0 mt-3">
+                        940
+                      </h5>
+                      <span class="text-white text-sm">Likes</span>
+                    </div>
+                    <div class="col-4">
+                      <div class="dropstart text-end mb-6">
+                        <a href="javascript:;" class="cursor-pointer" id="dropdownUsers4" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa fa-ellipsis-h text-white"></i>
+                        </a>
+                        <ul class="dropdown-menu px-2 py-3" aria-labelledby="dropdownUsers4">
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                          <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                        </ul>
+                      </div>
+                      <p class="text-white text-sm text-end font-weight-bolder mt-auto mb-0">+90%</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="col-lg-6 col-12 mt-4 mt-lg-0">
+          <div class="card h-100">
+            <div class="card-header pb-0 p-3">
+              <h6 class="mb-0">Reviews</h6>
+            </div>
+            <div class="card-body pb-0 p-3">
+              <ul class="list-group">
+                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-0">
+                  <div class="w-100">
+                    <div class="d-flex mb-2">
+                      <span class="me-2 text-sm font-weight-bold text-capitalize">Positive reviews</span>
+                      <span class="ms-auto text-sm font-weight-bold">80%</span>
+                    </div>
+                    <div>
+                      <div class="progress progress-md">
+                        <div class="progress-bar bg-gradient-info w-80" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                  <div class="w-100">
+                    <div class="d-flex mb-2">
+                      <span class="me-2 text-sm font-weight-bold text-capitalize">Neutral reviews</span>
+                      <span class="ms-auto text-sm font-weight-bold">17%</span>
+                    </div>
+                    <div>
+                      <div class="progress progress-md">
+                        <div class="progress-bar bg-gradient-dark w-10" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+                  <div class="w-100">
+                    <div class="d-flex mb-2">
+                      <span class="me-2 text-sm font-weight-bold text-capitalize">Negative reviews</span>
+                      <span class="ms-auto text-sm font-weight-bold">3%</span>
+                    </div>
+                    <div>
+                      <div class="progress progress-md">
+                        <div class="progress-bar bg-gradient-danger w-5" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="card-footer pt-0 p-3 d-flex align-items-center">
+              <div class="w-60">
+                <p class="text-sm">
+                  More than <b>1,500,000</b> developers used Creative Tim's products and over <b>700,000</b> projects were created.
+                </p>
+              </div>
+              <div class="w-40 text-end">
+                <a class="btn bg-gradient-dark mb-0 text-end" href="javascript:;">View all reviews</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -407,257 +587,19 @@ i[class^=icon-chevron]{
 {% endblock %}
 
 {% block javascript %}
-<script src='https://unpkg.com/datetime-slot-picker/dist/datetime-slot-picker/datetime-slot-picker.js'></script>
-
-<script>
-     const datetimeSlotPicker = document.querySelector('datetime-slot-picker');
-
-     /* LISTENER FOR DATE AND TIME SLOT CHANGES */
-     datetimeSlotPicker.addEventListener('slotUpdate', function(event){ console.log('Updated Slot: ', event.detail) });
-
-     /* INITIALIZING THE AVAILABLE SLOTS. TIME SLOTS IS OPTIONAL */
-     datetimeSlotPicker.slots = [
-       {
-         "date": 'Thu, 26 Nov 2020',
-         "timeSlots": [
-           '6 AM - 7 AM',
-           '7 AM - 8 AM',
-           '8 AM - 9 AM',
-           '9 AM - 10 AM',
-           '10 AM - 11 AM',
-           '11 AM - 12 PM',
-           '12 PM - 1 PM',
-           '1 PM - 2 PM',
-           '2 PM - 3 PM',
-           '3 PM - 4 PM',
-           '4 PM - 5 PM',
-           '5 PM - 6 PM',
-           '6 PM - 7 PM',
-           '7 PM - 8 PM',
-           '8 PM - 9 PM',
-           '9 PM - 10 PM',
-           '10 PM - 11 PM',
-           '11 PM - 12 AM'
-          ]
-       },
-       {
-         "date": 'Fri, 27 Nov 2020',
-         "timeSlots": [
-         ]
-       },
-       {
-         "date": 'Mon, 30 Nov 2020',
-         "timeSlots": [
-           '10 AM - 11 AM',
-           '11 AM - 12 PM',
-           '4 PM - 5 PM',
-           '5 PM - 6 PM'
-         ]
-       },
-       {
-         "date": 'Tue, 1 Dec 2020',
-         "timeSlots": [
-           '10 AM - 11 AM',
-           '11 AM - 12 PM',
-           '4 PM - 5 PM',
-           '5 PM - 6 PM'
-         ]
-       },
-       {
-         date: 'Mon, 4 Jan 2021',
-         timeSlots: [
-           '6 AM - 7 AM',
-           '7 AM - 8 AM',
-           '8 AM - 9 AM',
-           '1 PM - 2 PM',
-           '2 PM - 3 PM',
-           '4 PM - 5 PM',
-           '5 PM - 6 PM',
-           '6 PM - 7 PM',
-           '7 PM - 8 PM',
-           '8 PM - 9 PM'
-         ]
-       },
-       {
-         date: 'Tue, 5 Jan 2021',
-         timeSlots: [
-           '5 AM - 6 AM',
-           '7 AM - 8 AM',
-           '8 AM - 9 AM',
-           '1 PM - 2 PM',
-           '2 PM - 3 PM',
-           '4 PM - 5 PM',
-           '5 PM - 6 PM',
-           '6 PM - 7 PM',
-           '7 PM - 8 PM',
-           '8 PM - 9 PM'
-         ]
-       }
-     ];
-  </script>
-
-
-
-
-    <script>
-
-    $(function () {
-  function c() {
-    p();
-    var e = h();
-    var r = 0;
-    var u = false;
-    l.empty();
-    while (!u) {
-      if (s[r] == e[0].weekday) {
-        u = true;
-      } else {
-        l.append('<div class="blank"></div>');
-        r++;
-      }
-    }
-    for (var c = 0; c < 42 - r; c++) {
-      if (c >= e.length) {
-        l.append('<div class="blank"></div>');
-      } else {
-        var v = e[c].day;
-        var m = g(new Date(t, n - 1, v)) ? '<div class="today">' : "<div>";
-        l.append(m + "" + v + "</div>");
-      }
-    }
-    var y = o[n - 1];
-    a.css("background-color", y)
-      .find("h1")
-      .text(i[n - 1] + " " + t);
-    f.find("div").css("color", y);
-    l.find(".today").css("background-color", y);
-    d();
-  }
-  function h() {
-    var e = [];
-    for (var r = 1; r < v(t, n) + 1; r++) {
-      e.push({ day: r, weekday: s[m(t, n, r)] });
-    }
-    return e;
-  }
-  function p() {
-    f.empty();
-    for (var e = 0; e < 7; e++) {
-      f.append("<div>" + s[e].substring(0, 3) + "</div>");
-    }
-  }
-  function d() {
-    var t;
-    var n = $("#calendar").css("width", e + "px");
-    n.find((t = "#calendar_weekdays, #calendar_content"))
-      .css("width", e + "px")
-      .find("div")
-      .css({
-        width: e / 7 + "px",
-        height: e / 7 + "px",
-        "line-height": e / 7 + "px"
-      });
-    n.find("#calendar_header")
-      .css({ height: e * (1 / 7) + "px" })
-      .find('i[class^="icon-chevron"]')
-      .css("line-height", e * (1 / 7) + "px");
-  }
-  function v(e, t) {
-    return new Date(e, t, 0).getDate();
-  }
-  function m(e, t, n) {
-    return new Date(e, t - 1, n).getDay();
-  }
-  function g(e) {
-    return y(new Date()) == y(e);
-  }
-  function y(e) {
-    return e.getFullYear() + "/" + (e.getMonth() + 1) + "/" + e.getDate();
-  }
-  function b() {
-    var e = new Date();
-    t = e.getFullYear();
-    n = e.getMonth() + 1;
-  }
-  var e = 480;
-  var t = 2013;
-  var n = 9;
-  var r = [];
-  var i = [
-    "JANUARY",
-    "FEBRUARY",
-    "MARCH",
-    "APRIL",
-    "MAY",
-    "JUNE",
-    "JULY",
-    "AUGUST",
-    "SEPTEMBER",
-    "OCTOBER",
-    "NOVEMBER",
-    "DECEMBER"
-  ];
-  var s = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-  var o = [
-    "#16a085",
-    "#1abc9c",
-    "#c0392b",
-    "#27ae60",
-    "#FF6860",
-    "#f39c12",
-    "#f1c40f",
-    "#e67e22",
-    "#2ecc71",
-    "#e74c3c",
-    "#d35400",
-    "#2c3e50"
-  ];
-  var u = $("#calendar");
-  var a = u.find("#calendar_header");
-  var f = u.find("#calendar_weekdays");
-  var l = u.find("#calendar_content");
-
-  b();
-  c();
-  a.find('i[class^="icon-chevron"]').on("click", function () {
-    var e = $(this);
-    var r = function (e) {
-      n = e == "next" ? n + 1 : n - 1;
-      if (n < 1) {
-        n = 12;
-        t--;
-      } else if (n > 12) {
-        n = 1;
-        t++;
-      }
-      c();
-    };
-    if (e.attr("class").indexOf("left") != -1) {
-      r("previous");
-    } else {
-      r("next");
-    }
-  });
-});
-
-
-
-	</script>
-
 
 <script>
 
 
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+        keyboard: false,
+        static: false
+    });
+    let id_name = document.getElementById("id_name").value;
 
-
+    if (!id_name) {
+        myModal.show();
+    }
 
     // maintaining the state of each variable.
     var current_page = 1; // maintains the current page
@@ -672,25 +614,9 @@ i[class^=icon-chevron]{
         return '?page=${page}&limit=${page_limit}&country=${country}&sort_by=${sort_by}&start=${start_year}&end=${end_year}';
     }
 
-    function getCountries() {
-        // call the ajax and populates the country select options
-        $.ajax({
-            method: 'GET',
-            url: $("#countries").attr("url"),
-            success: function (response) {
-                countries_option = "<option value='all' selected>All Countries</option>";
-                $.each(response["country"], function (a, b) {
-                    countries_option += "<option>" + b + "</option>"
-                });
-                $("#countries").html(countries_option)
-            },
-            error: function (response) {
-                console.log(response)
-            }
-        });
-    }
 
-    getStaff();
+
+    //getStaff();
 
     function getStaff() {
 
@@ -712,7 +638,7 @@ i[class^=icon-chevron]{
     // On select change of the sort select, call the getAPIData with sortby.
     $("#sort").on("change", function (e) {
         current_page = 1;
-        sort_by = this.value
+        sort_by = this.value;
         getAPIData(get_list_url(current_page));
     });
 
@@ -843,8 +769,109 @@ i[class^=icon-chevron]{
         });
     }
 
-    //on page load, call this two methods.
-    //getAPIData(get_list_url(current_page));
-    //getStaff()
 </script>
+<script>
+
+    var ctx2 = document.getElementById("chart-line").getContext("2d");
+
+    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
+
+    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
+    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
+    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
+
+    new Chart(ctx2, {
+      type: "line",
+      data: {
+        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [{
+            label: "Mobile apps",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#cb0c9f",
+            borderWidth: 3,
+            backgroundColor: gradientStroke1,
+            fill: true,
+            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+            maxBarThickness: 6
+
+          },
+          {
+            label: "Websites",
+            tension: 0.4,
+            borderWidth: 0,
+            pointRadius: 0,
+            borderColor: "#3A416F",
+            borderWidth: 3,
+            backgroundColor: gradientStroke2,
+            fill: true,
+            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+            maxBarThickness: 6
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index',
+        },
+        scales: {
+          y: {
+            grid: {
+              drawBorder: false,
+              display: true,
+              drawOnChartArea: true,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              padding: 10,
+              color: '#b2b9bf',
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+          x: {
+            grid: {
+              drawBorder: false,
+              display: false,
+              drawOnChartArea: false,
+              drawTicks: false,
+              borderDash: [5, 5]
+            },
+            ticks: {
+              display: true,
+              color: '#b2b9bf',
+              padding: 20,
+              font: {
+                size: 11,
+                family: "Open Sans",
+                style: 'normal',
+                lineHeight: 2
+              },
+            }
+          },
+        },
+      },
+    });
+  </script>
 {% endblock javascript %}

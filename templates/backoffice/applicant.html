@@ -141,7 +141,8 @@ It's a separate element, as animating opacity is faster than rgba(). -->
                     <div class="col-lg-5">
                   <div class="d-flex">
                       <a href="{% url 'new_test' pk=applicant.pk %}"><button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Send Test</button></a>&nbsp;
-                       <a href="{% url 'new_meeting' pk=applicant.pk %}"><button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Schedule Interview</button></a>&nbsp;
+                      <a href="{% url 'select_email_template' applicant_pk=applicant.pk %}"><button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Send Email</button></a>&nbsp;
+                      <a href="{% url 'new_meeting' pk=applicant.pk %}"><button class="btn btn-outline-dark btn-sm mb-0" type="button" name="button">Schedule Interview</button></a>&nbsp;
                         <a href="{% url 'new_test' pk=applicant.pk %}"><button class="btn bg-gradient-primary btn-sm mb-0 me-2" type="button" name="button">Job offer</button></a>
                   </div>
                     </div>
@@ -702,7 +703,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
         $.ajax({
             method: 'GET',
             data: {'name': document.getElementById("name_staff").value },
-            url: "{% url 'get_staff' %}",
+            url: "#",
             success: function (response) {
                putTableData(response);
             },
@@ -732,7 +733,7 @@ It's a separate element, as animating opacity is faster than rgba(). -->
             $.each(response, function (a, b) {
                 var edit_staff_url = "{% url 'edit_staff' pk=1234 %}".replace('1234', b.id.toString());
                 var new_test_url = "{% url 'new_test' pk=1234 %}".replace('1234', b.id.toString());
-                var new_email_url = "{% url 'new_email' pk=1234 %}".replace('1234', b.id.toString());
+                var new_email_url = "{% url 'new_email' applicant_pk=1234 %}".replace('1234', b.id.toString());
                 var new_meeting_url = "{% url 'new_meeting' pk=1234 %}".replace('1234', b.id.toString());
                 var remove_staff_url = "{% url 'remove_staff' pk=1234 %}".replace('1234', b.id.toString());
 

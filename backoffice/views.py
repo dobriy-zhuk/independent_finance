@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from .models import Staff, Subscription, Manager, Course, Company, Meeting, Quiz, EmailTemplate, Job, ApplicantContent, InterviewSlot
 from survey.models import Marks_Of_User
-from .forms import CourseForm, CompanyForm, ManagerForm, LoginForm, RegisterForm, StaffForm, MeetingForm, QuizForm, ChangePasswordForm, ResetPasswordForm, EmailForm, JobForm
+from .forms import CourseForm, CompanyForm, ManagerForm, LoginForm, RegisterForm, StaffForm, MeetingForm, QuizForm, ChangePasswordForm, ResetPasswordForm, EmailForm, JobForm, ActivatePasswordForm
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -29,6 +29,10 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 import datetime
 from django.utils import timezone
+from django.utils.encoding import force_bytes, force_text
+from django.utils.translation import gettext
+from django.urls import reverse
+from django.core.files.storage import FileSystemStorage
 
 
 #Функция для отправки емайлов
@@ -45,18 +49,54 @@ def send_email_with_template(title, to, body):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
-
+from django.template import loader
 @login_required(login_url='signin')
 def backoffice(request):
 
-    company = Company.objects.filter(responsible_manager__user=request.user).first()
-    info_need = True
-    if company.phone or company.email or company.comment:
-        info_need = False
+    if request.method == "POST":
+        company_form = CompanyForm(request.POST)
+        if company_form.is_valid():
+            #Create and save new company
+            company = company_form.save(commit=False)
+            company.subscription = Subscription.objects.all().first()
+            company.save()
+            company.responsible_manager.add(Manager.objects.get(user=request.user))
+
+            #create email templates for new company
+            interview_data = render_to_string("emails/interview.txt",
+                                    {
+                                        "manager": request.user.first_name,
+                                    }
+                                    )
+            EmailTemplate(company=company, name="Interview",
+                                            text=interview_data).save()
+
+            meeting_data = render_to_string("emails/meeting.txt",
+                                              {
+                                                  "manager": request.user.first_name,
+                                              }
+                                              )
+            EmailTemplate(company=company, name="Meeting",
+                          text=meeting_data).save()
+
+            offer_data = render_to_string("emails/offer.txt",
+                                              {
+                                                  "manager": request.user.first_name,
+                                              }
+                                              )
+            EmailTemplate(company=company, name="Offer",
+                          text=offer_data).save()
+
+            return redirect('backoffice')
+    else:
+        company = Company.objects.filter(responsible_manager__user=request.user).first()
+        company_form = CompanyForm(instance=company)
 
     applicants = Staff.objects.all().order_by('user')
 
-    return render(request, 'backoffice/backoffice.html', {'applicants': applicants, 'company': company, 'info_need': info_need})
+    #{% url 'edit_company' pk=company.pk %}
+
+    return render(request, 'backoffice/backoffice.html', {'applicants': applicants, 'company_form': company_form})
 
 
 @login_required(login_url='signin')
@@ -75,6 +115,53 @@ def jobs(request):
 
 
 @login_required(login_url='signin')
+def open_jobs(request):
+
+    page_limit = 10
+    search_query = request.GET.get('q')
+
+    #all_applicants = None
+    if search_query:
+        jobs = Job.objects.filter(Q(user__name__iexact=search_query) | Q(phone=search_query)).order_by('user')
+    else:
+        jobs = Job.objects.filter(status='open')
+        print(jobs)
+
+    return render(request, 'backoffice/open-jobs.html', {'jobs': jobs,})
+
+
+@login_required(login_url='signin')
+def template_jobs(request):
+
+    page_limit = 10
+    search_query = request.GET.get('q')
+
+    #all_applicants = None
+    if search_query:
+        jobs = Job.objects.filter(Q(user__name__iexact=search_query) | Q(phone=search_query)).order_by('user')
+    else:
+        jobs = Job.objects.filter(status='template')
+        print(jobs)
+
+    return render(request, 'backoffice/template-jobs.html', {'jobs': jobs,})
+
+
+@login_required(login_url='signin')
+def archive_jobs(request):
+
+    page_limit = 10
+    search_query = request.GET.get('q')
+
+    #all_applicants = None
+    if search_query:
+        jobs = Job.objects.filter(Q(user__name__iexact=search_query) | Q(phone=search_query)).order_by('user')
+    else:
+        jobs = Job.objects.filter(status='archive')
+
+    return render(request, 'backoffice/open-jobs.html', {'jobs': jobs,})
+
+
+@login_required(login_url='signin')
 def show_staff(request, job_pk):
 
     page_limit = 10
@@ -82,9 +169,9 @@ def show_staff(request, job_pk):
 
     #all_applicants = None
     if search_query:
-        applicants = Staff.objects.filter(Q(job_title=job_pk)&(Q(user__name__iexact=search_query) | Q(phone=search_query))).order_by('user')
+        applicants = Staff.objects.filter(Q(job=job_pk)&(Q(user__name__iexact=search_query) | Q(phone=search_query))).order_by('user')
     else:
-        applicants = Staff.objects.filter(job_title=job_pk)
+        applicants = Staff.objects.filter(job=job_pk)
 
     return render(request, 'backoffice/applicants.html', {'applicants': applicants, 'job_pk': job_pk})
 
@@ -191,7 +278,7 @@ def interview(request):
 
 
 @login_required(login_url='signin')
-def new_email(request, applicant_pk):
+def new_email(request, template_name, applicant_pk):
 
     template_email = EmailTemplate.objects.filter(pk=applicant_pk).first()
 
@@ -208,13 +295,15 @@ def new_email(request, applicant_pk):
             send_email_with_delay.apply_async((email_form.cleaned_data['header'], to, email_form.cleaned_data['body']), eta=sending_time)
     else:
         email_form = EmailForm()
-    return render(request, 'backoffice/new_email.html', {"email_form": email_form, 'template': template_email.template})
+    return render(request, 'backoffice/new_email.html', {"email_form": email_form, 'template': template_email.text})
 
 
+#Send email to applicant
 @login_required(login_url='signin')
 def send_email(request, template_name, applicant_pk):
 
-    template_email = EmailTemplate.objects.filter(name=template_name).first()
+    company = Company.objects.filter(responsible_manager__user=request.user).first()
+    template_email = EmailTemplate.objects.filter(name=template_name, company=company).first()
 
     if request.method == "POST":
         email_form = EmailForm(request.POST)
@@ -230,9 +319,10 @@ def send_email(request, template_name, applicant_pk):
                     send_email_with_delay(email_form.cleaned_data['header'], [applicant.user.email], email_form.cleaned_data['body'], str(applicant.user.first_name), 'responsible_manager')
     else:
         email_form = EmailForm()
+        email_form.initial['header'] = template_email.title
         email_form.initial['receivers'] = get_object_or_404(Staff, pk=applicant_pk)
 
-    return render(request, 'backoffice/send_email.html', {"email_form": email_form, 'template': template_email.template})
+    return render(request, 'backoffice/send_email.html', {"email_form": email_form, 'template': template_email, 'applicant_pk': applicant_pk})
 
 
 # TODO: set current user for form and check form! Set paid date etc!
@@ -308,12 +398,27 @@ def remove_course(request, pk):
 
 def new_job(request):
     if request.method == "POST":
-        job_form = JobForm(request.POST)
+        job_form = JobForm(request.user, request.POST)
         if job_form.is_valid():
             job_form.save()
             return redirect('show_jobs')
     else:
-        job_form = JobForm()
+        company = Company.objects.filter(responsible_manager__user=request.user).first()
+        manager = Manager.objects.get(user=request.user)
+        job_form = JobForm(request.user)
+
+    return render(request, 'backoffice/new_job.html', {"job_form": job_form})
+
+
+def create_job_from_template(request, pk):
+    job = get_object_or_404(Job, pk=pk)
+    if request.method == "POST":
+        job_form = JobForm(request.user, request.POST, instance=job)
+        if job_form.is_valid():
+            job_form.save()
+            return redirect('open_jobs')
+    else:
+        job_form = JobForm(request.user, instance=job)
 
     return render(request, 'backoffice/new_job.html', {"job_form": job_form})
 
@@ -355,31 +460,37 @@ def remove_job(request, pk):
 @csrf_exempt
 @require_POST
 def new_staff_api(request):
-    staff_form = StaffForm(request.POST)
-    print(request.POST)
-    print(staff_form.errors)
-    if staff_form.is_valid():
-        cd = staff_form.cleaned_data
-        print(cd['job_title'])
-        staff = staff_form.save(commit=False)
-        user = User.objects.create_user(username=cd['email'],
-                                        email=cd['email'],
-                                        password="GuaranteeHR!",
-                                        first_name=cd['first_name'],
-                                        last_name=cd['last_name']
-                                        )
+
+    name = request.POST.get('name')
+    phone = request.POST.get('phone')
+    email = request.POST.get('email')
+    token = request.POST.get('token')
+    cv = request.FILES['cv_file']
+
+    user, created = User.objects.get_or_create(username=email,
+                                               email=email)
+    user.first_name = name
+    if created:
+        user.set_password("GuaranteeHR!")
         user.save()
         user.refresh_from_db()
-        print(user)
-        staff.user = User.objects.get(email=user.username)
+
+    job = get_object_or_404(Job, token=token)
+    print(job)
+    if Staff.objects.filter(user=user, job=job).first() is None:
+
+        staff, created = Staff.objects.get_or_create(user=user, job=job)
+        print(staff, created)
+        staff.phone = phone
+        staff.comment = token
         staff.save()
-        staff_form.save_m2m()
-    return HttpResponse("OOOKKK")
+
+    return JsonResponse({'result': 'success'})
 
 
 def new_staff(request):
     if request.method == "POST":
-        staff_form = StaffForm(request.POST)
+        staff_form = StaffForm(request.POST, request.FILES)
         if staff_form.is_valid():
             cd = staff_form.cleaned_data
             staff = staff_form.save(commit=False)
@@ -601,7 +712,10 @@ def payroll(request):
 
 
 def team(request):
-    return render(request, 'backoffice/team.html', {})
+    company = Company.objects.filter(responsible_manager__user__exact=request.user).first()
+    team = company.responsible_manager.all()
+
+    return render(request, 'backoffice/team.html', {'team': team})
 
 
 def learning_management(request):
@@ -729,14 +843,66 @@ def password_reset_complete(request):
     return redirect('signin')
 
 
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == 'POST':
+            form = ActivatePasswordForm(user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)  # Important! ???
+                user.is_active = True
+                user.save()
+
+                manager, created = Manager.objects.get_or_create(user=user)
+                if created:
+                    for day_number in range(1,7):
+                        for day_time in (datetime.datetime.combine(datetime.date.today(), datetime.time(8, 0)) + datetime.timedelta(hours=n) for n in range(12)):
+                            interview_slot, created = InterviewSlot.objects.get_or_create(
+                                responsible_manager=manager,
+                                day=day_number,
+                                time=day_time)
+                            interview_slot.is_active = True
+                            interview_slot.save()
+
+                company = Company.objects.create(email=manager.user.email)
+                company.responsible_manager.add(manager)
+                company.save()
+
+                if user.is_active:
+                    login(request, user)
+                    messages.success(request, 'Your password was saved!')
+                    return redirect('backoffice')
+                else:
+                    return HttpResponse('Disabled account')
+            else:
+                messages.error(request, 'Update error. Try again')
+        else:
+            form = ActivatePasswordForm(user)
+
+        return render(request, 'backoffice/set_password.html', {
+            'form': form
+        })
+
+
+        # return redirect('home')
+        #return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+    else:
+        return HttpResponse('Activation link is invalid!')
+
+
 @login_required
 def new_meeting(request, pk):
     if request.method == "POST":
-        meeting_form = MeetingForm(request.POST)
+        meeting_form = MeetingForm(request.user, request.POST)
         if meeting_form.is_valid():
             meeting_form.save()
     else:
-        meeting_form = MeetingForm()
+        meeting_form = MeetingForm(request.user)
         try:
             meeting_form.initial['responsible_manager'] = Manager.objects.get(user=request.user)
             meeting_form.initial['applicant'] = get_object_or_404(Staff, pk=pk)
@@ -974,6 +1140,11 @@ def save_quiz_view(request, pk):
 
 
 @login_required(login_url='signin')
-def select_email_template(request):
-    email_templates = EmailTemplate.objects.all()
-    return render(request, 'backoffice/select_email_template.html', {'email_templates': email_templates})
+def select_email_template(request, applicant_pk):
+    company = Company.objects.filter(responsible_manager__user=request.user).first()
+    email_templates = EmailTemplate.objects.filter(company=company)
+    return render(request, 'backoffice/select_email_template.html', {
+        'email_templates': email_templates,
+        'applicant_pk': applicant_pk
+    }
+                  )

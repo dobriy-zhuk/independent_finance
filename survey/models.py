@@ -43,10 +43,15 @@ class InterviewQuestions(models.Model):
         return self.title
 """
 
+QUESTION_CHOICES = (
+        ('text', 'text'),
+        ('cpp', 'cpp'),
+    )
 
 class Question(models.Model):
     text = models.CharField(max_length=200)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    type = models.CharField(max_length=200, default='', choices=QUESTION_CHOICES)
 
     def __str__(self):
         return self.text
@@ -57,7 +62,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     text = models.CharField(max_length=200)
-    correct = models.BooleanField(default=False)
+    correct = models.BooleanField(default=False, blank=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -70,5 +75,5 @@ class Marks_Of_User(models.Model):
     score = models.FloatField()
 
     def __str__(self):
-        return str(self.quiz)
+        return f"user: {self.user}, quiz: {self.quiz} - {self.score}"
 

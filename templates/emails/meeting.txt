@@ -1,0 +1,7 @@
+{% autoescape off %}
+I'm glad to invite you!
+
+Sincerely,
+{{ manager }}
+
+{% endautoescape %}

@@ -17,6 +17,8 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 from .views import QuizListView
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('', views.backoffice, name='backoffice'),
@@ -33,10 +35,14 @@ urlpatterns = [
     path('interview/', views.interview, name='interview'),
     path('new_email/<int:applicant_pk>/', views.new_email, name='new_email'), #редактирование емайл шаблона
     path('send_email/<str:template_name>/<int:applicant_pk>', views.send_email, name='send_email'),#Отправка всех видов емайлов соискателям
-    path('select_email_template/', views.select_email_template, name='select_email_template'),
+    path('select_email_template/<int:applicant_pk>/', views.select_email_template, name='select_email_template'),
     path('new_course/', views.new_course, name='new_course'),
 
 
+    path('open-jobs/', views.open_jobs, name='open_jobs'),
+    path('template-jobs/', views.template_jobs, name='template_jobs'),
+    path('create-job/<int:pk>/', views.create_job_from_template, name='create_job_from_template'),
+    path('archive-jobs/', views.archive_jobs, name='archive_jobs'),
     path('jobs/', views.jobs, name='show_jobs'),
     path('jobs/<int:pk>/edit', views.edit_job, name='edit_job'),
     path('jobs/<int:pk>/remove', views.remove_job, name='remove_job'),
@@ -74,6 +80,8 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/',
          auth_views.PasswordResetConfirmView.as_view(template_name="backoffice/reset_password_confirm.html"),
          name='reset_password_confirm'),
+
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'), #Activate User account and save user password
     path('password_reset_complete/', views.password_reset_complete, name='password_reset_complete'),
 
     path('price/', views.price, name='price'),
@@ -94,4 +102,4 @@ urlpatterns = [
     path('meeting_test/<int:pk>/', views.meeting_test, name='meeting_test'),
     path('course/<int:pk>/view/', views.view_course, name='view_course'),
     path('time_interview/<int:pk>/', views.time_interview, name='time_interview'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

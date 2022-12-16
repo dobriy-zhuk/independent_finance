@@ -36,7 +36,7 @@
                           </label>
                         {% if field.name == 'body' %}
                              <p class="form-text text-muted text-xs ms-1">
-                                 or select from <a href="{% url 'select_email_template' %}">Templates</a>
+                                 or select from <a href="{% url 'select_email_template' applicant_pk=applicant_pk %}">Templates</a>
                               </p>
                                   <div id="toolbar-container">
                                     <span class="ql-formats">

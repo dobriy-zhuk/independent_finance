@@ -24,4 +24,4 @@ urlpatterns = [
     path('backoffice/', include('backoffice.urls')),
     path('blog/', include('blog.urls')),
     path('testing/', include('survey.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,12 +2,12 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="5b3998f7-2d33-4eda-b09f-2cdcad423e39" name="Sweb" url="http://77.222.61.227">
-        <fileTransfer host="77.222.61.227" port="21">
+      <webServer id="bc95521f-ce84-4d0b-8c3e-090fa3f85727" name="Tweb" url="http://194.35.116.39">
+        <fileTransfer host="194.35.116.39" port="22" accessType="SFTP">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
           </advancedOptions>
-          <option name="port" value="21" />
+          <option name="port" value="22" />
         </fileTransfer>
       </webServer>
     </option>

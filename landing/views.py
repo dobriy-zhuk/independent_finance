@@ -52,7 +52,7 @@ def robots_txt(request):
         "User-Agent: *",
         "Disallow: /box/",
         "Disallow: /cgi-bin/",
-        "Host: https://hr.garantylearning.com"
-        "Sitemap: https://hr.garantylearning.com/sitemap.xml",
+        "Host: https://guaranteehr.com"
+        "Sitemap: https://guaranteehr.com/sitemap.xml",
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
