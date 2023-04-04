@@ -2,6 +2,234 @@
 {% load static %}
 
 {% block content %}
+    <section class="section section-header text-dark pb-md-8">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
+                        <h1 class="display-2 font-weight-bolder mb-4">
+                            GuaranteeHR.
+                        </h1>
+                        <p class="lead mb-4 mb-lg-5">
+                            GuaranteeHR is leader in school staffing. We’ve helped facilities
+                            across the country by placing thousands of on-demand teachers and allied professionals in as little.</p>
+                        <div>
+                            <a href="{% url 'teacher_hire' %}" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-search"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Hire</small> Teacher
+                                    </span>
+                                </span>
+                            </a>
+                            <button onclick="joinModal()" class="btn btn-dark btn-download-app"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-user-graduate"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Join</small> GuaranteeHR
+                                    </span>
+                                </span>
+                            </button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Sing Up as a Teacher</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <ul style="text-align: left">
+                                        <li>Get credentialed quickly through our online, self-service portal.</li>
+                                        <li>Same-day payments: No need to wait 1 or 2 weeks for your first paycheck.
+                                            Get paid immediately after your first lesson.</li>
+                                        <li>Pick up lessons locally or take short-term or long-term assignments for as little as
+                                            1 lesson or as long as 6 months. Work whichever assignment fits your lifestyle best.</li>
+                                    </ul>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn-block btn btn-primary">Submit Application</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-10 justify-content-center">
+                        <img class="d-none d-md-inline-block" src="{% static 'landing/assets/img/illustrations/scene.svg' %}" alt="Mobile App Mockup">
+                    </div>
+                </div>
+            </div>
+        </section>
+ {% endblock %}
+
+{% block triple %}
+{% endblock %}
+
+{% block about %}
+ <section class="section section-lg" id="about" style="margin-top: -200px;">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col">
+                        <h2 class="h6 font-weight-bold text-brown">We're proudly featured by</h2>
+                    </div>
+                </div>
+                <div class="row text-center mb-5">
+                    <div class="col d-flex justify-content-center flex-wrap">
+                        <a href="#" aria-label="Stripe brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Stripe">
+                            <span class="fab fa-stripe"></span>
+                        </a>
+                        <a href="#" aria-label="Digg brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Digg">
+                            <span class="fab fa-digg"></span>
+                        </a>
+                        <a href="#" aria-label="FedEx brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="FedEx">
+                            <span class="fab fa-fedex"></span>
+                        </a>
+                        <a href="#" aria-label="Ember brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Ember">
+                            <span class="fab fa-ember"></span>
+                        </a>
+                        <a href="#" aria-label="Beyond brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Beyond">
+                            <span class="fab fa-d-and-d-beyond"></span>
+                        </a>
+                        <a href="#" aria-label="AngryCreative brand logo" class="icon icon-xl icon-dark"
+                        data-toggle="tooltip" data-placement="top" title="AngryCreative">
+                            <span class="fab fa-angrycreative"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row row-grid align-items-center mb-5 mb-lg-7">
+                    <div class="col-12 col-lg-5">
+                        <h2 class="mb-4">We are not just another school staffing agency.</h2>
+                        <p>GuaranteeHR is a technology platform that reimagines the future of school staffing. Whether your facility needs staff for short term contracts or same day lessons, we use machine learning algorithms to match the
+                            highest quality, fully credentialed school professionals whenever and wherever you need them.</p>
+                        <p>We know that plans can change, and that’s why we combine flexible contracts with our ability to
+                            hire staff to you in as little as 24-48 hours. Don’t find yourself under or over-staffed
+                            like with traditional staffing. We leverage our technology platform to find
+                            you the best staff at the right location at the time for the right duration.</p>
+                        <a href="#" class="btn btn-dark mt-3 animate-up-2">
+                            Learn More
+                            <span class="icon icon-xs ml-2">
+                                <i class="fas fa-external-link-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-6 ml-lg-auto">
+                        <img src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" class="w-100" alt="">
+                    </div>
+                </div>
+                <div class="row row-grid align-items-center mb-5 mb-lg-7">
+                    <div class="col-12 col-lg-5 order-lg-2">
+                        <h2 class="mb-4">Best in class platform with school staff management</h2>
+                        <p>Unlike less nimble, old-school competitors, GuaranteeHR’s proprietary cloud-based recruitment,
+                            payment and credentialing engines
+                            provide easy instant payments, reporting, and a high-quality experience.</p>
+                        <p>Schools can minimize their spend by managing their own internal workforce within our platform.</p>
+                            <ul>
+                                <li>Internal workforce management</li>
+                                <li>Agency workforce management</li>
+                                <li>Timecard approvals</li>
+                                <li>Easily accessible credentialing</li>
+                            </ul>
+                        <a href="#" class="btn btn-dark mt-3 animate-up-2">
+                            Learn More
+                            <span class="icon icon-xs ml-2">
+                                <i class="fas fa-external-link-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-6 mr-lg-auto">
+                        <img src="{% static 'landing/assets/img/illustrations/scene-2.svg' %}" class="w-100" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">250</h2>
+                                <span>
+                                    <b>Registered Schools</b><br>
+                                    Full-service solution; per diem; local/long term.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">100%</h2>
+                                <span>
+                                    <b>Fill rate</b><br>
+                                    User-friendly platform, rapid pay and quality.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">24hrs</h2>
+                                <span>
+                                    <b>Rapid deployment</b><br>
+                                    Competitors take 10-14 days. GuaranteeHR takes 24hrs.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ {% endblock %}
+
+{% block proudly %}
+{% endblock %}
+
+
+{% block promo %}
+    <div class="section bg-soft" id="download">
+            <figure class="position-absolute top-0 left-0 w-100 d-none d-md-block mt-n3">
+                <svg class="fill-soft" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4" style="enable-background:new 0 0 1920 43.4;" xml:space="preserve">
+                   <path d="M0,23.3c0,0,405.1-43.5,697.6,0c316.5,1.5,108.9-2.6,480.4-14.1c0,0,139-12.2,458.7,14.3 c0,0,67.8,19.2,283.3-22.7v35.1H0V23.3z"></path>
+                </svg>
+            </figure>
+            <div class="container">
+                <div class="row row-grid align-items-center">
+                    <div class="col-12 col-lg-6">
+                        <span class="h5 text-muted mb-2 d-block">GuaranteeHR</span>
+                        <h2 class="display-3 mb-4">Hire verified staff</h2>
+                        <p class="lead text-muted">GuaranteeHR is the leading on-demand, tech-enabled booking platform for finding fully-credentialed school staff.</p>
+                        <div class="mt-4 mt-lg-5">
+                            <a href="{% url 'teacher_hire' %}" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-search"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Hire</small> Teacher
+                                    </span>
+                                </span>
+                            </a>
+                            <button onclick="joinModal()" class="btn btn-dark btn-download-app"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-user-graduate"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Contact</small> Form
+                                    </span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 ml-lg-auto">
+                        <img class="d-none d-lg-inline-block" src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" alt="Mobile App Illustration">
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+
+
 
 
 <section class="pt-8 py-lg-0" id="about">
@@ -179,8 +407,9 @@
           </div>
         </div>
       </section>
-      <section>
 
+
+      <section>
         <div class="container-xxl" id="benefits">
           <div class="row align-items-center gx-1">
             <div class="col-xl-6"><img src="{% static 'landing/assets/img/icons/icons3.png' %}" alt="" />
@@ -213,7 +442,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -312,7 +540,6 @@
 
 
       <section id="rea">
-
         <div class="container-xxl">
           <div class="row align-items-center">
             <div class="col-lg order-lg-1 text-center"><img class="img-fluid" src="{% static 'landing/assets/img/illustrations/hero2.png' %}" alt="" /></div>
@@ -332,10 +559,6 @@
           </div>
         </div>
       </section>
-
- {% endblock %}
-
-
 
 {% block javascript %}
 
@@ -384,6 +607,15 @@
             });
     });
 
+</script>
+
+<script>
+function joinModal() {
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+      keyboard: false
+    });
+    myModal.show();
+}
 </script>
 
 {% endblock %}

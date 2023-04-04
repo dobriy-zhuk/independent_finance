@@ -1,0 +1,158 @@
+{% extends 'base/base_landing.html' %}
+{% load static %}
+
+{% block content %}
+ {% endblock %}
+
+ {% block triple %}
+
+{% endblock %}
+
+{% block about %}
+    <section class="min-vh-100 d-flex align-items-center mt-7">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <div class="signin-inner mt-3 mt-lg-0 bg-white shadow border rounded border-light w-100">
+                            <div class="row gx-0 align-items-center justify-content-between">
+                                <div class="col-12 col-lg-5 d-none d-lg-block rounded-left">
+                                    <img src="{% static 'landing/assets/img/illustrations/login.svg' %}" alt="login image">
+                                </div>
+                                <div class="col-12 col-lg-7 px-3 py-5 px-sm-5 px-md-6">
+                                    <div class="text-center text-md-center mb-4 mt-md-0">
+                                        <h1 class="mb-0 h3">Register your School</h1>
+                                    </div>
+                                    <form action="#" class="mt-4">
+                                        <!-- Form -->
+                                        <div class="form-group mb-4">
+                                            <label for="name">Full Name</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" placeholder="Your Name" id="name" name="name">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label for="phone">Phone</label>
+                                            <div class="input-group">
+                                                <input type="tel" class="form-control" placeholder="+1 999 999 99 99" id="phone" name="phone">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label for="email">Your Email</label>
+                                            <div class="input-group">
+                                                <input type="email" class="form-control" placeholder="example@company.com" id="email" name="email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group mb-4">
+                                            <label for="city">City</label>
+                                            <select class="form-select" id="city" name="city" aria-label="Default select">
+                                              <option selected value="New York">New York</option>
+                                              <option value="Los Angeles">Los Angeles</option>
+                                              <option value="London">London</option>
+                                              <option value="Dubai">Dubai</option>
+                                            </select>
+                                        </div>
+                                        <!-- End of Form -->
+                                        <div class="form-group">
+                                            <!-- Form -->
+                                            <div class="form-group mb-4">
+                                                <label for="comment">Additional Info</label>
+                                                <div class="input-group">
+                                                    <textarea class="form-control" id="comment" name="comment"></textarea>
+                                                </div>
+                                            </div>
+                                            <!-- End of Form -->
+                                            <div class="d-block d-sm-flex justify-content-between align-items-center mb-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" checked type="checkbox" value="" id="defaultCheck5">
+                                                    <label class="form-check-label" for="defaultCheck5">
+                                                      Agree Terms of Service and Privacy Policy
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-block btn-primary">Submit Details</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ {% endblock %}
+
+{% block promo %}
+{% endblock %}
+
+{% block proudly %}
+{% endblock %}
+
+{% block testimonials %}
+{% endblock %}
+
+{% block faq %}
+    <hr>
+{% endblock %}
+
+
+
+{% block javascript %}
+
+    <script>
+
+    $('form').on('submit', function (event) {
+        event.preventDefault();
+
+        $email = this.email;
+        $email.style.borderColor = 'black';
+
+        form = this;
+
+        formdata = $(form).serializeArray();
+        var data = {};
+        $(formdata).each(function(index, obj){
+            data[obj.name] = obj.value;
+        });
+         $.ajax({
+            type:'POST',
+            url:'{% url "full_contact" %}',
+            data: data,
+            success: function(json){
+                form.reset();
+                 if (json['result'] === 'success'){
+                    document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-success">Successfully. Approve your email</div>';
+                 }
+                 else {
+                     document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-error">Error. Try again</div>';
+                 }
+
+/*
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push ({
+                'event': 'indexForm',
+                'formName': form.id,
+                'eventCategory': 'indexForm',
+                'eventAction': 'submit',
+                });
+
+*/
+            },
+            error: function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+            });
+    });
+
+
+</script>
+
+<script>
+function joinModal() {
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+      keyboard: false
+    });
+    myModal.show();
+}
+</script>
+
+{% endblock %}

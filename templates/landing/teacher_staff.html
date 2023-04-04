@@ -1,0 +1,494 @@
+{% extends 'base/base_landing.html' %}
+{% load static %}
+
+{% block content %}
+
+ {% endblock %}
+
+ {% block triple %}
+{% endblock %}
+
+{% block about %}
+ <section class="section section-lg" id="about">
+            <div class="container">
+                 <div class="row row-grid align-items-center mb-5 mb-lg-7">
+                    <div class="col-12 col-lg-5">
+                        <h2 class="mb-4">Tech-powered teacher staffing made ridiculously fast.</h2>
+                        <p>Tired of waiting 2-3 weeks to fill your staffing needs?  The GuaranteeHR`s brand promise to you is: We will find teacher in a snap!</p>
+                        <p>Now, You can have fully-credentialed staff in just 2-3 days.  Our platform allows you to manage your own internal workforce</p>
+                        <a href="#" class="btn btn-dark mt-3 animate-up-2">
+                            I need a teacher for my School
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-6 ml-lg-auto">
+                        <img src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" class="w-100" alt="">
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">250</h2>
+                                <span>
+                                    <b>Registered Schools</b><br>
+                                    Full-service solution; per diem; local/long term.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">100%</h2>
+                                <span>
+                                    <b>Fill rate</b><br>
+                                    User-friendly platform, rapid pay and quality.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">24hrs</h2>
+                                <span>
+                                    <b>Rapid deployment</b><br>
+                                    Competitors take 10-14 days. GuaranteeHR takes 24hrs.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+ {% endblock %}
+
+{% block promo %}
+    <div class="section bg-soft" id="download">
+            <figure class="position-absolute top-0 left-0 w-100 d-none d-md-block mt-n3">
+                <svg class="fill-soft" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4" style="enable-background:new 0 0 1920 43.4;" xml:space="preserve">
+                   <path d="M0,23.3c0,0,405.1-43.5,697.6,0c316.5,1.5,108.9-2.6,480.4-14.1c0,0,139-12.2,458.7,14.3 c0,0,67.8,19.2,283.3-22.7v35.1H0V23.3z"></path>
+                </svg>
+            </figure>
+            <div class="container">
+                <div class="row row-grid align-items-center">
+                    <div class="col-12 col-lg-6">
+                        <span class="h5 text-muted mb-2 d-block">GuaranteeHR</span>
+                        <h2 class="display-3 mb-4">Hire verified staff</h2>
+                        <p class="lead text-muted">GuaranteeHR is the leading on-demand, tech-enabled booking platform for finding fully-credentialed school staff.</p>
+                        <div class="mt-4 mt-lg-5">
+                            <a href="{% url 'teacher_hire' %}" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-search"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Hire</small> Teacher
+                                    </span>
+                                </span>
+                            </a>
+                            <a href="{% url 'teacher_hire' %}" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-search"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Hire</small> Teacher
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 ml-lg-auto">
+                        <img class="d-none d-lg-inline-block" src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" alt="Mobile App Illustration">
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+
+<section class="pt-8 py-lg-0" id="about">
+        <div class="container-xxl">
+          <div class="row align-items-center min-vh-lg-100">
+            <div class="col-lg order-lg-1 text-center"><img class="img-fluid" src="{% static 'landing/assets/img/illustrations/hero.png' %}" alt="" /></div>
+            <div class="col-lg mt-5 mt-lg-0">
+              <h1 class="lh-sm font-cursive fw-medium fs-6 fs-sm-8 fs-md-11 fs-lg-9 fs-xl-11 fs-xxl-12">New hiring experience <br class="d.none d-xl-block" /> to grow your business</h1>
+              <p class="mt-4 fs-2 fs-md-4 lh-sm">We help fast-growing companies to reduce bias and identify the best technical talent in record time</p>
+              <form id="contact-form">
+                {% csrf_token %}
+                <div id="result_div_contact"></div>
+                <div class="input-group">
+                  <input type="email" class="form-control" placeholder="Your email" name="email">
+                  <button class="btn btn-success" type="submit">Get started</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="pt-xxl-0" id="features">
+        <div class="container-xxl">
+          <div class="row justify-content-center text-center">
+            <div class="col-lg-10 col-xl-8">
+              <h1 class="display-6 font-cursive">Reimagining your HR processes</h1>
+              <p class="fs-md-1 mt-4">The employee experience sets the tone for the whole business, and it’s strongly linked with business KPIs.
+                  With the Guarantee HR operating system, the products you need to power your business is in a click away</p>
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-xl-3 g-4 mt-3 text-center">
+            <div class="col-12 col-md-6">
+              <div class="card py-md-6 px-md-4 mt-3 h-100 box-shadow-all border-0">
+                <div class="card-body"><img src="{% static 'landing/assets/img/icons/icon1.png' %}" alt="" />
+                  <h3 class="py-3">Hire and onboarding process</h3>
+                  <p class="lead mb-0">We deliver HR tools that make managing your people easy, from new hires up to streamlined onboarding.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="card py-md-6 px-md-4 mt-3 h-100 box-shadow-all border-0">
+                <div class="card-body"><img src="{% static 'landing/assets/img/icons/icon2.png' %}" alt="" />
+                  <h3 class="py-3">Development and retention</h3>
+                  <p class="lead mb-0">Keeping your team engaged is crucial—especially working remotely.
+                      Give your employees a clear path for growth with performance reviews, trainings, developmental tools, and more.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card py-md-6 px-md-4 mt-3 h-100 box-shadow-all border-0">
+                <div class="card-body"><img src="{% static 'landing/assets/img/icons/icon3.png' %}" alt="" />
+                  <h3 class="py-3">Employee benefits</h3>
+                  <p class="lead mb-0">The market is competitive. Supporting your employees is more important than ever, which is why we provide a wide range of health and financial benefits to help your team thrive.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container-xxl">
+          <div class="row align-items-center">
+            <div class="col-md-6"><img src="{% static 'landing/assets/img/icons/icon1.png' %}" alt="" />
+              <h1 class="display-5 lh-sm my-4 font-cursive">Amazing workplace with actionable data</h1>
+              <p class="fs-1">Use competitive compensation tools and payroll system, employee surveys, and workforce costing to make important decisions a lot easier.
+                  With Guarantee HR you get a more effective way to hire, onboard, and retain talent</p>
+            </div>
+              <div class="col-xl-6">
+              <div class="row justify-content-center gx-4">
+                <div class="col-md-10">
+                  <div class="card box-shadow-b p-2 p-md-3">
+                    <div class="card-body flex-between-center pb-0">
+                        <h5 class="mb-0">Special tools for HR</h5><span class="badge rounded-pill bg-success p-2 fs-0"><a href="#" style="color: white">Try it now</a></span>
+                    </div>
+                    <div class="card-body">
+                      <p class="mb-0">Video interviews, system for evaluating applicants, assistance for HR during interviews</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6 mt-4">
+                  <div class="card px-3 py-4 bg-warning">
+                    <div class="card-body">
+                      <h2>3 applicants</h2>
+                      <div class="applicant d-flex justify-content-between text-1000">
+                        <div class="d-flex align-items-center"><img class="rounded-circle my-2 me-2 me-md-3" src="{% static 'landing/assets/img/gallery/user5.png' %}" alt="" height="40" />
+                          <p class="fs-1 fs-md-2 mb-0 fw-semi-bold">Jason Kwon</p>
+                        </div>
+                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
+                          <p class="mb-0 mx-2 fw-medium">3.5</p>
+                        </div>
+                      </div>
+                      <div class="applicant d-flex justify-content-between text-1000">
+                        <div class="d-flex align-items-center"><img class="rounded-circle my-2 me-2 me-md-3" src="{% static 'landing/assets/img/gallery/user6.png' %}" alt="" height="40" />
+                          <p class="fs-1 fs-md-2 mb-0 fw-semi-bold">Axel Rose</p>
+                        </div>
+                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
+                          <p class="mb-0 mx-2 fw-medium">4.8</p>
+                        </div>
+                      </div>
+                      <div class="applicant d-flex justify-content-between text-1000">
+                        <div class="d-flex align-items-center"><img class="rounded-circle my-2 me-2 me-md-3" src="{% static 'landing/assets/img/gallery/user7.png' %}" alt="" height="40" />
+                          <p class="fs-1 fs-md-2 mb-0 fw-semi-bold">Lizzie Ulrich</p>
+                        </div>
+                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
+                          <p class="mb-0 mx-2 fw-medium">4.1</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-5">
+                  <div class="card p-2 mt-4 mt-md-5 border-success">
+                    <div class="card-body">
+                      <div class="card-text text-center"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/axel.png' %}" alt="" height="70" />
+                        <h4 class="mt-2 mb-1">Axel Rose </h4>
+                        <p class="text-secondary">UX Designer</p>
+                      </div>
+                      <div class="d-flex text-1000">
+                        <p class="mb-0 flex-1">Result</p>
+                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
+                          <p class="mb-0 mx-2 fw-medium">4.8</p>
+                        </div>
+                      </div>
+                      <button class="btn btn-lg btn-dark w-100 mt-3">Job offer</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+
+        <div class="container-xxl">
+          <div class="row flex-between-center">
+            <div class="col-md-6 order-md-1"><img src="{% static 'landing/assets/img/icons/icon2.png' %}" alt="" />
+              <h1 class="display-5 lh-sm my-4 font-cursive">Unlock your team’s potential</h1>
+              <p class="fs-1">We provide thoughtful tools and learning system for performance evaluations and career development so you can build the kind of work culture
+                  that helps you motivate, nurture, and retain your talented team.
+                  Use the built-in tools to improve your employees!</p>
+            </div>
+            <div class="col-md-6 col-xl-5">
+              <div class="card my-4">
+                <div class="card-body p-0 p-lg-3 my-3 mx-4">
+                  <div class="card-title">
+                    <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user4.jpeg' %}" alt="" height="70" />
+                      <div class="ms-3">
+                        <h3>Jacob Morgan</h3>
+                        <p class="mb-0">4x best-selling author</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-text mt-4">
+                    <p>Companies that invest in employee experience are 4x more profitable than those that do not.</p>
+                  </div>
+                  <div class="card-text mt-4">
+                    <div class="row gx-4">
+                      <!--div class="col">
+                        <p class="mb-1">COMMIT</p>
+                        <h3>10,000 DAI</h3>
+                      </div>
+                      <div class="col">
+                        <p class="mb-1">SHARES</p>
+                        <h3>20</h3>
+                      </div-->
+                    </div>
+                  </div>
+                  <div class="mt-3 pt-2">
+                      <button class="btn btn-dark btn-lg w-100" href=""><a href="#rea" style="color: white">Get started</a></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+
+        <div class="container-xxl" id="benefits">
+          <div class="row align-items-center gx-1">
+            <div class="col-xl-6"><img src="{% static 'landing/assets/img/icons/icons3.png' %}" alt="" />
+              <h1 class="display-5 lh-sm my-4 font-cursive">Build the unique benefits package for your team.</h1>
+              <p class="fs-1">Support your team’s financial health well beyond payday. Guarantee HR simplifies the process of curating, and providing great
+                  benefits to your people from comprehensive healthcare plans to perks like discounts in shops.</p>
+            </div>
+              <div class="col-md-6 col-xl-4 offset-xl-1">
+              <div class="card box-shadow-rb my-4">
+                <div class="card-body my-3 mx-4">
+                  <h1 class="mb-4 pb-2">Employee benefits</h1>
+                  <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user1.png' %}" alt="" height="70" />
+                    <div class="ms-3">
+                      <h3>Dillon Kydd</h3>
+                      <p class="mb-0">$55,440 + dental + vision</p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user2.png' %}" alt="" height="70" />
+                    <div class="ms-3">
+                      <h3>Anna Olsen</h3>
+                      <p class="mb-0">$64,300 + commuter benefits</p>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user3.png' %}" alt="" height="70" />
+                    <div class="ms-3">
+                      <h3>Kas Moss</h3>
+                      <p class="mb-0">$85,200 + health insurance</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    <section>
+        <div class="container-xxl">
+          <div class="row justify-content-center text-center">
+            <div class="col-lg-10 col-xl-8">
+              <h1 class="display-6 font-cursive">Here’s what our customers say about us</h1>
+              <p class="fs-md-1 mt-4">
+              <i>We view Guarantee HR as our business partner. Especially now that we’re more remote, there’s more of a need for
+                  Guarantee HR because businesses are hiring people from everywhere.</i> <br>(Andrew Mach, Guarantee HR`s client)
+              </p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <div class="swiper-container pb-4" data-pagination-target="pagination1">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Effective decisions</h5>
+                      <p class="mb-0">We provide the tools you need to create an effective job offering process in your company</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Learning system</h5>
+                      <p class="mb-0">You can create, assign, track, and manage employee initial and ongoing training courses</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Onboarding</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Employee surveys</h5>
+                      <p class="mb-0">We look at every aspect of an employee's experience to see what's motivating them</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Interview video conferencing</h5>
+                      <p class="mb-0">We deliver a video conferencing platform where a candidate and a hiring manager speak in real-time</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire</span>
+                      <!--p class="mb-0 fw-bold text-1000">Guarantee HR`s customer</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Payroll system</h5>
+                      <p class="mb-0">Our technology platform makes it easy to manage and pay teams anytime, anywhere.</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Payroll</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+                <div class="swiper-slide h-auto">
+                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
+                    <div class="card-body">
+                      <h5 class="font-base lh-base">Employee scoring</h5>
+                      <p class="mb-0">Score employees by factors that drive success in each unique role, by only measuring what matters to you</p>
+                    </div>
+                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire and Onboarding</span>
+                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-pagination" id="pagination1"></div>
+          </div>
+            <div class="row justify-content-center text-center col-6 offset-3">
+                <p class="fs-md-1 mt-4">If you want to build a great company, start with your own people. This approach is a win for your business.
+                  It’s a win for your employees. And, it’s a win for your people team.
+              </p>
+            </div>
+        </div>
+      </section>
+
+
+      <section id="rea">
+
+        <div class="container-xxl">
+          <div class="row align-items-center">
+            <div class="col-lg order-lg-1 text-center"><img class="img-fluid" src="{% static 'landing/assets/img/illustrations/hero2.png' %}" alt="" /></div>
+            <div class="col-lg mt-5 mt-lg-0">
+              <h1 class="lh-sm font-cursive fw-medium display-5">Start the Guarantee HR</h1>
+              <p class="mt-4 fs-1">A strong employee experience is one of the most powerful investments your organization can make.
+                  It’ll lead to noticeable benefits such as a wider talent pool, improved retention, and increased revenue.</p>
+                <form id="bottom-form">
+                {% csrf_token %}
+                <div id="result_div_footer"></div>
+                    <div class="input-group">
+                      <input type="email" class="form-control " placeholder="Your email" name="email">
+                      <button class="btn btn-success" type="submit">Get started</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+{% block javascript %}
+
+    <script>
+
+    $('form').on('submit', function (event) {
+        event.preventDefault();
+
+        $email = this.email;
+        $email.style.borderColor = 'black';
+
+        form = this;
+
+        formdata = $(form).serializeArray();
+        var data = {};
+        $(formdata).each(function(index, obj){
+            data[obj.name] = obj.value;
+        });
+         $.ajax({
+            type:'POST',
+            url:'{% url "full_contact" %}',
+            data: data,
+            success: function(json){
+                form.reset();
+                 if (json['result'] === 'success'){
+                    document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-success">Successfully. Approve your email</div>';
+                 }
+                 else {
+                     document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-error">Error. Try again</div>';
+                 }
+
+/*
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push ({
+                'event': 'indexForm',
+                'formName': form.id,
+                'eventCategory': 'indexForm',
+                'eventAction': 'submit',
+                });
+
+*/
+            },
+            error: function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+            });
+    });
+
+</script>
+
+<script>
+function joinModal() {
+    var myModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+      keyboard: false
+    });
+    myModal.show();
+}
+</script>
+
+{% endblock %}

@@ -83,7 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hr_system.wsgi.application'
 
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -104,7 +104,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-"""
+
 
 TIME_INPUT_FORMATS = ['%I:%M %p',]
 
