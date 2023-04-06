@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <!-- Primary Meta Tags -->
+        <title>GuaranteeHR</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="title" content="GuaranteeHR">
+
+        <!-- Fontawesome -->
+        <link type="text/css" href="/static/landing2/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+        <!-- Nucleo icons -->
+        <link rel="stylesheet" href="/static/account/vendor/nucleo/css/nucleo.css" type="text/css">
+
+        <!-- Prism -->
+        <link type="text/css" href="/static/landing2/vendor/prismjs/themes/prism.css" rel="stylesheet">
+
+        <!-- Front CSS -->
+        <link type="text/css" href="/static/landing2/css/front.css" rel="stylesheet">
+
+        <!-- For specific CSS -->
+        {% block stylesheets %}{% endblock stylesheets %}
+
+    </head>
+
+    <body>
+
+        <header class="header-global">
+            <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-light navbar-theme-primary">
+                <div class="container">
+                    <a class="navbar-brand @@logo_classes" href="/">
+                        <img class="navbar-brand-dark common" src="/static/landing2/img/brand/light.svg" height="35" alt="Logo light">
+                        <img class="navbar-brand-light common" src="/static/landing2/img/brand/dark.svg" height="35" alt="Logo dark">
+                    </a>
+                    <div class="navbar-collapse collapse" id="navbar_global">
+                        <div class="navbar-collapse-header">
+                            <div class="row">
+                                <div class="col-6 collapse-brand">
+                                    <a href="/">
+                                        <img src="/static/landing2/img/brand/dark.svg" height="35" alt="Logo Impact">
+                                    </a>
+                                </div>
+                                <div class="col-6 collapse-close">
+                                    <a href="#navbar_global" role="button" class="fas fa-times" data-toggle="collapse"
+                                        data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false"
+                                        aria-label="Toggle navigation"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav navbar-nav-hover justify-content-center">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link">Start Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/pricing" class="nav-link">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="/about" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="/contact" class="nav-link">Contact</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
+                                    <span class="nav-link-inner-text">App pages</span>
+                                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pages_submenu">
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/dashboards/dashboard.html">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/login.html">Login</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/register.html">Register</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/tables/tables.html">Tables</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/maps/google.html">Maps</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+
+            <div class="preloader bg-soft flex-column justify-content-center align-items-center">
+                <div class="loader-element">
+                    <span class="loader-animated-dot"></span>
+                    <img src="/static/landing2/img/brand/dark-loader.svg" height="40" alt="Impact logo">
+                </div>
+            </div>
+
+            <!-- For page content -->
+            {% block content %}{% endblock content %}
+
+            <footer class="footer section pt-6 pt-md-8 pt-lg-10 pb-3 bg-primary text-white overflow-hidden">
+                <div class="pattern pattern-soft top"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            <a class="footer-brand mr-lg-5 d-flex" href="../../index.html">
+                                <img src="/static/landing2/img/brand/light.svg" height="35" class="mr-3" alt="Footer logo">
+                            </a>
+                            <p class="my-4">Create, prototype, collaborate and turn your ideas into incredible products with the definitive platform for digital design.</p>
+                            <div class="dropdown mb-4 mb-lg-0">
+                                <a id="langsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle footer-language-link">
+                                    <img src="/static/landing2/img/flags/united-states-of-america.svg" alt="USA Flag" class="language-flag"> English
+                                    <i class="fas fa-chevron-down ml-1"></i>
+                                </a>
+                                <div aria-labelledby="langsDropdown" class="dropdown-menu dropdown-menu-center">
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/germany.svg" alt="Germany Flag" class="language-flag"> German</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/spain.svg" alt="Spain Flag" class="language-flag"> Spanish</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/france.svg" alt="France Flag" class="language-flag"> French</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
+                            <h6>Themesberg</h6>
+                            <ul class="links-vertical">
+                                <li><a target="_blank" href="https://themesberg.com/blog?ref=creativetim">Blog</a></li>
+                                <li><a target="_blank" href="https://themesberg.com/themes?ref=creativetim">Themes</a></li>
+                                <li><a target="_blank" href="https://themesberg.com/contact?ref=creativetim">Contact Us</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
+                            <h6>Creative Tim</h6>
+                            <ul class="links-vertical">
+                                <li><a target="_blank" href="https://www.creative-tim.com/blog">Blog</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/templates">Products</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/support-terms">Support</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/license">License</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <h6>Subscribe</h6>
+                            <p class="font-small">The latest Impact news, articles, and resources, sent straight to your inbox every month.</p>
+                            <form action="#">
+                                <div class="form-row">
+                                    <div class="col-8">
+                                        <input type="email" class="form-control mb-2" placeholder="Email Address" name="email" required>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-secondary btn-block"><span>Subscribe</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <small class="mt-2 form-text">We’ll never share your details. See our <a href="#" class="font-weight-bold text-underline">Privacy Policy</a></small>
+                        </div>
+                    </div>
+                    <hr class="my-4 my-lg-5">
+                    <div class="row">
+                        <div class="col pb-4 mb-md-0">
+                            <div class="d-flex text-center justify-content-center align-items-center">
+                                <p class="font-weight-normal mb-0">© <a href="https://themesberg.com?ref=creativetim*" target="_blank">Themesberg</a> & <a href="https://creative-tim.com">Creative Tim</a> <span class="current-year"></span>. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Core -->
+        <script src="/static/landing2/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="/static/landing2/vendor/popper.js/dist/umd/popper.min.js"></script>
+        <script src="/static/landing2/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/static/landing2/vendor/headroom.js/dist/headroom.min.js"></script>
+
+        <!-- Vendor JS -->
+        <script src="/static/landing2/vendor/onscreen/dist/on-screen.umd.min.js"></script>
+        <script src="/static/landing2/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+        <script src="/static/landing2/vendor/jarallax/dist/jarallax.min.js"></script>
+        <script src="/static/landing2/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+
+        <!-- Impact JS -->
+        <script src="/static/landing2/js/front.js"></script>
+
+        <!-- For specific JS -->
+        {% block javascripts %}{% endblock javascripts %}
+
+    </body>
+
+</html>
