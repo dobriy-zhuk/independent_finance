@@ -65,6 +65,16 @@ def price(request):
     return render(request, 'landing/price.html', {})
 
 
+def contact_us(request):
+
+    return render(request, 'landing/contact_us.html', {})
+
+
+def about(request):
+
+    return render(request, 'landing/about.html', {})
+
+
 def teacher_hire(request):
 
     response_data = {}

@@ -1,0 +1,252 @@
+{% extends 'base/base_front.html' %}
+{% load static %}
+
+ {% block preloader %}
+{% endblock %}
+
+{% block header_global %}
+
+    <header class="header-global">
+    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-dark navbar-theme-primary">
+        <div class="container">
+           <a class="navbar-brand @@logo_classes" href="{% url 'index' %}">
+                        <img class="navbar-brand-dark common" src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo light">
+                        <img class="navbar-brand-light common" src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo dark">
+                    </a>
+            <div class="navbar-collapse collapse" id="navbar_global">
+                <div class="navbar-collapse-header">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="{% url 'index' %}">
+                                <img src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo Guarantee Finance">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <a href="#navbar_global" role="button" class="fas fa-times" data-toggle="collapse"
+                                data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false"
+                                aria-label="Toggle navigation"></a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="navbar-nav navbar-nav-hover justify-content-center">
+                            <li class="nav-item dropdown">
+                                <a href="{% url 'index' %}" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
+                                    <span class="nav-link-inner-text">Industry</span>
+                                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pages_submenu">
+                                    <li><a class="dropdown-item" href="#">Education</a></li>
+                                    <li><a class="dropdown-item" href="#">Healthcare</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'price' %}" class="nav-link">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="{% url 'about' %}" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="{% url 'contact_us' %}" class="nav-link">Contact Us</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
+                                    <span class="nav-link-inner-text">Resources</span>
+                                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pages_submenu">
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/dashboards/dashboard.html">Support</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/login.html">Blog</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/register.html">News</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/tables/tables.html">Tables</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/maps/google.html">Maps</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+            </div>
+            <div class="d-none d-lg-block @@cta_button_classes">
+                        <a href="https://demos.creative-tim.com/impact-design-system-pro/docs/dashboard/alerts/" class="btn btn-md btn-docs btn-outline-white animate-up-2 mr-3"><i class="fas fa-th-large mr-2"></i>Login</a>
+                        <a href="https://www.creative-tim.com/product/impact-design-system-pro" target="_blank" class="btn btn-md btn-secondary animate-up-2"><i class="fas fa-paper-plane mr-2"></i>Get Started</a>
+                    </div>
+                    <div class="d-flex d-lg-none align-items-center">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
+                            aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation"><span
+                                class="navbar-toggler-icon"></span></button>
+                    </div>
+        </div>
+    </nav>
+</header>
+
+{% endblock %}
+
+{% block content %}
+
+        <section class="section-header bg-primary text-white pb-9 pb-lg-13 mb-4 mb-lg-6">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8 text-center">
+                        <h1 class="display-2 mb-3">Got a question?</h1>
+                        <p class="lead">Your feedback is valuable to us. If you have problems with your license, want to request a feature, or report a bug, we’re more than happy to help</p>
+                    </div>
+                </div>
+            </div>
+            <div class="pattern bottom"></div>
+        </section>
+        <div class="section section-lg pt-0">
+            <div class="container mt-n8 mt-lg-n13 z-2">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                       <!-- Card -->
+                       <div class="card border-light shadow-soft p-2 p-md-4 p-lg-5">
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label text-dark" for="firstNameLabel">First Name <span class="text-danger">*</span></label>
+                                            <div class="input-group mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                                                </div>
+                                                <input class="form-control" id="firstNameLabel" placeholder="John" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label text-dark" for="lastNameLabel">Last Name <span class="text-danger">*</span></label>
+                                            <div class="input-group mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                                                </div>
+                                                <input class="form-control" id="lastNameLabel" placeholder="Doe" type="text" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label text-dark" for="EmailLabel">Email <span class="text-danger">*</span></label>
+                                            <div class="input-group mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                </div>
+                                                <input class="form-control" id="EmailLabel" placeholder="johndoe@company.com" type="email" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label text-dark" for="phonenumberLabel">Phone Number<span class="text-danger">*</span></label>
+                                            <div class="input-group mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-phone-square-alt"></i></span>
+                                                </div>
+                                                <input class="form-control" id="phonenumberLabel" placeholder="(555) 555-1234" type="number" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <div class="form-group">
+                                            <label class="form-label text-dark" for="phonenumberLabel">How can we help you?<span class="text-danger">*</span></label>
+                                            <textarea class="form-control" placeholder="Hi Impact, I would like to ..." id="message-2" rows="8" required></textarea>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-secondary mt-4 animate-up-2"><span class="mr-2"><i class="fas fa-paper-plane"></i></span>Send Message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section section-lg pt-0 line-bottom-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4 text-center px-4 mb-5 mb-lg-0">
+                        <div class="icon icon-sm icon-shape icon-shape-primary rounded mb-4">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                        <h5 class="mb-3">Email us</h5>
+                        <p>
+                            Email us for general queries, including marketing and partnership opportunities.
+                        </p>
+                        <a class="font-weight-bold text-primary" href="#">office@company.com</a>
+                    </div>
+                    <div class="col-12 col-md-4 text-center px-4 mb-5 mb-lg-0">
+                        <div class="icon icon-sm icon-shape icon-shape-primary rounded mb-4">
+                            <i class="fas fa-phone-volume"></i>
+                        </div>
+                        <h5 class="mb-3">Call us</h5>
+                        <p>
+                            Call us to speak to a member of our team.We are always happy to help you.
+                        </p>
+                        <a class="font-weight-bold text-primary" href="#">+1 (234) 567890</a>
+                    </div>
+                    <div class="col-12 col-md-4 text-center px-4">
+                        <div class="icon icon-sm icon-shape icon-shape-primary rounded mb-4">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h5 class="mb-3">Support</h5>
+                        <p>
+                            Technical support for each product is given directly by the creators of Themesberg.
+                        </p>
+                        <a class="btn btn-sm btn-outline-primary" href="#">
+                            Support Center
+                            <span class="fas fa-long-arrow-alt-right ml-2"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="section section-lg pb-5 bg-soft">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 text-center mb-5">
+                        <h2 class="mb-4">Faster growth starts with Impact</h2>
+                        <p class="lead mb-5">Join over <span class="font-weight-bolder">300,000+</span> users</p>
+                        <a href="#" class="icon icon-lg text-gray mr-3">
+                            <i class="fab fa-mailchimp"></i>
+                        </a>
+                        <a href="#" class="icon icon-lg text-gray mr-3">
+                            <i class="fab fa-cpanel"></i>
+                        </a>
+                        <a href="#" class="icon icon-lg text-gray mr-3">
+                            <i class="fab fa-dhl"></i>
+                        </a>
+                        <a href="#" class="icon icon-lg text-gray mr-3 ">
+                            <i class="fab fa-github-alt"></i>
+                        </a>
+                        <a href="#" class="icon icon-lg text-gray mr-3">
+                            <i class="fab fa-aws"></i>
+                        </a>
+                        <a href="#" class="icon icon-lg text-gray">
+                            <i class="fab fa-node"></i>
+                        </a>
+                    </div>
+                    <div class="col-12 text-center">
+                        <!-- Button Modal -->
+                        <a href="../../dashboard/pages/dashboards/dashboard.html" class="btn btn-secondary animate-up-2"><span class="mr-2"><i class="fas fa-hand-pointer"></i></span>Start 30-days trial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock content %}
+
+{% block triple %}
+{% endblock %}
+
+{% block about %}
+ {% endblock %}
+
+{% block proudly %}
+{% endblock %}
+
+
+{% block promo %}
+
+{% endblock %}

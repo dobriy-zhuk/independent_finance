@@ -29,6 +29,9 @@ sitemaps = {
 urlpatterns = [
     path('', views.index, name='index'),
     path('price/', views.price, name='price'),
+    path('contact_us/', views.contact_us, name='contact_us'),
+    path('about/', views.about, name='about'),
+
     path('teacher_hire/', views.teacher_hire, name='teacher_hire'),
     path('teacher_join/', views.teacher_join, name='teacher_join'),
     path('contacts/', views.contacts, name='contacts'),

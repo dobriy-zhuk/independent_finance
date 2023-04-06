@@ -31,12 +31,12 @@
 <meta name="theme-color" content="#ffffff">
 
         <!-- Fontawesome -->
-        <link type="text/css" href="{% static 'landing2/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+        <link type="text/css" href="{% static 'vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
 
         <!-- Nucleo icons -->
-        <link rel="stylesheet" href="{% static 'account/vendor/nucleo/css/nucleo.css' %}" type="text/css">
-        <link type="text/css" href="{% static 'landing2/vendor/prismjs/themes/prism.css' %}" rel="stylesheet">
-        <link type="text/css" href="{% static 'landing2/css/front.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="{% static '/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+        <link type="text/css" href="{% static '/vendor/prismjs/themes/prism.css' %}" rel="stylesheet">
+        <link type="text/css" href="{% static '/css/front.css' %}" rel="stylesheet">
 
   <link rel="shortcut icon" href="https://guaranteehr.com/static/img/favicon.svg" type="image/x-icon">
 
@@ -65,15 +65,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-light navbar-theme-primary">
                 <div class="container">
                     <a class="navbar-brand @@logo_classes" href="{% url 'index' %}">
-                        <img class="navbar-brand-dark common" src="{% static 'landing2/img/brand/light.svg' %}" height="35" alt="Logo light">
-                        <img class="navbar-brand-light common" src="{% static 'landing2/img/brand/dark.svg' %}" height="35" alt="Logo dark">
+                        <img class="navbar-brand-dark common" src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo light">
+                        <img class="navbar-brand-light common" src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo dark">
                     </a>
                     <div class="navbar-collapse collapse" id="navbar_global">
                         <div class="navbar-collapse-header">
                             <div class="row">
                                 <div class="col-6 collapse-brand">
                                     <a href="{% url 'index' %}">
-                                        <img src="{% static 'landing2/img/brand/dark.svg' %}" height="35" alt="Logo Impact">
+                                        <img src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo Guarantee Finance">
                                     </a>
                                 </div>
                                 <div class="col-6 collapse-close">
@@ -84,33 +84,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             </div>
                         </div>
                         <ul class="navbar-nav navbar-nav-hover justify-content-center">
-                            <li class="nav-item">
-                                <a href="{% url 'index' %}" class="nav-link">Start Page</a>
+                            <li class="nav-item dropdown">
+                                <a href="{% url 'index' %}" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
+                                    <span class="nav-link-inner-text">Industry</span>
+                                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pages_submenu">
+                                    <li><a class="dropdown-item" href="#">Education</a></li>
+                                    <li><a class="dropdown-item" href="#">Healthcare</a></li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a href="{% url 'price' %}" class="nav-link">Pricing</a>
                             </li>
                             <li class="nav-item">
-                                 <a href="/about" class="nav-link">About</a>
+                                 <a href="{% url 'about' %}" class="nav-link">About</a>
                             </li>
                             <li class="nav-item">
-                                 <a href="/contact" class="nav-link">Contact</a>
+                                 <a href="{% url 'contact_us' %}" class="nav-link">Contact Us</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
-                                    <span class="nav-link-inner-text">App pages</span>
+                                    <span class="nav-link-inner-text">Resources</span>
                                     <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
                                 </a>
                                 <ul class="dropdown-menu" id="pages_submenu">
-                                    <li><a class="dropdown-item" href="../../dashboard/pages/dashboards/dashboard.html">Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/login.html">Login</a></li>
-                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/register.html">Register</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/dashboards/dashboard.html">Support</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/login.html">Blog</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/register.html">News</a></li>
                                     <li><a class="dropdown-item" href="../../dashboard/pages/examples/profile.html">Profile</a></li>
                                     <li><a class="dropdown-item" href="../../dashboard/pages/tables/tables.html">Tables</a></li>
                                     <li><a class="dropdown-item" href="../../dashboard/pages/maps/google.html">Maps</a></li>
                                 </ul>
                             </li>
                         </ul>
+                    </div>
+                    <div class="d-none d-lg-block @@cta_button_classes">
+                        <a href="https://demos.creative-tim.com/impact-design-system-pro/docs/dashboard/alerts/" class="btn btn-md btn-docs btn-outline-white animate-up-2 mr-3"><i class="fas fa-th-large mr-2"></i>Login</a>
+                        <a href="https://www.creative-tim.com/product/impact-design-system-pro" target="_blank" class="btn btn-md btn-secondary animate-up-2"><i class="fas fa-paper-plane mr-2"></i>Get Started</a>
+                    </div>
+                    <div class="d-flex d-lg-none align-items-center">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
+                            aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation"><span
+                                class="navbar-toggler-icon"></span></button>
                     </div>
                 </div>
             </nav>
@@ -125,7 +141,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="preloader bg-soft flex-column justify-content-center align-items-center">
     <div class="loader-element">
                     <span class="loader-animated-dot"></span>
-                    <img src="/static/landing2/img/brand/dark-loader.svg" height="40" alt="Impact logo">
+                    <img src="/static/img/brand/dark-loader.svg" height="40" alt="Impact logo">
                 </div>
             </div>
  {% endblock %}
@@ -623,18 +639,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <div class="row">
                         <div class="col-lg-4 mb-4 mb-lg-0">
                             <a class="footer-brand mr-lg-5 d-flex" href="../../index.html">
-                                <img src="/static/landing2/img/brand/light.svg" height="35" class="mr-3" alt="Footer logo">
+                                <img src="/static/img/brand/light.svg" height="35" class="mr-3" alt="Footer logo">
                             </a>
                             <p class="my-4">Create, prototype, collaborate and turn your ideas into incredible products with the definitive platform for digital design.</p>
                             <div class="dropdown mb-4 mb-lg-0">
                                 <a id="langsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle footer-language-link">
-                                    <img src="/static/landing2/img/flags/united-states-of-america.svg" alt="USA Flag" class="language-flag"> English
+                                    <img src="/static/img/flags/united-states-of-america.svg" alt="USA Flag" class="language-flag"> English
                                     <i class="fas fa-chevron-down ml-1"></i>
                                 </a>
                                 <div aria-labelledby="langsDropdown" class="dropdown-menu dropdown-menu-center">
-                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/germany.svg" alt="Germany Flag" class="language-flag"> German</a>
-                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/spain.svg" alt="Spain Flag" class="language-flag"> Spanish</a>
-                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/france.svg" alt="France Flag" class="language-flag"> French</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/img/flags/germany.svg" alt="Germany Flag" class="language-flag"> German</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/img/flags/spain.svg" alt="Spain Flag" class="language-flag"> Spanish</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/img/flags/france.svg" alt="France Flag" class="language-flag"> French</a>
                                 </div>
                             </div>
                         </div>
@@ -687,19 +703,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
         <!-- Core -->
-        <script src="{% static 'landing2/vendor/jquery/dist/jquery.min.js' %}"></script>
-        <script src="/static/landing2/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
-        <script src="/static/landing2/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-        <script src="/static/landing2/vendor/headroom.js/dist/headroom.min.js' %}"></script>
+        <script src="{% static '/vendor/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static '/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+        <script src="{% static '/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static '/vendor/headroom.js/dist/headroom.min.js' %}"></script>
 
         <!-- Vendor JS -->
-        <script src="{% static 'landing2/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
-        <script src="{% static 'landing2/vendor/waypoints/lib/jquery.waypoints.min.js' %}"></script>
-        <script src="{% static 'landing2/vendor/jarallax/dist/jarallax.min.js' %}"></script>
-        <script src="{% static 'landing2/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+        <script src="{% static '/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+        <script src="{% static '/vendor/waypoints/lib/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static '/vendor/jarallax/dist/jarallax.min.js' %}"></script>
+        <script src="{% static '/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
 
         <!-- Impact JS -->
-        <script src="{% static 'landing2/js/front.js' %}"></script>
+        <script src="{% static '/js/front.js' %}"></script>
 
         <script async defer src="https://buttons.github.io/buttons.js"></script>
 
