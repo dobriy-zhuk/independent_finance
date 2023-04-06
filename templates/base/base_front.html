@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
-     {% block title %}GuaranteeHR - pre-employment screening tests and assessments system to grow your business{% endblock title %}
+     {% block title %}Guarantee Finance | next-generation payment for professionals and teams{% endblock title %}
     </title>
 
   {% block tags %}
@@ -30,12 +30,13 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="theme-color" content="#ffffff">
 
-<!-- Fontawesome -->
-<link type="text/css" href="{% static 'landing/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
-  <link type="text/css" href="{% static 'landing/vendor/@fortawesome/fontawesome-free/css/fontawesome.min.css' %}" rel="stylesheet">
+        <!-- Fontawesome -->
+        <link type="text/css" href="{% static 'landing2/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
 
-<!-- Swipe CSS -->
-<link type="text/css" href="{% static 'css/swipe.css' %}" rel="stylesheet">
+        <!-- Nucleo icons -->
+        <link rel="stylesheet" href="{% static 'account/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+        <link type="text/css" href="{% static 'landing2/vendor/prismjs/themes/prism.css' %}" rel="stylesheet">
+        <link type="text/css" href="{% static 'landing2/css/front.css' %}" rel="stylesheet">
 
   <link rel="shortcut icon" href="https://guaranteehr.com/static/img/favicon.svg" type="image/x-icon">
 
@@ -59,68 +60,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 {% block header_global %}
-<header class="header-global" id="home">
-    <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
-        <div class="container position-relative">
-            <a class="navbar-brand mr-lg-4" href="{% url 'index' %}">
-                <img class="navbar-brand-dark" src="{% static 'img/logo.png' %}" alt="Logo light">
-                <img class="navbar-brand-light" src="{% static 'img/logo.png' %}" alt="Logo dark">
-            </a>
-            <div class="navbar-collapse collapse mr-auto" id="navbar_global">
-                <div class="navbar-collapse-header">
-                    <div class="row">
-                        <div class="col-6 collapse-brand">
-                            <a href="{% url 'index' %}">
-                                <img src="{% static 'assets/img/dark.svg' %}" alt="Logo dark">
-                            </a>
+
+     <header class="header-global">
+            <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-light navbar-theme-primary">
+                <div class="container">
+                    <a class="navbar-brand @@logo_classes" href="{% url 'index' %}">
+                        <img class="navbar-brand-dark common" src="{% static 'landing2/img/brand/light.svg' %}" height="35" alt="Logo light">
+                        <img class="navbar-brand-light common" src="{% static 'landing2/img/brand/dark.svg' %}" height="35" alt="Logo dark">
+                    </a>
+                    <div class="navbar-collapse collapse" id="navbar_global">
+                        <div class="navbar-collapse-header">
+                            <div class="row">
+                                <div class="col-6 collapse-brand">
+                                    <a href="{% url 'index' %}">
+                                        <img src="{% static 'landing2/img/brand/dark.svg' %}" height="35" alt="Logo Impact">
+                                    </a>
+                                </div>
+                                <div class="col-6 collapse-close">
+                                    <a href="#navbar_global" role="button" class="fas fa-times" data-toggle="collapse"
+                                        data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false"
+                                        aria-label="Toggle navigation"></a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-6 collapse-close">
-                            <a href="#navbar_global" class="fas fa-times" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" title="close" aria-label="Toggle navigation"></a>
-                        </div>
+                        <ul class="navbar-nav navbar-nav-hover justify-content-center">
+                            <li class="nav-item">
+                                <a href="{% url 'index' %}" class="nav-link">Start Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'price' %}" class="nav-link">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="/about" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="/contact" class="nav-link">Contact</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
+                                    <span class="nav-link-inner-text">App pages</span>
+                                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pages_submenu">
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/dashboards/dashboard.html">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/login.html">Login</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/register.html">Register</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/tables/tables.html">Tables</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/maps/google.html">Maps</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                    <li class="nav-item {% if request.resolver_match.url_name == 'index' %}text-underline{% endif %}">
-                        <a href="{% url 'index' %}" class="nav-link">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'teacher_hire' %}" class="nav-link {% if request.resolver_match.url_name == 'teacher_hire' %}text-underline{% endif %}">
-                            Hire
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'teacher_join' %}" class="nav-link {% if request.resolver_match.url_name == 'teacher_join' %}text-underline{% endif %}">
-                            Teachers
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#download" class="nav-link {% if request.resolver_match.url_name == 'about' %}text-underline{% endif %}">
-                            About
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'contacts' %}" class="nav-link {% if request.resolver_match.url_name == 'contact' %}text-underline{% endif %}">
-                            Contact Us
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="d-flex align-items-center">
-                <a href="https://themesberg.com/product/bootstrap/swipe-free-mobile-app-one-page-bootstrap-5-template" target="_blank" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2">Log In</a>
-                <a href="{% url 'teacher_hire' %}" class="btn btn-md btn-tertiary text-white d-none d-md-inline animate-up-2">Hire School Staff<i class="fas fa-rocket ml-2"></i></a>
-                <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-        </div>
-    </nav>
-</header>
+            </nav>
+        </header>
 
 {% endblock %}
 
  <main>
+
+
+ {% block preloader %}
+  <div class="preloader bg-soft flex-column justify-content-center align-items-center">
+    <div class="loader-element">
+                    <span class="loader-animated-dot"></span>
+                    <img src="/static/landing2/img/brand/dark-loader.svg" height="40" alt="Impact logo">
+                </div>
+            </div>
+ {% endblock %}
+
  {% block content %}
     <section class="section section-header text-dark pb-md-8">
             <div class="container">
@@ -608,96 +617,95 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </main>
 
 {% block footer %}
-    <footer class="footer py-5 pt-lg-6">
-    <div class="sticky-left d-flex align-items-center bg-white p-3 pt-4 px-4 border border-soft shadow-sm rounded">
-        <span class="mr-3 d-block font-small mb-1">Open source ❤️</span>
-        <!-- Place this tag where you want the button to render. -->
-        <a class="github-button" href="https://github.com/themesberg/swipe-one-page-bootstrap-5-template" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themesberg/swipe-one-page-bootstrap-5-template on GitHub">Star</a>
-    </div>
-    <div class="sticky-right">
-        <a href="#home" class="icon icon-primary icon-md btn btn-icon-only btn-white border border-soft shadow-soft animate-up-3">
-            <span class="fas fa-chevron-up"></span>
-        </a>
-    </div>
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-md-4">
-                <p>Swipe is a beautiful and free one page Bootstrap 5 Template created to showcase your awesome mobile app.</p>
-                <ul class="social-buttons mb-5 mb-lg-0">
-                    <li>
-                        <a href="https://twitter.com/themesberg" aria-label="twitter social link" class="icon icon-md icon-twitter mr-3">
-                            <span class="fab fa-twitter"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.facebook.com/themesberg/" class="icon icon-md icon-facebook mr-3" aria-label="facebook social link">
-                            <span class="fab fa-facebook"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/themesberg" aria-label="github social link" class="icon icon-md icon-github mr-3">
-                            <span class="fab fa-github"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://dribbble.com/themesberg" class="icon icon-md icon-dribbble" aria-label="dribbble social link" >
-                            <span class="fab fa-dribbble"></span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-6 col-md-2 mb-5 mb-lg-0">
-                <span class="h5">Themesberg</span>
-                <ul class="footer-links mt-2">
-                    <li><a target="_blank" href="https://themesberg.com/blog">Blog</a></li>
-                    <li><a target="_blank" href="https://themesberg.com/products">Products</a></li>
-                    <li><a target="_blank" href="https://themesberg.com/about">About Us</a></li>
-                    <li><a target="_blank" href="https://themesberg.com/contact">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="col-12 col-md-4 mb-5 mb-lg-0">
-                <span class="h5 mb-3 d-block">Subscribe</span>
-                <form action="#">
-                    <div class="form-row mb-2">
-                        <div class="col-12">
-                            <input type="email" class="form-control mb-2" placeholder="example@company.com" name="email" aria-label="Subscribe form" required>
+   <footer class="footer section pt-6 pt-md-8 pt-lg-10 pb-3 bg-primary text-white overflow-hidden">
+                <div class="pattern pattern-soft top"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            <a class="footer-brand mr-lg-5 d-flex" href="../../index.html">
+                                <img src="/static/landing2/img/brand/light.svg" height="35" class="mr-3" alt="Footer logo">
+                            </a>
+                            <p class="my-4">Create, prototype, collaborate and turn your ideas into incredible products with the definitive platform for digital design.</p>
+                            <div class="dropdown mb-4 mb-lg-0">
+                                <a id="langsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle footer-language-link">
+                                    <img src="/static/landing2/img/flags/united-states-of-america.svg" alt="USA Flag" class="language-flag"> English
+                                    <i class="fas fa-chevron-down ml-1"></i>
+                                </a>
+                                <div aria-labelledby="langsDropdown" class="dropdown-menu dropdown-menu-center">
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/germany.svg" alt="Germany Flag" class="language-flag"> German</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/spain.svg" alt="Spain Flag" class="language-flag"> Spanish</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/landing2/img/flags/france.svg" alt="France Flag" class="language-flag"> French</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-dark shadow-soft btn-block" data-loading-text="Sending">
-                                <span>Subscribe</span>
-                            </button>
+                        <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
+                            <h6>Themesberg</h6>
+                            <ul class="links-vertical">
+                                <li><a target="_blank" href="https://themesberg.com/blog?ref=creativetim">Blog</a></li>
+                                <li><a target="_blank" href="https://themesberg.com/themes?ref=creativetim">Themes</a></li>
+                                <li><a target="_blank" href="https://themesberg.com/contact?ref=creativetim">Contact Us</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
+                            <h6>Creative Tim</h6>
+                            <ul class="links-vertical">
+                                <li><a target="_blank" href="https://www.creative-tim.com/blog">Blog</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/templates">Products</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/support-terms">Support</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/license">License</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <h6>Subscribe</h6>
+                            <p class="font-small">The latest Impact news, articles, and resources, sent straight to your inbox every month.</p>
+                            <form action="#">
+                                <div class="form-row">
+                                    <div class="col-8">
+                                        <input type="email" class="form-control mb-2" placeholder="Email Address" name="email" required>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-secondary btn-block"><span>Subscribe</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <small class="mt-2 form-text">We’ll never share your details. See our <a href="#" class="font-weight-bold text-underline">Privacy Policy</a></small>
                         </div>
                     </div>
-                </form>
-                <p class="text-muted font-small m-0">No spam. Pinky swear.</p>
-            </div>
-        </div>
-        <hr class="bg-light my-2">
-        <div class="row pt-2 pt-lg-5">
-            <div class="col mb-md-0">
-                <a href="https://themesberg.com" target="_blank" class="d-flex justify-content-center">
-                    <img src="./assets/img/themesberg.svg" height="25" class="mb-3" alt="Themesberg Logo">
-                </a>
-            <div class="d-flex text-center justify-content-center align-items-center" role="contentinfo">
-                <p class="font-weight-normal font-small mb-0">Copyright © Themesberg 2019-<span class="current-year">2020</span>. All rights reserved.</p>
+                    <hr class="my-4 my-lg-5">
+                    <div class="row">
+                        <div class="col pb-4 mb-md-0">
+                            <div class="d-flex text-center justify-content-center align-items-center">
+                                <p class="font-weight-normal mb-0">© <a href="https://themesberg.com?ref=creativetim*" target="_blank">Themesberg</a> & <a href="https://creative-tim.com">Creative Tim</a> <span class="current-year"></span>. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</footer>
+            </footer>
 {% endblock %}
 
-<script src="{% static 'landing/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
-<script src="{% static 'landing/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-<script src="{% static 'landing/vendor/headroom.js/dist/headroom.min.js' %}"></script>
-
-<script src="{% static 'landing/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
-<script src="{% static 'landing/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
-
-<script src="{% static 'landing/assets/js/swipe.js' %}"></script>
 
 
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+        <!-- Core -->
+        <script src="{% static 'landing2/vendor/jquery/dist/jquery.min.js' %}"></script>
+        <script src="/static/landing2/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+        <script src="/static/landing2/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="/static/landing2/vendor/headroom.js/dist/headroom.min.js' %}"></script>
+
+        <!-- Vendor JS -->
+        <script src="{% static 'landing2/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+        <script src="{% static 'landing2/vendor/waypoints/lib/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static 'landing2/vendor/jarallax/dist/jarallax.min.js' %}"></script>
+        <script src="{% static 'landing2/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+
+        <!-- Impact JS -->
+        <script src="{% static 'landing2/js/front.js' %}"></script>
+
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+        <!-- For specific JS -->
+        {% block javascripts %}{% endblock javascripts %}
+
 
 
   {% block javascript %}

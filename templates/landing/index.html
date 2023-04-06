@@ -1,65 +1,356 @@
-{% extends 'base/base_landing.html' %}
+{% extends 'base/base_front.html' %}
 {% load static %}
 
 {% block content %}
-    <section class="section section-header text-dark pb-md-8">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
-                        <h1 class="display-2 font-weight-bolder mb-4">
-                            GuaranteeHR.
-                        </h1>
-                        <p class="lead mb-4 mb-lg-5">
-                            GuaranteeHR is leader in school staffing. We’ve helped facilities
-                            across the country by placing thousands of on-demand teachers and allied professionals in as little.</p>
-                        <div>
-                            <a href="{% url 'teacher_hire' %}" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
-                                <span class="d-flex align-items-center">
-                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-search"></span></span>
-                                    <span class="d-inline-block text-left">
-                                        <small class="font-weight-normal d-none d-md-block">Hire</small> Teacher
-                                    </span>
-                                </span>
-                            </a>
-                            <button onclick="joinModal()" class="btn btn-dark btn-download-app"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <span class="d-flex align-items-center">
-                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-user-graduate"></span></span>
-                                    <span class="d-inline-block text-left">
-                                        <small class="font-weight-normal d-none d-md-block">Join</small> GuaranteeHR
-                                    </span>
-                                </span>
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Sing Up as a Teacher</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <ul style="text-align: left">
-                                        <li>Get credentialed quickly through our online, self-service portal.</li>
-                                        <li>Same-day payments: No need to wait 1 or 2 weeks for your first paycheck.
-                                            Get paid immediately after your first lesson.</li>
-                                        <li>Pick up lessons locally or take short-term or long-term assignments for as little as
-                                            1 lesson or as long as 6 months. Work whichever assignment fits your lifestyle best.</li>
-                                    </ul>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn-block btn btn-primary">Submit Application</button>
-                                  </div>
-                                </div>
-                              </div>
+    <section class="section-header pb-7 pb-lg-11 bg-soft">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-6 order-2 order-lg-1">
+                <img src="/static/landing2/img/illustrations/hero-illustration.svg" alt="">
+                </div>
+                <div class="col-12 col-md-5 order-1 order-lg-2">
+                      <h1 class="display-2 mb-3">Tools to grow your traffic</h1>
+                      <p class="lead">Impact helps you learn why your competitors rank so high and what you need to do to outrank them.</p>
+                      <div class="mt-4">
+                        <form action="#" class="d-flex flex-column mb-5 mb-lg-0">
+                            <input class="form-control" type="text" name="full-name" placeholder="Full name" required>
+                            <input class="form-control my-3" type="email" name="email" placeholder="Your email" required>
+                            <button class="btn btn-primary" type="submit">Create your account</button>
+                            <div class="form-group form-check mt-3">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <label class="form-check-label form-check-sign-white" for="exampleCheck1">I agree to the <a href="#">Terms & Conditions</a></label>
                             </div>
+                        </form>
+                      </div>
+                  </div>
+            </div>
+        </div>
+        <div class="pattern bottom"></div>
+    </section>
+    <section class="section section-lg pt-6">
+        <div class="container">
+            <div class="row justify-content-center mb-5 mb-md-7">
+                <div class="col-12 col-md-8 text-center">
+                    <h2 class="h1 font-weight-bolder mb-4">Meet our intuitive platform</h2>
+                    <p class="lead">Self-Service Analytics or ad hoc reporting gives users the ability to develop rapid reports, empowering users to analyze their data.</p>
+                </div>
+            </div>
+            <div class="row row-grid align-items-center mb-5 mb-md-7">
+                <div class="col-12 col-md-5">
+                    <h2 class="font-weight-bolder mb-4">Site Audit</h2>
+                    <p class="lead">Site Audit crawls all the pages it finds on your website – then provides an overall SEO health score, visualises key data in charts, flags all possible SEO issues and provides recommendations on how to fix them.</p>
+                    <p class="lead">Have a huge website? Not an issue.</p>
+                    <a href="./about.html" class="btn btn-primary mt-3 animate-up-2">
+                        Learn More
+                        <span class="icon icon-xs ml-2">
+                            <i class="fas fa-external-link-alt"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 ml-md-auto">
+                    <img src="/static/landing2/img/illustrations/feature-illustration.svg" alt="">
+                </div>
+            </div>
+            <div class="row row-grid align-items-center mb-5 mb-md-7">
+                <div class="col-12 col-md-5 order-md-2">
+                    <h2 class="font-weight-bolder mb-4">Rank Tracker</h2>
+                    <p>We track your desktop and mobile keyword rankings from any location and plot your full ranking history on a handy graph.</p>
+                    <p>You can set up automated ranking reports to be sent to your email address, so you’ll never forget to check your ranking progress.</p>
+                    <a href="./about.html" class="btn btn-primary mt-3 animate-up-2">
+                        Rank Tracker Tool
+                        <span class="icon icon-xs ml-2">
+                            <i class="fas fa-external-link-alt"></i>
+                        </span>
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 mr-lg-auto">
+                    <img src="/static/landing2/img/illustrations/feature-illustration-2.svg" alt="">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card border-light p-4">
+                        <div class="card-body">
+                            <h2 class="display-2 mb-2">98%</h2>
+                            <span>Average satisfaction rating received in the past year</span>
                         </div>
                     </div>
-                    <div class="col-12 col-md-10 justify-content-center">
-                        <img class="d-none d-md-inline-block" src="{% static 'landing/assets/img/illustrations/scene.svg' %}" alt="Mobile App Mockup">
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card border-light p-4">
+                        <div class="card-body">
+                            <h2 class="display-2 mb-2">24/7</h2>
+                            <span> Our support team is a quick chat or email away — 24 hours a day</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card border-light p-4">
+                        <div class="card-body">
+                            <h2 class="display-2 mb-2">220k+</h2>
+                            <span>Extension installs from the two major mobile app stores</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+    <section class="section section-lg bg-soft">
+        <div class="container">
+            <div class="row justify-content-center mb-5 mb-md-7">
+                <div class="col-12 col-md-8 text-center">
+                    <h2 class="h1 font-weight-bolder mb-4">SEO solutions for every need</h2>
+                    <p class="lead">We build best-in-class SEO software for every situation, from our all-in-one SEO platform to tools for local SEO, enterprise SERP analytics, and a powerful API.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4 mb-5">
+                    <div class="card shadow-soft border-light">
+                        <div class="card-header p-0">
+                            <img src="/static/landing2/img/saas-platform-3.jpg" class="card-img-top rounded-top" alt="image">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title mt-3">Impact Local</h3>
+                            <p class="card-text">Moz Local distributes your business information across the web for maximum search engine visibility.</p>
+                            <ul class="list-group d-flex justify-content-center mb-4">
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Real-time distribution</div>
+                                </li>
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Duplicate closure</div>
+                                </li>
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Review management</div>
+                                </li>
+                            </ul>
+                            <a href="./about.html" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-5">
+                    <div class="card shadow-soft border-light">
+                        <div class="card-header p-0">
+                            <img src="/static/landing2/img/saas-platform-4.jpg" class="card-img-top rounded-top" alt="image">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title mt-3">Impact Pro</h3>
+                            <p class="card-text">Our SEO solution to help you rank higher, drive qualified traffic to your website, and run high-impact SEO campaigns.</p>
+                            <ul class="list-group d-flex justify-content-center mb-4">
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Keyword & link research</div>
+                                </li>
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Technical site audits</div>
+                                </li>
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>SEO insights & reporting</div>
+                                </li>
+                            </ul>
+                            <a href="./about.html" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 mb-5">
+                    <div class="card shadow-soft border-light">
+                        <div class="card-header p-0">
+                            <img src="/static/landing2/img/saas-platform-5.jpg" class="card-img-top rounded-top" alt="image">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title mt-3">Impact STAT</h3>
+                            <p class="card-text">STAT offers serious SERP tracking for experts. Track thousands to millions of keywords across any location.</p>
+                            <ul class="list-group d-flex justify-content-center mb-4">
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Daily tracking</div>
+                                </li>
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Local and mobile SERPs</div>
+                                </li>
+                                <li class="list-group-item d-flex pl-0 pb-1">
+                                    <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
+                                    <div>Competitor intelligence</div>
+                                </li>
+                            </ul>
+                            <a href="./about.html" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section-lg bg-primary text-center text-white">
+        <div class="container">
+            <div class="row justify-content-center mb-4 mb-lg-6">
+                <div class="col-12">
+                    <h1 class="display-3 mb-4 mb-lg-5">The world's most accurate SEO data.</h1>
+                    <div class="row text-white">
+                        <div class="col-12 col-lg-4 px-md-0 mb-4 mb-lg-0">
+                            <div class="card-body text-center bg-primary border-right border-default py-4">
+                                <!-- Heading -->
+                                <h2 class="font-weight-bold">
+                                    <span class="h1 mr-2">36.5 trillion</span>
+                                </h2>
+                                <!-- Text -->
+                                <span class="h5 font-weight-normal">links indexed by Link Explorer with our tools</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 px-md-0 mb-4 mb-lg-0">
+                            <div class="card-body text-center bg-primary border-right border-default py-4">
+                                <!-- Heading -->
+                                <h2 class="font-weight-bold">
+                                    <span class="h1 mr-2">500 million</span>
+                                </h2>
+                                <!-- Text -->
+                                <span class="h5 font-weight-normal">keyword suggestions in Keyword Explorer</span>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4 px-md-0">
+                            <div class="card-body text-center bg-primary py-4">
+                                <!-- Heading -->
+                                <h2 class="font-weight-bold">
+                                    <span class="h1 mr-2">250,000</span>
+                                </h2>
+                                <!-- Text -->
+                                <span class="h5 font-weight-normal">local business listings optimized with Moz Local</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                    <form action="../../dashboard/pages/dashboards/dashboard.html" class="form-group mb-4">
+                        <div class="d-flex flex-row justify-content-center">
+                            <div class="input-group">
+                                <input class="form-control form-control-xl border-light" placeholder="Enter a domain" type="text">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="btn btn-secondary rounded-right">Analyze domain</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <span class="small">Impact also offers access to our best-in-class proprietary metrics including Keyword Difficulty, Spam Score, Page Authority, and Domain Authority — the most highly correlated metric with actual Google rankings available today.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section-lg">
+        <div class="container">
+            <div class="row justify-content-center mb-5 mb-lg-7">
+                <div class="col-12 col-md-8 text-center">
+                    <h1 class="h1 font-weight-bolder mb-4">Recommended by leading experts in marketing and SEO</h1>
+                    <p class="lead">Our products are loved by users worldwide</p>
+                </div>
+            </div>
+            <div class="row mb-lg-5">
+                <div class="col-12 col-lg-6">
+                    <div class="customer-testimonial d-flex mb-5">
+                        <img src="/static/landing2/img/team/profile-picture-1.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
+                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
+                            <div class="d-flex mb-4">
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                            </div>
+                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
+                            <span class="h6">- James Curran <small class="ml-0 ml-md-2">General Manager Spotify</small></span>
+                        </div>
+                    </div>
+                    <div class="customer-testimonial d-flex mb-5">
+                        <img src="/static/landing2/img/team/profile-picture-2.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
+                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
+                            <div class="d-flex mb-4">
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                            </div>
+                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
+                            <span class="h6">- Richard Thomas <small class="ml-0 ml-md-2">Front-end developer Oracle</small></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 pt-lg-6">
+                    <div class="customer-testimonial d-flex mb-5">
+                        <img src="/static/landing2/img/team/profile-picture-4.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
+                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
+                            <div class="d-flex mb-4">
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                            </div>
+                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
+                            <span class="h6">- Jose Evans <small class="ml-0 ml-md-2">Chief Engineer Apple</small></span>
+                        </div>
+                    </div>
+                    <div class="customer-testimonial d-flex mb-5">
+                        <img src="/static/landing2/img/team/profile-picture-6.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
+                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
+                            <div class="d-flex mb-4">
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
+                            </div>
+                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
+                            <span class="h6">- Richard Thomas <small class="ml-0 ml-md-2">Manager IBM</small></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <a href="#" class="btn btn-primary animate-up-2"><span class="mr-2"><i class="fas fa-book-open"></i></span> See all stories</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg pb-5 bg-soft">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="mb-4">Faster growth starts with Impact</h2>
+                    <p class="lead mb-5">Join over <span class="font-weight-bolder">300,000+</span> users</p>
+                    <a href="#" class="icon icon-lg text-gray mr-3">
+                        <i class="fab fa-mailchimp"></i>
+                    </a>
+                    <a href="#" class="icon icon-lg text-gray mr-3">
+                        <i class="fab fa-cpanel"></i>
+                    </a>
+                    <a href="#" class="icon icon-lg text-gray mr-3">
+                        <i class="fab fa-dhl"></i>
+                    </a>
+                    <a href="#" class="icon icon-lg text-gray mr-3 ">
+                        <i class="fab fa-github-alt"></i>
+                    </a>
+                    <a href="#" class="icon icon-lg text-gray mr-3">
+                        <i class="fab fa-aws"></i>
+                    </a>
+                    <a href="#" class="icon icon-lg text-gray">
+                        <i class="fab fa-node"></i>
+                    </a>
+                </div>
+                <div class="col-12 text-center">
+                    <!-- Button Modal -->
+                    <a href="../../dashboard/pages/dashboards/dashboard.html" class="btn btn-secondary animate-up-2"><span class="mr-2"><i class="fas fa-hand-pointer"></i></span>Start 30-days trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
  {% endblock %}
 
 {% block triple %}
@@ -229,336 +520,6 @@
 {% endblock %}
 
 
-
-
-
-<section class="pt-8 py-lg-0" id="about">
-        <div class="container-xxl">
-          <div class="row align-items-center min-vh-lg-100">
-            <div class="col-lg order-lg-1 text-center"><img class="img-fluid" src="{% static 'landing/assets/img/illustrations/hero.png' %}" alt="" /></div>
-            <div class="col-lg mt-5 mt-lg-0">
-              <h1 class="lh-sm font-cursive fw-medium fs-6 fs-sm-8 fs-md-11 fs-lg-9 fs-xl-11 fs-xxl-12">New hiring experience <br class="d.none d-xl-block" /> to grow your business</h1>
-              <p class="mt-4 fs-2 fs-md-4 lh-sm">We help fast-growing companies to reduce bias and identify the best technical talent in record time</p>
-              <form id="contact-form">
-                {% csrf_token %}
-                <div id="result_div_contact"></div>
-                <div class="input-group">
-                  <input type="email" class="form-control" placeholder="Your email" name="email">
-                  <button class="btn btn-success" type="submit">Get started</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="pt-xxl-0" id="features">
-        <div class="container-xxl">
-          <div class="row justify-content-center text-center">
-            <div class="col-lg-10 col-xl-8">
-              <h1 class="display-6 font-cursive">Reimagining your HR processes</h1>
-              <p class="fs-md-1 mt-4">The employee experience sets the tone for the whole business, and it’s strongly linked with business KPIs.
-                  With the Guarantee HR operating system, the products you need to power your business is in a click away</p>
-            </div>
-          </div>
-          <div class="row row-cols-1 row-cols-xl-3 g-4 mt-3 text-center">
-            <div class="col-12 col-md-6">
-              <div class="card py-md-6 px-md-4 mt-3 h-100 box-shadow-all border-0">
-                <div class="card-body"><img src="{% static 'landing/assets/img/icons/icon1.png' %}" alt="" />
-                  <h3 class="py-3">Hire and onboarding process</h3>
-                  <p class="lead mb-0">We deliver HR tools that make managing your people easy, from new hires up to streamlined onboarding.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="card py-md-6 px-md-4 mt-3 h-100 box-shadow-all border-0">
-                <div class="card-body"><img src="{% static 'landing/assets/img/icons/icon2.png' %}" alt="" />
-                  <h3 class="py-3">Development and retention</h3>
-                  <p class="lead mb-0">Keeping your team engaged is crucial—especially working remotely.
-                      Give your employees a clear path for growth with performance reviews, trainings, developmental tools, and more.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-12">
-              <div class="card py-md-6 px-md-4 mt-3 h-100 box-shadow-all border-0">
-                <div class="card-body"><img src="{% static 'landing/assets/img/icons/icon3.png' %}" alt="" />
-                  <h3 class="py-3">Employee benefits</h3>
-                  <p class="lead mb-0">The market is competitive. Supporting your employees is more important than ever, which is why we provide a wide range of health and financial benefits to help your team thrive.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-        <div class="container-xxl">
-          <div class="row align-items-center">
-            <div class="col-md-6"><img src="{% static 'landing/assets/img/icons/icon1.png' %}" alt="" />
-              <h1 class="display-5 lh-sm my-4 font-cursive">Amazing workplace with actionable data</h1>
-              <p class="fs-1">Use competitive compensation tools and payroll system, employee surveys, and workforce costing to make important decisions a lot easier.
-                  With Guarantee HR you get a more effective way to hire, onboard, and retain talent</p>
-            </div>
-              <div class="col-xl-6">
-              <div class="row justify-content-center gx-4">
-                <div class="col-md-10">
-                  <div class="card box-shadow-b p-2 p-md-3">
-                    <div class="card-body flex-between-center pb-0">
-                        <h5 class="mb-0">Special tools for HR</h5><span class="badge rounded-pill bg-success p-2 fs-0"><a href="#" style="color: white">Try it now</a></span>
-                    </div>
-                    <div class="card-body">
-                      <p class="mb-0">Video interviews, system for evaluating applicants, assistance for HR during interviews</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-6 mt-4">
-                  <div class="card px-3 py-4 bg-warning">
-                    <div class="card-body">
-                      <h2>3 applicants</h2>
-                      <div class="applicant d-flex justify-content-between text-1000">
-                        <div class="d-flex align-items-center"><img class="rounded-circle my-2 me-2 me-md-3" src="{% static 'landing/assets/img/gallery/user5.png' %}" alt="" height="40" />
-                          <p class="fs-1 fs-md-2 mb-0 fw-semi-bold">Jason Kwon</p>
-                        </div>
-                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
-                          <p class="mb-0 mx-2 fw-medium">3.5</p>
-                        </div>
-                      </div>
-                      <div class="applicant d-flex justify-content-between text-1000">
-                        <div class="d-flex align-items-center"><img class="rounded-circle my-2 me-2 me-md-3" src="{% static 'landing/assets/img/gallery/user6.png' %}" alt="" height="40" />
-                          <p class="fs-1 fs-md-2 mb-0 fw-semi-bold">Axel Rose</p>
-                        </div>
-                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
-                          <p class="mb-0 mx-2 fw-medium">4.8</p>
-                        </div>
-                      </div>
-                      <div class="applicant d-flex justify-content-between text-1000">
-                        <div class="d-flex align-items-center"><img class="rounded-circle my-2 me-2 me-md-3" src="{% static 'landing/assets/img/gallery/user7.png' %}" alt="" height="40" />
-                          <p class="fs-1 fs-md-2 mb-0 fw-semi-bold">Lizzie Ulrich</p>
-                        </div>
-                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
-                          <p class="mb-0 mx-2 fw-medium">4.1</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-5">
-                  <div class="card p-2 mt-4 mt-md-5 border-success">
-                    <div class="card-body">
-                      <div class="card-text text-center"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/axel.png' %}" alt="" height="70" />
-                        <h4 class="mt-2 mb-1">Axel Rose </h4>
-                        <p class="text-secondary">UX Designer</p>
-                      </div>
-                      <div class="d-flex text-1000">
-                        <p class="mb-0 flex-1">Result</p>
-                        <div class="d-flex align-items-center"><img class="star" src="{% static 'landing/assets/img/icons/star.svg' %}" alt="" />
-                          <p class="mb-0 mx-2 fw-medium">4.8</p>
-                        </div>
-                      </div>
-                      <button class="btn btn-lg btn-dark w-100 mt-3">Job offer</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section>
-
-        <div class="container-xxl">
-          <div class="row flex-between-center">
-            <div class="col-md-6 order-md-1"><img src="{% static 'landing/assets/img/icons/icon2.png' %}" alt="" />
-              <h1 class="display-5 lh-sm my-4 font-cursive">Unlock your team’s potential</h1>
-              <p class="fs-1">We provide thoughtful tools and learning system for performance evaluations and career development so you can build the kind of work culture
-                  that helps you motivate, nurture, and retain your talented team.
-                  Use the built-in tools to improve your employees!</p>
-            </div>
-            <div class="col-md-6 col-xl-5">
-              <div class="card my-4">
-                <div class="card-body p-0 p-lg-3 my-3 mx-4">
-                  <div class="card-title">
-                    <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user4.jpeg' %}" alt="" height="70" />
-                      <div class="ms-3">
-                        <h3>Jacob Morgan</h3>
-                        <p class="mb-0">4x best-selling author</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-text mt-4">
-                    <p>Companies that invest in employee experience are 4x more profitable than those that do not.</p>
-                  </div>
-                  <div class="card-text mt-4">
-                    <div class="row gx-4">
-                      <!--div class="col">
-                        <p class="mb-1">COMMIT</p>
-                        <h3>10,000 DAI</h3>
-                      </div>
-                      <div class="col">
-                        <p class="mb-1">SHARES</p>
-                        <h3>20</h3>
-                      </div-->
-                    </div>
-                  </div>
-                  <div class="mt-3 pt-2">
-                      <button class="btn btn-dark btn-lg w-100" href=""><a href="#rea" style="color: white">Get started</a></button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      <section>
-        <div class="container-xxl" id="benefits">
-          <div class="row align-items-center gx-1">
-            <div class="col-xl-6"><img src="{% static 'landing/assets/img/icons/icons3.png' %}" alt="" />
-              <h1 class="display-5 lh-sm my-4 font-cursive">Build the unique benefits package for your team.</h1>
-              <p class="fs-1">Support your team’s financial health well beyond payday. Guarantee HR simplifies the process of curating, and providing great
-                  benefits to your people from comprehensive healthcare plans to perks like discounts in shops.</p>
-            </div>
-              <div class="col-md-6 col-xl-4 offset-xl-1">
-              <div class="card box-shadow-rb my-4">
-                <div class="card-body my-3 mx-4">
-                  <h1 class="mb-4 pb-2">Employee benefits</h1>
-                  <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user1.png' %}" alt="" height="70" />
-                    <div class="ms-3">
-                      <h3>Dillon Kydd</h3>
-                      <p class="mb-0">$55,440 + dental + vision</p>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user2.png' %}" alt="" height="70" />
-                    <div class="ms-3">
-                      <h3>Anna Olsen</h3>
-                      <p class="mb-0">$64,300 + commuter benefits</p>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center mt-3"><img class="rounded-circle" src="{% static 'landing/assets/img/gallery/user3.png' %}" alt="" height="70" />
-                    <div class="ms-3">
-                      <h3>Kas Moss</h3>
-                      <p class="mb-0">$85,200 + health insurance</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    <section>
-        <div class="container-xxl">
-          <div class="row justify-content-center text-center">
-            <div class="col-lg-10 col-xl-8">
-              <h1 class="display-6 font-cursive">Here’s what our customers say about us</h1>
-              <p class="fs-md-1 mt-4">
-              <i>We view Guarantee HR as our business partner. Especially now that we’re more remote, there’s more of a need for
-                  Guarantee HR because businesses are hiring people from everywhere.</i> <br>(Andrew Mach, Guarantee HR`s client)
-              </p>
-            </div>
-          </div>
-          <div class="mt-4">
-            <div class="swiper-container pb-4" data-pagination-target="pagination1">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide h-auto">
-                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
-                    <div class="card-body">
-                      <h5 class="font-base lh-base">Effective decisions</h5>
-                      <p class="mb-0">We provide the tools you need to create an effective job offering process in your company</p>
-                    </div>
-                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
-                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide h-auto">
-                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
-                    <div class="card-body">
-                      <h5 class="font-base lh-base">Learning system</h5>
-                      <p class="mb-0">You can create, assign, track, and manage employee initial and ongoing training courses</p>
-                    </div>
-                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Onboarding</span>
-                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide h-auto">
-                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
-                    <div class="card-body">
-                      <h5 class="font-base lh-base">Employee surveys</h5>
-                      <p class="mb-0">We look at every aspect of an employee's experience to see what's motivating them</p>
-                    </div>
-                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Benefits</span>
-                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide h-auto">
-                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
-                    <div class="card-body">
-                      <h5 class="font-base lh-base">Interview video conferencing</h5>
-                      <p class="mb-0">We deliver a video conferencing platform where a candidate and a hiring manager speak in real-time</p>
-                    </div>
-                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire</span>
-                      <!--p class="mb-0 fw-bold text-1000">Guarantee HR`s customer</p-->
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide h-auto">
-                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
-                    <div class="card-body">
-                      <h5 class="font-base lh-base">Payroll system</h5>
-                      <p class="mb-0">Our technology platform makes it easy to manage and pay teams anytime, anywhere.</p>
-                    </div>
-                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Payroll</span>
-                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide h-auto">
-                  <div class="card py-3 px-4 mt-3 h-100 box-shadow-all border-0">
-                    <div class="card-body">
-                      <h5 class="font-base lh-base">Employee scoring</h5>
-                      <p class="mb-0">Score employees by factors that drive success in each unique role, by only measuring what matters to you</p>
-                    </div>
-                    <div class="card-footer d-flex flex-between-center border-0 bg-transparent pt-0"><span class="badge rounded-pill bg-success p-2 fs-0">Hire and Onboarding</span>
-                      <!--p class="mb-0 fw-bold text-1000">Apply by May 15</p-->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-pagination" id="pagination1"></div>
-          </div>
-            <div class="row justify-content-center text-center col-6 offset-3">
-                <p class="fs-md-1 mt-4">If you want to build a great company, start with your own people. This approach is a win for your business.
-                  It’s a win for your employees. And, it’s a win for your people team.
-              </p>
-            </div>
-        </div>
-      </section>
-
-
-      <section id="rea">
-        <div class="container-xxl">
-          <div class="row align-items-center">
-            <div class="col-lg order-lg-1 text-center"><img class="img-fluid" src="{% static 'landing/assets/img/illustrations/hero2.png' %}" alt="" /></div>
-            <div class="col-lg mt-5 mt-lg-0">
-              <h1 class="lh-sm font-cursive fw-medium display-5">Start the Guarantee HR</h1>
-              <p class="mt-4 fs-1">A strong employee experience is one of the most powerful investments your organization can make.
-                  It’ll lead to noticeable benefits such as a wider talent pool, improved retention, and increased revenue.</p>
-                <form id="bottom-form">
-                {% csrf_token %}
-                <div id="result_div_footer"></div>
-                    <div class="input-group">
-                      <input type="email" class="form-control " placeholder="Your email" name="email">
-                      <button class="btn btn-success" type="submit">Get started</button>
-                    </div>
-                </form>
-            </div>
-          </div>
-        </div>
-      </section>
 
 {% block javascript %}
 

@@ -84,8 +84,6 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', views.activate, name='activate'), #Activate User account and save user password
     path('password_reset_complete/', views.password_reset_complete, name='password_reset_complete'),
 
-    path('price/', views.price, name='price'),
-
     path('api/get_tests', views.get_tests, name='api_get_tests'),
     path('api/save_content', views.save_content, name='api_save_content'),
     path('api/get_content', views.get_content, name='api_get_content'),
