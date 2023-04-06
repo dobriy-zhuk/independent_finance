@@ -41,7 +41,7 @@ def index(request):
 
         if email:
             try:
-                send_mail("New Lead from Guarantee HR", body, 'info@guaranteehr.com', ['info@guaranteehr.com'])
+                send_mail("New Lead from Guarantee Finance", body, 'info@guaranteehr.com', ['info@guaranteehr.com'])
 
                 send_email_with_template(email, name="")
 
@@ -58,6 +58,21 @@ def index(request):
         return JsonResponse(response_data)
 
     return render(request, 'landing/index.html', {})
+
+
+def price(request):
+
+    return render(request, 'landing/price.html', {})
+
+
+def contact_us(request):
+
+    return render(request, 'landing/contact_us.html', {})
+
+
+def about(request):
+
+    return render(request, 'landing/about.html', {})
 
 
 def teacher_hire(request):

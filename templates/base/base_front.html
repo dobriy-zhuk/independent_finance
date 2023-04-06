@@ -1,0 +1,732 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+     {% block title %}Guarantee Finance | next-generation payment for professionals and teams{% endblock title %}
+    </title>
+
+  {% block tags %}
+    <meta name="description" content="Reduce bias, identify the best candidates and grow your team faster than ever" />
+    <meta name="keywords" content="business service, guaranteehr, assessments, hr, screening, assessments, service" />
+    <meta name="author" content="dobriy_zhuk" />
+    <meta property="og:title" content="GuaranteeHR - pre-employment screening tests and assessments system to grow your business!" />
+    <meta property="og:description" content="We help fast-growing companies to identify, hire and score the best Talent in record time" />
+    <meta property="og:image" content="https://guaranteehr.com/static/img/logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://guaranteehr.com" />
+  {% endblock tags %}
+
+  <!-- Favicon -->
+<link rel="apple-touch-icon" sizes="120x120" href="./assets/img/favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
+<link rel="manifest" href="./assets/img/favicon/site.webmanifest">
+<link rel="mask-icon" href="./assets/img/favicon/safari-pinned-tab.svg" color="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+        <!-- Fontawesome -->
+        <link type="text/css" href="{% static 'vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+
+        <!-- Nucleo icons -->
+        <link rel="stylesheet" href="{% static '/vendor/nucleo/css/nucleo.css' %}" type="text/css">
+        <link type="text/css" href="{% static '/vendor/prismjs/themes/prism.css' %}" rel="stylesheet">
+        <link type="text/css" href="{% static '/css/front.css' %}" rel="stylesheet">
+
+  <link rel="shortcut icon" href="https://guaranteehr.com/static/img/favicon.svg" type="image/x-icon">
+
+    {% block css %}
+    {% endblock %}
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W57TSNC');</script>
+<!-- End Google Tag Manager -->
+  </head>
+
+
+<body data-bs-spy="scroll" data-bs-target="#navbar">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W57TSNC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+{% block header_global %}
+
+     <header class="header-global">
+            <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg headroom py-lg-3 px-lg-6 navbar-light navbar-theme-primary">
+                <div class="container">
+                    <a class="navbar-brand @@logo_classes" href="{% url 'index' %}">
+                        <img class="navbar-brand-dark common" src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo light">
+                        <img class="navbar-brand-light common" src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo dark">
+                    </a>
+                    <div class="navbar-collapse collapse" id="navbar_global">
+                        <div class="navbar-collapse-header">
+                            <div class="row">
+                                <div class="col-6 collapse-brand">
+                                    <a href="{% url 'index' %}">
+                                        <img src="{% static 'img/logo/logo.png' %}" height="35" alt="Logo Guarantee Finance">
+                                    </a>
+                                </div>
+                                <div class="col-6 collapse-close">
+                                    <a href="#navbar_global" role="button" class="fas fa-times" data-toggle="collapse"
+                                        data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false"
+                                        aria-label="Toggle navigation"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="navbar-nav navbar-nav-hover justify-content-center">
+                            <li class="nav-item dropdown">
+                                <a href="{% url 'index' %}" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
+                                    <span class="nav-link-inner-text">Industry</span>
+                                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pages_submenu">
+                                    <li><a class="dropdown-item" href="#">Education</a></li>
+                                    <li><a class="dropdown-item" href="#">Healthcare</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'price' %}" class="nav-link">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="{% url 'about' %}" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item">
+                                 <a href="{% url 'contact_us' %}" class="nav-link">Contact Us</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
+                                    <span class="nav-link-inner-text">Resources</span>
+                                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                                </a>
+                                <ul class="dropdown-menu" id="pages_submenu">
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/dashboards/dashboard.html">Support</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/login.html">Blog</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/register.html">News</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/examples/profile.html">Profile</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/tables/tables.html">Tables</a></li>
+                                    <li><a class="dropdown-item" href="../../dashboard/pages/maps/google.html">Maps</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="d-none d-lg-block @@cta_button_classes">
+                        <a href="https://demos.creative-tim.com/impact-design-system-pro/docs/dashboard/alerts/" class="btn btn-md btn-docs btn-outline-white animate-up-2 mr-3"><i class="fas fa-th-large mr-2"></i>Login</a>
+                        <a href="https://www.creative-tim.com/product/impact-design-system-pro" target="_blank" class="btn btn-md btn-secondary animate-up-2"><i class="fas fa-paper-plane mr-2"></i>Get Started</a>
+                    </div>
+                    <div class="d-flex d-lg-none align-items-center">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
+                            aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation"><span
+                                class="navbar-toggler-icon"></span></button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+{% endblock %}
+
+ <main>
+
+
+ {% block preloader %}
+  <div class="preloader bg-soft flex-column justify-content-center align-items-center">
+    <div class="loader-element">
+                    <span class="loader-animated-dot"></span>
+                    <img src="/static/img/brand/dark-loader.svg" height="40" alt="Impact logo">
+                </div>
+            </div>
+ {% endblock %}
+
+ {% block content %}
+    <section class="section section-header text-dark pb-md-8">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center mb-5 mb-md-7">
+                        <h1 class="display-2 font-weight-bolder mb-4">
+                            GuaranteeHR.
+                        </h1>
+                        <p class="lead mb-4 mb-lg-5">
+                            GuaranteeHR is leader in school staffing. We’ve helped facilities
+                            across the country by placing thousands of on-demand teachers and allied professionals in as little.</p>
+                        <div>
+                            <a href="#" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-search"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Hire</small> Teacher
+                                    </span>
+                                </span>
+                            </a>
+                            <a href="#" class="btn btn-dark btn-download-app"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-user-graduate"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Join</small> GuaranteeHR
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-10 justify-content-center">
+                        <img class="d-none d-md-inline-block" src="{% static 'landing/assets/img/illustrations/scene.svg' %}" alt="Mobile App Mockup">
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+ {% block triple %}
+        <section class="section section-lg py-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="card border-0 bg-white text-center p-1">
+                            <div class="card-header bg-white border-0 pb-0">
+                                <div class="icon icon-lg icon-primary mb-4">
+                                    <span class="fas fa-money-bill-wave"></span>
+                                </div>
+                                <h2 class="h3 text-dark m-0">Pay better</h2>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    Speed through checkout and offset delivery at the same time.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="card border-0 bg-white text-center p-1">
+                            <div class="card-header bg-white border-0 pb-0">
+                                <div class="icon icon-lg icon-primary mb-4">
+                                    <span class="fas fa-map-marked-alt"></span>
+                                </div>
+                                <h2 class="h3 text-dark m-0">Track better</h2>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    Get real-time delivery updates from cart to home in one place.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card border-0 bg-white text-center p-1">
+                            <div class="card-header bg-white border-0 pb-0">
+                                <div class="icon icon-lg icon-primary mb-4">
+                                    <span class="fas fa-shopping-basket"></span>
+                                </div>
+                                <h2 class="h3 text-dark m-0">Shop better</h2>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    Upgrade with personal settings from your favorite stores.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+     {% endblock %}
+
+{% block about %}
+        <section class="section section-lg" id="about">
+            <div class="container">
+                <div class="row justify-content-center mb-5 mb-lg-7">
+                    <div class="col-12 col-lg-8 text-center">
+                        <h2 class="h1 mb-4">Better in every way</h2>
+                        <p class="lead">Self-Service Analytics or ad hoc reporting gives users the ability to develop rapid reports, empowering users to analyze their data.</p>
+                    </div>
+                </div>
+                <div class="row row-grid align-items-center mb-5 mb-lg-7">
+                    <div class="col-12 col-lg-5">
+                        <h2 class="mb-4">A thoughtful way to pay</h2>
+                        <p>Simpler App remembers your important details, so you can fill carts, not forms. And everything is encrypted so you can speed safely through checkout.</p>
+                        <p>Now, you can offset the carbon emissions produced by your deliveries—for free. All you have to do is check out with Shop Pay, one of the first carbon-neutral way to pay.</p>
+                        <a href="#" class="btn btn-dark mt-3 animate-up-2">
+                            Learn More
+                            <span class="icon icon-xs ml-2">
+                                <i class="fas fa-external-link-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-6 ml-lg-auto">
+                        <img src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" class="w-100" alt="">
+                    </div>
+                </div>
+                <div class="row row-grid align-items-center mb-5 mb-lg-7">
+                    <div class="col-12 col-lg-5 order-lg-2">
+                        <h2 class="mb-4">Get it. Don't sweat it.</h2>
+                        <p>We track your desktop and mobile keyword rankings from any location and plot your full ranking history on a handy graph.</p>
+                        <p>You can set up automated ranking reports to be sent to your email address, so you’ll never forget to check your ranking progress.</p>
+                        <a href="#" class="btn btn-dark mt-3 animate-up-2">
+                            Learn More
+                            <span class="icon icon-xs ml-2">
+                                <i class="fas fa-external-link-alt"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-12 col-lg-6 mr-lg-auto">
+                        <img src="{% static 'landing/assets/img/illustrations/scene-2.svg' %}" class="w-100" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">98%</h2>
+                                <span>Average satisfaction rating received in the past year.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">24/7</h2>
+                                <span> Our support team is a quick chat or email away.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4">
+                        <div class="card border-light p-4">
+                            <div class="card-body">
+                                <h2 class="display-2 mb-2">220k+</h2>
+                                <span>Extension installs from the two major mobile app stores.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
+
+{% block proudly %}
+        <div class="section section-sm py-0">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col">
+                        <h2 class="h6 font-weight-bold text-brown">We're proudly featured by</h2>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col d-flex justify-content-center flex-wrap">
+                        <a href="#" aria-label="Stripe brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Stripe">
+                            <span class="fab fa-stripe"></span>
+                        </a>
+                        <a href="#" aria-label="Digg brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Digg">
+                            <span class="fab fa-digg"></span>
+                        </a>
+                        <a href="#" aria-label="FedEx brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="FedEx">
+                            <span class="fab fa-fedex"></span>
+                        </a>
+                        <a href="#" aria-label="Ember brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Ember">
+                            <span class="fab fa-ember"></span>
+                        </a>
+                        <a href="#" aria-label="Beyond brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
+                        data-toggle="tooltip" data-placement="top" title="Beyond">
+                            <span class="fab fa-d-and-d-beyond"></span>
+                        </a>
+                        <a href="#" aria-label="AngryCreative brand logo" class="icon icon-xl icon-dark"
+                        data-toggle="tooltip" data-placement="top" title="AngryCreative">
+                            <span class="fab fa-angrycreative"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+ {% endblock %}
+
+ {% block testimonials %}
+        <section class="section section-lg pb-0" id="testimonials">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 text-center mb-5 mb-lg-6">
+                        <h2 class="display-3 mb-4">Customers love it</h2>
+                        <p class="lead">The final result of our formula at work. Check out what our clients <br class="d-none d-lg-inline-block"> have to say about our mobile app and our support team.</p>
+                    </div>
+                </div>
+                <div class="row mt-lg-6">
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="card border-light">
+                            <div class="card-body text-center py-5">
+                                <img class="image-sm img-fluid mx-auto mb-3" src="{% static 'landing/assets/img/clients/airbnb.svg' %}" alt="Airbnb brand">
+                                <span class="d-block">
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star far fa-star text-warning"></span>
+                                </span>
+                                <p class="px-2 my-4">Swipe has replaced the whiteboard for us! Being able to jump in the same file with someone fills the gap of not being able to gather in person.</p>
+                                <a href="#" class="btn btn-link text-black">
+                                    <span class="mr-2"><span class="fas fa-book-open"></span></span>
+                                    <span class="font-weight-bold">Read story</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="card border-light mt-lg-n6">
+                            <div class="card-body text-center py-5">
+                                <img class="image-sm img-fluid mx-auto mb-3" src="./assets/img/clients/corsair.svg" alt="Corsair brand">
+                                <span class="d-block">
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star far fa-star text-warning"></span>
+                                </span>
+                                <p class="px-2 my-4">Swipe has replaced the whiteboard for us! Being able to jump in the same file with someone fills the gap of not being able to gather in person.</p>
+                                <a href="#" class="btn btn-link text-black">
+                                    <span class="mr-2"><span class="fas fa-book-open"></span></span>
+                                    <span class="font-weight-bold">Read story</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+                        <div class="card border-light">
+                            <div class="card-body text-center py-5">
+                                <img class="image-sm img-fluid mx-auto mb-3" src="./assets/img/clients/paypal.svg" alt="Paypal brand">
+                                <span class="d-block">
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star far fa-star text-warning"></span>
+                                </span>
+                                <p class="px-2 my-4">Swipe has replaced the whiteboard for us! Being able to jump in the same file with someone fills the gap of not being able to gather in person.</p>
+                                <a href="#" class="btn btn-link text-black">
+                                    <span class="mr-2"><span class="fas fa-book-open"></span></span>
+                                    <span class="font-weight-bold">Read story</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0 mt-lg-4">
+                        <div class="card border-light">
+                            <div class="card-body text-center py-5">
+                                <img class="image-sm img-fluid mx-auto mb-3" src="./assets/img/clients/ebay.svg" alt="Google brand">
+                                <span class="d-block">
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star far fa-star text-warning"></span>
+                                </span>
+                                <p class="px-2 my-4">Swipe has replaced the whiteboard for us! Being able to jump in the same file with someone fills the gap of not being able to gather in person.</p>
+                                <a href="#" class="btn btn-link text-black">
+                                    <span class="mr-2"><span class="fas fa-book-open"></span></span>
+                                    <span class="font-weight-bold">Read story</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0 mt-lg-n5">
+                        <div class="card border-light">
+                            <div class="card-body text-center py-5">
+                                <img class="image-sm img-fluid mx-auto mb-3" src="./assets/img/clients/northwestern.svg" alt="northwestern brand">
+                                <span class="d-block">
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star far fa-star text-warning"></span>
+                                </span>
+                                <p class="px-2 my-4">Swipe has replaced the whiteboard for us! Being able to jump in the same file with someone fills the gap of not being able to gather in person.</p>
+                                <a href="#" class="btn btn-link text-black">
+                                    <span class="mr-2"><span class="fas fa-book-open"></span></span>
+                                    <span class="font-weight-bold">Read story</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 mt-lg-4">
+                        <div class="card border-light">
+                            <div class="card-body text-center py-5">
+                                <img class="image-sm img-fluid mx-auto mb-3" src="./assets/img/clients/elastic.svg" alt="Elastic brand">
+                                <span class="d-block">
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star fas fa-star text-warning"></span>
+                                    <span class="star far fa-star text-warning"></span>
+                                </span>
+                                <p class="px-2 my-4">Swipe has replaced the whiteboard for us! Being able to jump in the same file with someone fills the gap of not being able to gather in person.</p>
+                                <a href="#" class="btn btn-link text-black">
+                                    <span class="mr-2"><span class="fas fa-book-open"></span></span>
+                                    <span class="font-weight-bold">Read story</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ {% endblock %}
+
+ {% block faq %}
+        <section class="section section-lg" id="faq">
+            <div class="container">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-12 text-center mb-4 mb-lg-5">
+                        <h2 class="display-3 mb-4">Facts & Questions</h2>
+                        <p class="lead">Have a question? Read through our FAQ below. If you can't find an answer, <br class="d-none d-lg-inline-block"> please email our support team. We're here to help.</p>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10">
+                        <!--Accordion-->
+                        <div class="accordion" id="accordionExample">
+                            <div class="card border-light mb-0">
+                                <div class="card-header" id="headingOne">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <span class="h6 mb-0 font-weight-bold">What is the purpose of a FAQ?</span>
+                                            <span class="icon"><span class="fas fa-plus"></span></span>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            At Themesberg, our mission has always been focused on bringing openness and transparency to the design process. We've always believed that by providing a space where designers can share ongoing work not only empowers them to make better products, it also
+                                            helps them grow. We're proud to be a part of creating a more open culture and to continue building a product that supports this vision.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-0">
+                                <div class="card-header" id="headingTwo">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            <span class="h6 mb-0 font-weight-bold">What is a FAQ document?</span>
+                                            <span class="icon"><span class="fas fa-plus"></span></span>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            At Themesberg, our mission has always been focused on bringing openness and transparency to the design process. We've always believed that by providing a space where designers can share ongoing work not only empowers them to make better products, it also
+                                            helps them grow. We're proud to be a part of creating a more open culture and to continue building a product that supports this vision.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-0">
+                                <div class="card-header" id="headingThree">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                            <span class="h6 mb-0 font-weight-bold">What are the top 10 interview questions?</span>
+                                            <span class="icon"><span class="fas fa-plus"></span></span>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            At Themesberg, our mission has always been focused on bringing openness and transparency to the design process. We've always believed that by providing a space where designers can share ongoing work not only empowers them to make better products, it also
+                                            helps them grow. We're proud to be a part of creating a more open culture and to continue building a product that supports this vision.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-0">
+                                <div class="card-header" id="headingFour">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                            <span class="h6 mb-0 font-weight-bold">Cookies?</span>
+                                            <span class="icon"><span class="fas fa-plus"></span></span>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            At Themesberg, our mission has always been focused on bringing openness and transparency to the design process. We've always believed that by providing a space where designers can share ongoing work not only empowers them to make better products, it also
+                                            helps them grow. We're proud to be a part of creating a more open culture and to continue building a product that supports this vision.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card border-light mb-0">
+                                <div class="card-header" id="headingFive">
+                                    <h2 class="mb-0">
+                                        <button class="btn btn-link btn-block d-flex justify-content-between text-left" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                            <span class="h6 mb-0 font-weight-bold">Copyright Notice</span>
+                                            <span class="icon"><span class="fas fa-plus"></span></span>
+                                        </button>
+                                    </h2>
+                                </div>
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <p class="mb-0">
+                                            At Themesberg, our mission has always been focused on bringing openness and transparency to the design process. We've always believed that by providing a space where designers can share ongoing work not only empowers them to make better products, it also
+                                            helps them grow. We're proud to be a part of creating a more open culture and to continue building a product that supports this vision.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End of Accordion-->
+                    </div>
+                </div>
+            </div>
+        </section>
+ {% endblock %}
+
+ {% block promo %}
+    <div class="section bg-soft" id="download">
+            <figure class="position-absolute top-0 left-0 w-100 d-none d-md-block mt-n3">
+                <svg class="fill-soft" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4" style="enable-background:new 0 0 1920 43.4;" xml:space="preserve">
+                   <path d="M0,23.3c0,0,405.1-43.5,697.6,0c316.5,1.5,108.9-2.6,480.4-14.1c0,0,139-12.2,458.7,14.3 c0,0,67.8,19.2,283.3-22.7v35.1H0V23.3z"></path>
+                </svg>
+            </figure>
+            <div class="container">
+                <div class="row row-grid align-items-center">
+                    <div class="col-12 col-lg-6">
+                        <span class="h5 text-muted mb-2 d-block">Download App</span>
+                        <h2 class="display-3 mb-4">Get started in seconds</h2>
+                        <p class="lead text-muted">Quickly connect to tools and services such as Google Analytics, Intercom or Github to track, measure and optimize performance. </p>
+                        <div class="mt-4 mt-lg-5">
+                            <a href="#" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fab fa-apple"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Available on</small> App Store
+                                    </span>
+                                </span>
+                            </a>
+                            <a href="#" class="btn btn-dark btn-download-app">
+                                <span class="d-flex align-items-center">
+                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fab fa-google-play"></span></span>
+                                    <span class="d-inline-block text-left">
+                                        <small class="font-weight-normal d-none d-md-block">Available on</small> Google Play
+                                    </span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5 ml-lg-auto">
+                        <img class="d-none d-lg-inline-block" src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" alt="Mobile App Illustration">
+                    </div>
+                </div>
+            </div>
+        </div>
+ {% endblock %}
+    </main>
+
+{% block footer %}
+   <footer class="footer section pt-6 pt-md-8 pt-lg-10 pb-3 bg-primary text-white overflow-hidden">
+                <div class="pattern pattern-soft top"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 mb-4 mb-lg-0">
+                            <a class="footer-brand mr-lg-5 d-flex" href="../../index.html">
+                                <img src="/static/img/brand/light.svg" height="35" class="mr-3" alt="Footer logo">
+                            </a>
+                            <p class="my-4">Create, prototype, collaborate and turn your ideas into incredible products with the definitive platform for digital design.</p>
+                            <div class="dropdown mb-4 mb-lg-0">
+                                <a id="langsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle footer-language-link">
+                                    <img src="/static/img/flags/united-states-of-america.svg" alt="USA Flag" class="language-flag"> English
+                                    <i class="fas fa-chevron-down ml-1"></i>
+                                </a>
+                                <div aria-labelledby="langsDropdown" class="dropdown-menu dropdown-menu-center">
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/img/flags/germany.svg" alt="Germany Flag" class="language-flag"> German</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/img/flags/spain.svg" alt="Spain Flag" class="language-flag"> Spanish</a>
+                                    <a href="#" class="dropdown-item text-gray text-sm"><img src="/static/img/flags/france.svg" alt="France Flag" class="language-flag"> French</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
+                            <h6>Themesberg</h6>
+                            <ul class="links-vertical">
+                                <li><a target="_blank" href="https://themesberg.com/blog?ref=creativetim">Blog</a></li>
+                                <li><a target="_blank" href="https://themesberg.com/themes?ref=creativetim">Themes</a></li>
+                                <li><a target="_blank" href="https://themesberg.com/contact?ref=creativetim">Contact Us</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-6 col-sm-3 col-lg-2 mb-4 mb-lg-0">
+                            <h6>Creative Tim</h6>
+                            <ul class="links-vertical">
+                                <li><a target="_blank" href="https://www.creative-tim.com/blog">Blog</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/templates">Products</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/support-terms">Support</a></li>
+                                <li><a target="_blank" href="https://www.creative-tim.com/license">License</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <h6>Subscribe</h6>
+                            <p class="font-small">The latest Impact news, articles, and resources, sent straight to your inbox every month.</p>
+                            <form action="#">
+                                <div class="form-row">
+                                    <div class="col-8">
+                                        <input type="email" class="form-control mb-2" placeholder="Email Address" name="email" required>
+                                    </div>
+                                    <div class="col-4">
+                                        <button type="submit" class="btn btn-secondary btn-block"><span>Subscribe</span></button>
+                                    </div>
+                                </div>
+                            </form>
+                            <small class="mt-2 form-text">We’ll never share your details. See our <a href="#" class="font-weight-bold text-underline">Privacy Policy</a></small>
+                        </div>
+                    </div>
+                    <hr class="my-4 my-lg-5">
+                    <div class="row">
+                        <div class="col pb-4 mb-md-0">
+                            <div class="d-flex text-center justify-content-center align-items-center">
+                                <p class="font-weight-normal mb-0">© <a href="https://themesberg.com?ref=creativetim*" target="_blank">Themesberg</a> & <a href="https://creative-tim.com">Creative Tim</a> <span class="current-year"></span>. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+{% endblock %}
+
+
+
+        <!-- Core -->
+        <script src="{% static '/vendor/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static '/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+        <script src="{% static '/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static '/vendor/headroom.js/dist/headroom.min.js' %}"></script>
+
+        <!-- Vendor JS -->
+        <script src="{% static '/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+        <script src="{% static '/vendor/waypoints/lib/jquery.waypoints.min.js' %}"></script>
+        <script src="{% static '/vendor/jarallax/dist/jarallax.min.js' %}"></script>
+        <script src="{% static '/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+
+        <!-- Impact JS -->
+        <script src="{% static '/js/front.js' %}"></script>
+
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+        <!-- For specific JS -->
+        {% block javascripts %}{% endblock javascripts %}
+
+
+
+  {% block javascript %}
+  {% endblock %}
+
+  </body>
+
+</html>
