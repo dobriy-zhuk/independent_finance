@@ -21,16 +21,16 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-12 col-md-6 order-2 order-lg-1">
-                <img src="/static/img/illustrations/hero-illustration.svg" alt="">
+                <img src="{% static 'img/front/calendar.svg' %}" alt="">
                 </div>
                 <div class="col-12 col-md-5 order-1 order-lg-2">
-                      <h1 class="display-2 mb-3">Payment system to grow your business</h1>
-                      <p class="lead">All the tools you need to efficiently process online fee payments for you</p>
+                      <h1 class="display-2 mb-3">Next-generation calendar to grow your business</h1>
+                      <p class="lead">All the tools you need to efficiently control your schedule and process online fee payments</p>
                       <div class="mt-4">
                         <form action="#" class="d-flex flex-column mb-5 mb-lg-0">
                             <input class="form-control" type="text" name="full-name" placeholder="Full name" required>
                             <input class="form-control my-3" type="email" name="email" placeholder="Your email" required>
-                            <button class="btn btn-primary" type="submit">Create account</button>
+                            <button class="btn btn-primary" type="submit">Request access</button>
                             <div class="form-group form-check mt-3">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label form-check-sign-white" for="exampleCheck1">I agree to the <a href="#">Terms & Conditions</a></label>
@@ -46,16 +46,16 @@
         <div class="container">
             <div class="row justify-content-center mb-5 mb-md-7">
                 <div class="col-12 col-md-8 text-center">
-                    <h2 class="h1 font-weight-bolder mb-4">Meet our intuitive platform</h2>
-                    <p class="lead">Self-Service Analytics or ad hoc reporting gives users the ability to develop rapid reports, empowering users to analyze their data.</p>
+                    <h2 class="h1 font-weight-bolder mb-4">Meet our intuitive calendar</h2>
+                    <p class="lead">Self-Service Analytics or payments reporting gives you the ability to analyze business and increase sales.</p>
                 </div>
             </div>
             <div class="row row-grid align-items-center mb-5 mb-md-7">
                 <div class="col-12 col-md-5">
-                    <h2 class="font-weight-bolder mb-4">Site Audit</h2>
-                    <p class="lead">Site Audit crawls all the pages it finds on your website – then provides an overall SEO health score, visualises key data in charts, flags all possible SEO issues and provides recommendations on how to fix them.</p>
-                    <p class="lead">Have a huge website? Not an issue.</p>
-                    <a href="./about.html" class="btn btn-primary mt-3 animate-up-2">
+                    <h2 class="font-weight-bolder mb-4">Unleash global business</h2>
+                    <p class="lead">Break down borders. Accept payments from clients and send payouts to your own account anywhere.</p>
+                    <p class="lead">Have own business? Not an issue.</p>
+                    <a href="{% url 'contact_us' %}" class="btn btn-primary mt-3 animate-up-2">
                         Learn More
                         <span class="icon icon-xs ml-2">
                             <i class="fas fa-external-link-alt"></i>
@@ -63,23 +63,23 @@
                     </a>
                 </div>
                 <div class="col-12 col-md-6 ml-md-auto">
-                    <img src="/static/img/illustrations/feature-illustration.svg" alt="">
+                    <img src="{% static 'img/front/payment.svg' %}" alt="">
                 </div>
             </div>
             <div class="row row-grid align-items-center mb-5 mb-md-7">
                 <div class="col-12 col-md-5 order-md-2">
-                    <h2 class="font-weight-bolder mb-4">Rank Tracker</h2>
-                    <p>We track your desktop and mobile keyword rankings from any location and plot your full ranking history on a handy graph.</p>
-                    <p>You can set up automated ranking reports to be sent to your email address, so you’ll never forget to check your ranking progress.</p>
-                    <a href="./about.html" class="btn btn-primary mt-3 animate-up-2">
-                        Rank Tracker Tool
+                    <h2 class="font-weight-bolder mb-4">Do not worry about the payment</h2>
+                    <p>We notify your customers about the need for payment.</p>
+                    <p>You can set up automated notifications and select the most cost-effective way to accept payments.</p>
+                    <a href="{% url 'contact_us' %}" class="btn btn-primary mt-3 animate-up-2">
+                        Accept payments
                         <span class="icon icon-xs ml-2">
                             <i class="fas fa-external-link-alt"></i>
                         </span>
                     </a>
                 </div>
                 <div class="col-12 col-md-6 mr-lg-auto">
-                    <img src="/static/img/illustrations/feature-illustration-2.svg" alt="">
+                    <img src="{% static 'img/front/notifications.svg' %}" alt="">
                 </div>
             </div>
             <div class="row">
@@ -87,7 +87,7 @@
                     <div class="card border-light p-4">
                         <div class="card-body">
                             <h2 class="display-2 mb-2">98%</h2>
-                            <span>Average satisfaction rating received in the past year</span>
+                            <span>Reduction in manual efforts managing payments</span>
                         </div>
                     </div>
                 </div>
@@ -102,8 +102,8 @@
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="card border-light p-4">
                         <div class="card-body">
-                            <h2 class="display-2 mb-2">220k+</h2>
-                            <span>Extension installs from the two major mobile app stores</span>
+                            <h2 class="display-2 mb-2">1.2+</h2>
+                            <span>million in savings from reduced transaction and FX fees</span>
                         </div>
                     </div>
                 </div>
@@ -114,31 +114,33 @@
         <div class="container">
             <div class="row justify-content-center mb-5 mb-md-7">
                 <div class="col-12 col-md-8 text-center">
-                    <h2 class="h1 font-weight-bolder mb-4">SEO solutions for every need</h2>
-                    <p class="lead">We build best-in-class SEO software for every situation, from our all-in-one SEO platform to tools for local SEO, enterprise SERP analytics, and a powerful API.</p>
+                    <h2 class="h1 font-weight-bolder mb-4">Integrations for every need</h2>
+                    <p class="lead">We build best-in-class schedule software for every situation,
+                        from our all-in-one crm platform to tools for local payments,
+                        individual analytics, and a powerful API.</p>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-4 mb-5">
                     <div class="card shadow-soft border-light">
                         <div class="card-header p-0">
-                            <img src="/static/img/saas-platform-3.jpg" class="card-img-top rounded-top" alt="image">
+                            <img src="{% static 'img/saas-platform-3.jpg' %}" class="card-img-top rounded-top" alt="image">
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title mt-3">Impact Local</h3>
-                            <p class="card-text">Moz Local distributes your business information across the web for maximum search engine visibility.</p>
+                            <h3 class="card-title mt-3">Google Calendar</h3>
+                            <p class="card-text">No additional soft! Just connect your own google calendar and process payments from your clients online.</p>
                             <ul class="list-group d-flex justify-content-center mb-4">
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Real-time distribution</div>
+                                    <div>Real-time connection</div>
                                 </li>
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Duplicate closure</div>
+                                    <div>Notifications system</div>
                                 </li>
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Review management</div>
+                                    <div>Payment management</div>
                                 </li>
                             </ul>
                             <a href="./about.html" class="btn btn-primary">Learn More</a>
@@ -151,23 +153,23 @@
                             <img src="/static/img/saas-platform-4.jpg" class="card-img-top rounded-top" alt="image">
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title mt-3">Impact Pro</h3>
-                            <p class="card-text">Our SEO solution to help you rank higher, drive qualified traffic to your website, and run high-impact SEO campaigns.</p>
+                            <h3 class="card-title mt-3">Payment system</h3>
+                            <p class="card-text">Reach new clients and partners by supporting preferred payment methods.</p>
                             <ul class="list-group d-flex justify-content-center mb-4">
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Keyword & link research</div>
+                                    <div>Bank transfers</div>
                                 </li>
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Technical site audits</div>
+                                    <div>Cards and e-wallet</div>
                                 </li>
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>SEO insights & reporting</div>
+                                    <div>Cash payments</div>
                                 </li>
                             </ul>
-                            <a href="./about.html" class="btn btn-primary">Learn More</a>
+                            <a href="{% url 'contact_us' %}" class="btn btn-primary">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -177,317 +179,39 @@
                             <img src="/static/img/saas-platform-5.jpg" class="card-img-top rounded-top" alt="image">
                         </div>
                         <div class="card-body">
-                            <h3 class="card-title mt-3">Impact STAT</h3>
-                            <p class="card-text">STAT offers serious SERP tracking for experts. Track thousands to millions of keywords across any location.</p>
+                            <h3 class="card-title mt-3">Conferencing integration</h3>
+                            <p class="card-text">Our system integrates with conferencing providers like jit.si, google meets, zoom</p>
                             <ul class="list-group d-flex justify-content-center mb-4">
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Daily tracking</div>
+                                    <div>Custom integration by link</div>
                                 </li>
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Local and mobile SERPs</div>
+                                    <div>Default connection</div>
                                 </li>
                                 <li class="list-group-item d-flex pl-0 pb-1">
                                     <span class="mr-2"><i class="fas fa-check-circle text-success"></i></span>
-                                    <div>Competitor intelligence</div>
+                                    <div>Smart expansion</div>
                                 </li>
                             </ul>
-                            <a href="./about.html" class="btn btn-primary">Learn More</a>
+                            <a href="{% url 'contact_us' %}" class="btn btn-primary">Learn More</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section section-lg bg-primary text-center text-white">
-        <div class="container">
-            <div class="row justify-content-center mb-4 mb-lg-6">
-                <div class="col-12">
-                    <h1 class="display-3 mb-4 mb-lg-5">The world's most accurate SEO data.</h1>
-                    <div class="row text-white">
-                        <div class="col-12 col-lg-4 px-md-0 mb-4 mb-lg-0">
-                            <div class="card-body text-center bg-primary border-right border-default py-4">
-                                <!-- Heading -->
-                                <h2 class="font-weight-bold">
-                                    <span class="h1 mr-2">36.5 trillion</span>
-                                </h2>
-                                <!-- Text -->
-                                <span class="h5 font-weight-normal">links indexed by Link Explorer with our tools</span>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-4 px-md-0 mb-4 mb-lg-0">
-                            <div class="card-body text-center bg-primary border-right border-default py-4">
-                                <!-- Heading -->
-                                <h2 class="font-weight-bold">
-                                    <span class="h1 mr-2">500 million</span>
-                                </h2>
-                                <!-- Text -->
-                                <span class="h5 font-weight-normal">keyword suggestions in Keyword Explorer</span>
-                            </div>
-                        </div>
-                        <div class="col-12 col-lg-4 px-md-0">
-                            <div class="card-body text-center bg-primary py-4">
-                                <!-- Heading -->
-                                <h2 class="font-weight-bold">
-                                    <span class="h1 mr-2">250,000</span>
-                                </h2>
-                                <!-- Text -->
-                                <span class="h5 font-weight-normal">local business listings optimized with Moz Local</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8">
-                    <form action="../../dashboard/pages/dashboards/dashboard.html" class="form-group mb-4">
-                        <div class="d-flex flex-row justify-content-center">
-                            <div class="input-group">
-                                <input class="form-control form-control-xl border-light" placeholder="Enter a domain" type="text">
-                                <div class="input-group-prepend">
-                                    <button type="submit" class="btn btn-secondary rounded-right">Analyze domain</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <span class="small">Impact also offers access to our best-in-class proprietary metrics including Keyword Difficulty, Spam Score, Page Authority, and Domain Authority — the most highly correlated metric with actual Google rankings available today.</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="section section-lg">
-        <div class="container">
-            <div class="row justify-content-center mb-5 mb-lg-7">
-                <div class="col-12 col-md-8 text-center">
-                    <h1 class="h1 font-weight-bolder mb-4">Recommended by leading experts in marketing and SEO</h1>
-                    <p class="lead">Our products are loved by users worldwide</p>
-                </div>
-            </div>
-            <div class="row mb-lg-5">
-                <div class="col-12 col-lg-6">
-                    <div class="customer-testimonial d-flex mb-5">
-                        <img src="/static/img/team/profile-picture-1.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
-                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
-                            <div class="d-flex mb-4">
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                            </div>
-                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
-                            <span class="h6">- James Curran <small class="ml-0 ml-md-2">General Manager Spotify</small></span>
-                        </div>
-                    </div>
-                    <div class="customer-testimonial d-flex mb-5">
-                        <img src="/static/img/team/profile-picture-2.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
-                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
-                            <div class="d-flex mb-4">
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                            </div>
-                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
-                            <span class="h6">- Richard Thomas <small class="ml-0 ml-md-2">Front-end developer Oracle</small></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 pt-lg-6">
-                    <div class="customer-testimonial d-flex mb-5">
-                        <img src="/static/img/team/profile-picture-4.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
-                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
-                            <div class="d-flex mb-4">
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                            </div>
-                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
-                            <span class="h6">- Jose Evans <small class="ml-0 ml-md-2">Chief Engineer Apple</small></span>
-                        </div>
-                    </div>
-                    <div class="customer-testimonial d-flex mb-5">
-                        <img src="/static/img/team/profile-picture-6.jpg" class="image image-sm mr-3 rounded-circle shadow" alt="">
-                        <div class="content bg-soft shadow-soft border border-light rounded position-relative p-4">
-                            <div class="d-flex mb-4">
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                                <span class="text-warning mr-2"><i class="star fas fa-star"></i></span>
-                            </div>
-                            <p class="mt-2">"We use Impact mainly for its site explorer, and it’s immensely improved how we find link targets. We use it both for getting quick analysis of a site, as well as utilizing its extensive index when we want to dive deep."</p>
-                            <span class="h6">- Richard Thomas <small class="ml-0 ml-md-2">Manager IBM</small></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center">
-                    <a href="#" class="btn btn-primary animate-up-2"><span class="mr-2"><i class="fas fa-book-open"></i></span> See all stories</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section section-lg pb-5 bg-soft">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center mb-5">
-                    <h2 class="mb-4">Faster growth starts with Impact</h2>
-                    <p class="lead mb-5">Join over <span class="font-weight-bolder">300,000+</span> users</p>
-                    <a href="#" class="icon icon-lg text-gray mr-3">
-                        <i class="fab fa-mailchimp"></i>
-                    </a>
-                    <a href="#" class="icon icon-lg text-gray mr-3">
-                        <i class="fab fa-cpanel"></i>
-                    </a>
-                    <a href="#" class="icon icon-lg text-gray mr-3">
-                        <i class="fab fa-dhl"></i>
-                    </a>
-                    <a href="#" class="icon icon-lg text-gray mr-3 ">
-                        <i class="fab fa-github-alt"></i>
-                    </a>
-                    <a href="#" class="icon icon-lg text-gray mr-3">
-                        <i class="fab fa-aws"></i>
-                    </a>
-                    <a href="#" class="icon icon-lg text-gray">
-                        <i class="fab fa-node"></i>
-                    </a>
-                </div>
-                <div class="col-12 text-center">
-                    <!-- Button Modal -->
-                    <a href="../../dashboard/pages/dashboards/dashboard.html" class="btn btn-secondary animate-up-2"><span class="mr-2"><i class="fas fa-hand-pointer"></i></span>Start 30-days trial</a>
-                </div>
-            </div>
-        </div>
-    </section>
+
+
  {% endblock %}
 
 {% block triple %}
 {% endblock %}
 
 {% block about %}
- <section class="section section-lg" id="about" style="margin-top: -200px;">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col">
-                        <h2 class="h6 font-weight-bold text-brown">We're proudly featured by</h2>
-                    </div>
-                </div>
-                <div class="row text-center mb-5">
-                    <div class="col d-flex justify-content-center flex-wrap">
-                        <a href="#" aria-label="Stripe brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
-                        data-toggle="tooltip" data-placement="top" title="Stripe">
-                            <span class="fab fa-stripe"></span>
-                        </a>
-                        <a href="#" aria-label="Digg brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
-                        data-toggle="tooltip" data-placement="top" title="Digg">
-                            <span class="fab fa-digg"></span>
-                        </a>
-                        <a href="#" aria-label="FedEx brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
-                        data-toggle="tooltip" data-placement="top" title="FedEx">
-                            <span class="fab fa-fedex"></span>
-                        </a>
-                        <a href="#" aria-label="Ember brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
-                        data-toggle="tooltip" data-placement="top" title="Ember">
-                            <span class="fab fa-ember"></span>
-                        </a>
-                        <a href="#" aria-label="Beyond brand logo" class="icon icon-xl icon-dark mr-4 mr-sm-5"
-                        data-toggle="tooltip" data-placement="top" title="Beyond">
-                            <span class="fab fa-d-and-d-beyond"></span>
-                        </a>
-                        <a href="#" aria-label="AngryCreative brand logo" class="icon icon-xl icon-dark"
-                        data-toggle="tooltip" data-placement="top" title="AngryCreative">
-                            <span class="fab fa-angrycreative"></span>
-                        </a>
-                    </div>
-                </div>
-                <div class="row row-grid align-items-center mb-5 mb-lg-7">
-                    <div class="col-12 col-lg-5">
-                        <h2 class="mb-4">We are not just another school staffing agency.</h2>
-                        <p>GuaranteeHR is a technology platform that reimagines the future of school staffing. Whether your facility needs staff for short term contracts or same day lessons, we use machine learning algorithms to match the
-                            highest quality, fully credentialed school professionals whenever and wherever you need them.</p>
-                        <p>We know that plans can change, and that’s why we combine flexible contracts with our ability to
-                            hire staff to you in as little as 24-48 hours. Don’t find yourself under or over-staffed
-                            like with traditional staffing. We leverage our technology platform to find
-                            you the best staff at the right location at the time for the right duration.</p>
-                        <a href="#" class="btn btn-dark mt-3 animate-up-2">
-                            Learn More
-                            <span class="icon icon-xs ml-2">
-                                <i class="fas fa-external-link-alt"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="col-12 col-lg-6 ml-lg-auto">
-                        <img src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" class="w-100" alt="">
-                    </div>
-                </div>
-                <div class="row row-grid align-items-center mb-5 mb-lg-7">
-                    <div class="col-12 col-lg-5 order-lg-2">
-                        <h2 class="mb-4">Best in class platform with school staff management</h2>
-                        <p>Unlike less nimble, old-school competitors, GuaranteeHR’s proprietary cloud-based recruitment,
-                            payment and credentialing engines
-                            provide easy instant payments, reporting, and a high-quality experience.</p>
-                        <p>Schools can minimize their spend by managing their own internal workforce within our platform.</p>
-                            <ul>
-                                <li>Internal workforce management</li>
-                                <li>Agency workforce management</li>
-                                <li>Timecard approvals</li>
-                                <li>Easily accessible credentialing</li>
-                            </ul>
-                        <a href="#" class="btn btn-dark mt-3 animate-up-2">
-                            Learn More
-                            <span class="icon icon-xs ml-2">
-                                <i class="fas fa-external-link-alt"></i>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="col-12 col-lg-6 mr-lg-auto">
-                        <img src="{% static 'landing/assets/img/illustrations/scene-2.svg' %}" class="w-100" alt="">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="card border-light p-4">
-                            <div class="card-body">
-                                <h2 class="display-2 mb-2">250</h2>
-                                <span>
-                                    <b>Registered Schools</b><br>
-                                    Full-service solution; per diem; local/long term.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="card border-light p-4">
-                            <div class="card-body">
-                                <h2 class="display-2 mb-2">100%</h2>
-                                <span>
-                                    <b>Fill rate</b><br>
-                                    User-friendly platform, rapid pay and quality.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="card border-light p-4">
-                            <div class="card-body">
-                                <h2 class="display-2 mb-2">24hrs</h2>
-                                <span>
-                                    <b>Rapid deployment</b><br>
-                                    Competitors take 10-14 days. GuaranteeHR takes 24hrs.
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
  {% endblock %}
 
 {% block proudly %}
@@ -495,46 +219,25 @@
 
 
 {% block promo %}
-    <div class="section bg-soft" id="download">
-            <figure class="position-absolute top-0 left-0 w-100 d-none d-md-block mt-n3">
-                <svg class="fill-soft" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4" style="enable-background:new 0 0 1920 43.4;" xml:space="preserve">
-                   <path d="M0,23.3c0,0,405.1-43.5,697.6,0c316.5,1.5,108.9-2.6,480.4-14.1c0,0,139-12.2,458.7,14.3 c0,0,67.8,19.2,283.3-22.7v35.1H0V23.3z"></path>
-                </svg>
-            </figure>
-            <div class="container">
-                <div class="row row-grid align-items-center">
-                    <div class="col-12 col-lg-6">
-                        <span class="h5 text-muted mb-2 d-block">GuaranteeHR</span>
-                        <h2 class="display-3 mb-4">Hire verified staff</h2>
-                        <p class="lead text-muted">GuaranteeHR is the leading on-demand, tech-enabled booking platform for finding fully-credentialed school staff.</p>
-                        <div class="mt-4 mt-lg-5">
-                            <a href="{% url 'teacher_hire' %}" class="btn btn-dark btn-download-app mb-xl-0 mr-2 mr-md-3">
-                                <span class="d-flex align-items-center">
-                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-search"></span></span>
-                                    <span class="d-inline-block text-left">
-                                        <small class="font-weight-normal d-none d-md-block">Hire</small> Teacher
-                                    </span>
-                                </span>
-                            </a>
-                            <button onclick="joinModal()" class="btn btn-dark btn-download-app"  data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <span class="d-flex align-items-center">
-                                    <span class="icon icon-brand mr-2 mr-md-3"><span class="fas fa-user-graduate"></span></span>
-                                    <span class="d-inline-block text-left">
-                                        <small class="font-weight-normal d-none d-md-block">Contact</small> Form
-                                    </span>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-5 ml-lg-auto">
-                        <img class="d-none d-lg-inline-block" src="{% static 'landing/assets/img/illustrations/scene-3.svg' %}" alt="Mobile App Illustration">
-                    </div>
-                </div>
-            </div>
-        </div>
+
+{% endblock %}
+
+ {% block faq %}
+
+{% endblock %}
+
+ {% block testimonials %}
 {% endblock %}
 
 
+ {% block contact_block %}
+  {% endblock %}
+
+  {% block recomendations %}
+   {% endblock %}
+
+   {% block partners %}
+  {% endblock %}
 
 {% block javascript %}
 
