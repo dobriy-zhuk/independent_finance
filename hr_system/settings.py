@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'blog',
     'django_celery_results',
     'corsheaders',
+    'account',
 
 ]
 

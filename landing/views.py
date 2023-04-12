@@ -149,19 +149,11 @@ def full_contact(request):
     body = "Новая заявка от клиента\nИмя: " + str(name) + "\nEmail: " + str(email) + "\nТелефон: " + str(phone) + \
            " \nКомментарий: " + str(comment)
 
-    from django.core.mail import send_mail
-    a = send_mail('Subject here', 'Here is the message.', 'info@guaranteehr.com', ['kvasovao@yandex.ru'],
-                  fail_silently=False)
 
     try:
-        #send_mail("Заявка с вашего сайта от клиента", body, 'info@garantylearning.com', ['kvsaovao@yandex.ru'])
+        send_mail("New request from customer", body, 'info@guaranteehr.com', ['info@guaranteehr.com'])
 
         if email:
-
-            a = send_mail('Subject here', 'Here is the message.', 'info@guaranteehr.com', ['kvasovao@yandex.ru'],
-                          fail_silently=False)
-            print(a)
-
 
             user, created = User.objects.get_or_create(username=email,
                                                        email=email)

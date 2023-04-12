@@ -27,8 +27,9 @@
                       <h1 class="display-2 mb-3">Next-generation calendar to grow your business</h1>
                       <p class="lead">All the tools you need to efficiently control your schedule and process online fee payments</p>
                       <div class="mt-4">
-                        <form action="#" class="d-flex flex-column mb-5 mb-lg-0">
-                            <input class="form-control" type="text" name="full-name" placeholder="Full name" required>
+                        <form class="d-flex flex-column mb-5 mb-lg-0">
+                            {% csrf_token %}
+                            <input class="form-control" type="text" name="name" placeholder="Full name" required>
                             <input class="form-control my-3" type="email" name="email" placeholder="Your email" required>
                             <button class="btn btn-primary" type="submit">Request access</button>
                             <div class="form-group form-check mt-3">
