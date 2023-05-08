@@ -136,6 +136,7 @@ def test_form(request):
 def contacts(request):
     return render(request, 'landing/contacts.html', {})
 
+
 @require_POST
 def full_contact(request):
 
@@ -144,17 +145,20 @@ def full_contact(request):
     phone = request.POST.get('phone')
     email = request.POST.get('email')
     city = request.POST.get('city')
+    business = request.POST.get('business')
     comment = request.POST.get('comment')
 
     body = "Новая заявка от клиента\nИмя: " + str(name) + "\nEmail: " + str(email) + "\nТелефон: " + str(phone) + \
-           " \nКомментарий: " + str(comment)
+           "\nКомпания: " + str(business) + " \nКомментарий: " + str(comment)
+
 
 
     try:
-        send_mail("New request from customer", body, 'info@guaranteehr.com', ['info@guaranteehr.com'])
-
+        z = send_mail("New request from customer", body, 'info@guaranteehr.com', ['info@guaranteehr.com'])
+        print(z)
         if email:
 
+            """
             user, created = User.objects.get_or_create(username=email,
                                                        email=email)
             user.first_name = "Guest"
@@ -179,13 +183,9 @@ def full_contact(request):
                                                  email_content
                                                  )
                         messages.success(request, 'We sent you email. Approve it and create password!')
+            """
 
-
-
-
-            response_data['result'] = "Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время! " \
-                                      "А пока можете зайти в свой <a href='https://guaranteehr.com/box/accounts/login/'>" \
-                                      "личный кабинет</a> (логин и пароль отправлены на вашу почту)"
+            response_data['result'] = "success"
 
         if name and phone and email:
 
@@ -202,14 +202,19 @@ def full_contact(request):
                 manager.phone = phone
             manager.save()
 
+            email_content = {
+                'domain': '127.0.0.1:8000',
+                "uid": urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+                'protocol': 'http',
+            }
+
             send_email_message.delay('emails/new_client_email.html',
                                      [email],
                                      "Welcome to GuaranteeHR",
                                      email_content
                                      )
-            response_data['result'] = "Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время! " \
-                                      "А пока можете зайти в свой <a href='https://guaranteehr.com/box/accounts/login/'>" \
-                                      "личный кабинет</a> (логин и пароль отправлены на вашу почту)"
+            response_data['result'] = "success"
 
     except BadHeaderError:
         return HttpResponse('Invalid header found.')

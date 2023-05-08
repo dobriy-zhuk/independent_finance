@@ -7495,3 +7495,84 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.7/site-packages/django/db/models/sql/query.py", line 1540, in names_to_path
     "Choices are: %s" % (name, ", ".join(available)))
 django.core.exceptions.FieldError: Cannot resolve keyword 'job_title' into field. Choices are: address, birthday, comment, completed_courses, currency, cv, cv_uploaded_at, emailmessage, id, job, job_id, meeting, phone, salary, source, source_id, status, user, user_id
+2023-04-12 12:00:56,450 django.request ERROR    Internal Server Error: /full_contact/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/dz/PycharmProjects/hr_system/landing/views.py", line 157, in full_contact
+    send_mail("Заявка с вашего сайта от клиента", body, 'info@garantylearning.com', ['kvsaovao@yandex.ru'])
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/__init__.py", line 61, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/message.py", line 284, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 109, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 125, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7/lib/python3.7/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'kvsaovao@yandex.ru': (550, b'5.7.1 You are not allowed to send messages as "info@garantylearning.com"')}
+2023-04-12 12:01:21,062 django.request ERROR    Internal Server Error: /full_contact/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/dz/PycharmProjects/hr_system/landing/views.py", line 157, in full_contact
+    send_mail("Заявка с вашего сайта от клиента", body, 'info@garantylearning.com', ['kvsaovao@yandex.ru'])
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/__init__.py", line 61, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/message.py", line 284, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 109, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 125, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7/lib/python3.7/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'kvsaovao@yandex.ru': (550, b'5.7.1 You are not allowed to send messages as "info@garantylearning.com"')}
+2023-04-12 12:02:18,876 django.request ERROR    Internal Server Error: /full_contact/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/Users/dz/PycharmProjects/hr_system/landing/views.py", line 153, in full_contact
+    send_mail("Заявка с вашего сайта от клиента", body, 'info@garantylearning.com', ['kvsaovao@yandex.ru'])
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/__init__.py", line 61, in send_mail
+    return mail.send()
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/message.py", line 284, in send
+    return self.get_connection(fail_silently).send_messages([self])
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 109, in send_messages
+    sent = self._send(message)
+  File "/usr/local/lib/python3.7/site-packages/django/core/mail/backends/smtp.py", line 125, in _send
+    self.connection.sendmail(from_email, recipients, message.as_bytes(linesep='\r\n'))
+  File "/usr/local/Cellar/python/3.7.7/Frameworks/Python.framework/Versions/3.7/lib/python3.7/smtplib.py", line 881, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+smtplib.SMTPRecipientsRefused: {'kvsaovao@yandex.ru': (550, b'5.7.1 You are not allowed to send messages as "info@garantylearning.com"')}
+2023-04-12 12:02:53,065 django.request ERROR    Internal Server Error: /full_contact/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_response(request, response)
+  File "/usr/local/lib/python3.7/site-packages/django/middleware/clickjacking.py", line 26, in process_response
+    if response.get('X-Frame-Options') is not None:
+AttributeError: 'int' object has no attribute 'get'
+2023-04-12 12:03:16,192 django.request ERROR    Internal Server Error: /full_contact/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python3.7/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_response(request, response)
+  File "/usr/local/lib/python3.7/site-packages/django/middleware/clickjacking.py", line 26, in process_response
+    if response.get('X-Frame-Options') is not None:
+AttributeError: 'int' object has no attribute 'get'

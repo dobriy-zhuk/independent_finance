@@ -40,16 +40,16 @@
                                     <li><a class="dropdown-item" href="#">Beauty</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
+                            <!--li class="nav-item">
                                 <a href="{% url 'price' %}" class="nav-link">Pricing</a>
-                            </li>
+                            </li-->
                             <li class="nav-item">
-                                 <a href="{% url 'about' %}" class="nav-link">About</a>
+                                 <a href="{% url 'index' %}#meet" class="nav-link">About</a>
                             </li>
                             <li class="nav-item">
                                  <a href="{% url 'contact_us' %}" class="nav-link">Contact Us</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <!--li class="nav-item dropdown">
                                 <a href="#" class="nav-link" data-toggle="dropdown" aria-controls="pages_submenu" aria-expanded="false" aria-label="Toggle pages menu item">
                                     <span class="nav-link-inner-text">Resources</span>
                                     <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
@@ -62,12 +62,12 @@
                                     <li><a class="dropdown-item" href="../../dashboard/pages/tables/tables.html">Tables</a></li>
                                     <li><a class="dropdown-item" href="../../dashboard/pages/maps/google.html">Maps</a></li>
                                 </ul>
-                            </li>
+                            </li-->
                         </ul>
             </div>
             <div class="d-none d-lg-block @@cta_button_classes">
-                        <a href="https://demos.creative-tim.com/impact-design-system-pro/docs/dashboard/alerts/" class="btn btn-md btn-docs btn-outline-white animate-up-2 mr-3"><i class="fas fa-th-large mr-2"></i>Login</a>
-                        <a href="https://www.creative-tim.com/product/impact-design-system-pro" target="_blank" class="btn btn-md btn-secondary animate-up-2"><i class="fas fa-paper-plane mr-2"></i>Get Started</a>
+                        <a href="{% url 'account' %}" class="btn btn-md btn-docs btn-outline-white animate-up-2 mr-3"><i class="fas fa-th-large mr-2"></i>Login</a>
+                        <a href="{% url 'contact_us' %}" target="_blank" class="btn btn-md btn-secondary animate-up-2"><i class="fas fa-paper-plane mr-2"></i>Get Started</a>
                     </div>
                     <div class="d-flex d-lg-none align-items-center">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
@@ -86,8 +86,8 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 text-center">
-                        <h1 class="display-2 mb-3">Got a question?</h1>
-                        <p class="lead">Your feedback is valuable to us. If you have problems with your license, want to request a feature, or report a bug, we’re more than happy to help</p>
+                        <h1 class="display-2 mb-3">We are here to help you</h1>
+                        <p class="lead">Control your schedule and accept card payments from customers worldwide!</p>
                     </div>
                 </div>
             </div>
@@ -99,60 +99,61 @@
                     <div class="col-12">
                        <!-- Card -->
                        <div class="card border-light shadow-soft p-2 p-md-4 p-lg-5">
-                        <div class="card-body">
+                        <div class="card-body" id="result_div_contact">
                             <form>
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label text-dark" for="firstNameLabel">First Name <span class="text-danger">*</span></label>
+                                            <label class="form-label text-dark" for="name">Full Name <span class="text-danger">*</span></label>
                                             <div class="input-group mb-4">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
                                                 </div>
-                                                <input class="form-control" id="firstNameLabel" placeholder="John" type="text" required>
+                                                <input class="form-control" id="name" name="name" placeholder="John Dow" type="text" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label text-dark" for="lastNameLabel">Last Name <span class="text-danger">*</span></label>
+                                            <label class="form-label text-dark" for="business">Company`s Name <span class="text-danger">*</span></label>
                                             <div class="input-group mb-4">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
                                                 </div>
-                                                <input class="form-control" id="lastNameLabel" placeholder="Doe" type="text" required>
+                                                <input class="form-control" id="business" name="business" placeholder="Guarantee Finance" type="text" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label text-dark" for="EmailLabel">Email <span class="text-danger">*</span></label>
+                                            <label class="form-label text-dark" for="email">Email <span class="text-danger">*</span></label>
                                             <div class="input-group mb-4">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                                 </div>
-                                                <input class="form-control" id="EmailLabel" placeholder="johndoe@company.com" type="email" required>
+                                                <input class="form-control" id="email" name="email" placeholder="johndoe@company.com" type="email" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label text-dark" for="phonenumberLabel">Phone Number<span class="text-danger">*</span></label>
+                                            <label class="form-label text-dark" for="phone">Phone Number<span class="text-danger">*</span></label>
                                             <div class="input-group mb-4">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fas fa-phone-square-alt"></i></span>
                                                 </div>
-                                                <input class="form-control" id="phonenumberLabel" placeholder="(555) 555-1234" type="number" required>
+                                                <input class="form-control" id="phone" name="phone" placeholder="(555) 555-1234" type="number" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mt-4">
                                         <div class="form-group">
-                                            <label class="form-label text-dark" for="phonenumberLabel">How can we help you?<span class="text-danger">*</span></label>
-                                            <textarea class="form-control" placeholder="Hi Impact, I would like to ..." id="message-2" rows="8" required></textarea>
+                                            <label class="form-label text-dark" for="comment">Describe your business?<span class="text-danger">*</span></label>
+                                            <textarea class="form-control" placeholder="We create new models for..." id="comment" name="comment" rows="8" required></textarea>
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-secondary mt-4 animate-up-2"><span class="mr-2"><i class="fas fa-paper-plane"></i></span>Send Message</button>
+                                            <button type="submit" class="btn btn-secondary mt-4 animate-up-2"><span class="mr-2"><i class="fas fa-paper-plane"></i></span>Request Access</button>
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +164,8 @@
                 </div>
             </div>
         </div>
-        <div class="section section-lg pt-0 line-bottom-light">
+
+    <!--div class="section section-lg pt-0 line-bottom-light">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-4 text-center px-4 mb-5 mb-lg-0">
@@ -201,9 +203,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
 
-        <section class="section section-lg pb-5 bg-soft">
+        <!--section class="section section-lg pb-5 bg-soft">
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center mb-5">
@@ -230,11 +232,11 @@
                     </div>
                     <div class="col-12 text-center">
                         <!-- Button Modal -->
-                        <a href="../../dashboard/pages/dashboards/dashboard.html" class="btn btn-secondary animate-up-2"><span class="mr-2"><i class="fas fa-hand-pointer"></i></span>Start 30-days trial</a>
+                        <!--a href="../../dashboard/pages/dashboards/dashboard.html" class="btn btn-secondary animate-up-2"><span class="mr-2"><i class="fas fa-hand-pointer"></i></span>Start 30-days trial</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </section-->
 
 {% endblock content %}
 
@@ -249,5 +251,73 @@
 
 
 {% block promo %}
+
+{% endblock %}
+
+ {% block testimonials %}
+{% endblock %}
+
+
+ {% block contact_block %}
+  {% endblock %}
+
+{% block recomendations %}
+{% endblock %}
+
+   {% block partners %}
+  {% endblock %}
+
+   {% block faq %}
+  {% endblock %}
+
+{% block javascript %}
+
+    <script>
+
+    $('form').on('submit', function (event) {
+        event.preventDefault();
+
+        $email = this.email;
+        $email.style.borderColor = 'black';
+
+        form = this;
+
+        formdata = $(form).serializeArray();
+        var data = {};
+        $(formdata).each(function(index, obj){
+            data[obj.name] = obj.value;
+        });
+         $.ajax({
+            type:'POST',
+            url:'{% url "full_contact" %}',
+            data: data,
+            success: function(json){
+                form.reset();
+                 if (json['result'] === 'success'){
+                    document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-success">Thank you. We will contact you soon!</div>';
+                 }
+                 else {
+                     document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-error">Error. Try again</div>';
+                 }
+
+/*
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push ({
+                'event': 'indexForm',
+                'formName': form.id,
+                'eventCategory': 'indexForm',
+                'eventAction': 'submit',
+                });
+
+*/
+            },
+            error: function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+            });
+    });
+
+</script>
+
 
 {% endblock %}

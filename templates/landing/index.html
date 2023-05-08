@@ -26,14 +26,14 @@
                 <div class="col-12 col-md-5 order-1 order-lg-2">
                       <h1 class="display-2 mb-3">Next-generation calendar to grow your business</h1>
                       <p class="lead">All the tools you need to efficiently control your schedule and process online fee payments</p>
-                      <div class="mt-4">
+                      <div class="mt-4" id="result_div_contact">
                         <form class="d-flex flex-column mb-5 mb-lg-0">
                             {% csrf_token %}
                             <input class="form-control" type="text" name="name" placeholder="Full name" required>
                             <input class="form-control my-3" type="email" name="email" placeholder="Your email" required>
                             <button class="btn btn-primary" type="submit">Request access</button>
                             <div class="form-group form-check mt-3">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                <input type="checkbox" class="form-check-input" checked id="exampleCheck1" disabled>
                                 <label class="form-check-label form-check-sign-white" for="exampleCheck1">I agree to the <a href="#">Terms & Conditions</a></label>
                             </div>
                         </form>
@@ -43,7 +43,7 @@
         </div>
         <div class="pattern bottom"></div>
     </section>
-    <section class="section section-lg pt-6">
+    <section class="section section-lg pt-6" id="meet">
         <div class="container">
             <div class="row justify-content-center mb-5 mb-md-7">
                 <div class="col-12 col-md-8 text-center">
@@ -264,7 +264,7 @@
             success: function(json){
                 form.reset();
                  if (json['result'] === 'success'){
-                    document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-success">Successfully. Approve your email</div>';
+                    document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-success">Thank you. We will contact you soon!</div>';
                  }
                  else {
                      document.getElementById('result_div_contact').innerHTML = '<div class="alert alert-error">Error. Try again</div>';
